@@ -1,0 +1,370 @@
+<!doctype html>
+<html lang="es"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="theme-color" content="#fff4f8"><meta name="description" content="Hilo Bonito · Identidad corporativa"><title>Hilo Bonito | Comercial y Financiera</title><style>
+:root{--pink:#f7dfe8;--pink-soft:#fff4f8;--pink-deep:#9d7082;--mint:#d9f2e4;--mint-soft:#f2fbf6;--mint-strong:#6b9782;--cream:#fffdfb;--white:#fff;--ink:#5b4b52;--line:#eee0e5;--header:74px;--intro:48px;--tab:70px;--read:0px;--view:280px}
+*,*::before,*::after{box-sizing:border-box}
+html,body{width:100%;height:100%;overflow:hidden;overscroll-behavior:none;margin:0}
+body{font-family: 'Segoe UI', 'Trebuchet MS', Arial, sans-serif;color:var(--ink);background:#fffafc;-webkit-font-smoothing:antialiased}
+button{font:inherit;cursor:pointer;touch-action:manipulation}
+button:focus-visible{outline:2px solid #7dbb9e;outline-offset:3px}
+[hidden]{display:none!important}
+.app{width:100%;height:100vh;height:100dvh;display:flex;flex-direction:column;overflow:hidden}
+.header{z-index:11;position:relative;flex:0 0 var(--header);height:var(--header);display:flex;align-items:center;gap:clamp(14px,2vw,36px);padding:0 clamp(17px,3.2vw,55px);background:rgba(255,253,252,.97);border-bottom:1px solid #f2e8ec;box-shadow:0 3px 25px rgba(173,118,142,.055)}
+.brand{font-family:Georgia,'Times New Roman',serif;color:#846070;font-weight:600;font-size:clamp(17px,1.55vw,23px);letter-spacing:.14em;white-space:nowrap}
+.mode-nav{display:flex;margin-left:auto;gap:4px;border-radius:100px;border:1px solid #f1dce4;background:#fff4f8;padding:4px;flex-shrink:0}
+.mode-nav button{border:0;border-radius:40px;background:transparent;color:#987582;font-weight:700;padding:10px 20px;font-size:12px;transition:background .34s ease, color .34s ease,box-shadow .34s ease}
+.mode-nav button[aria-pressed=true]{background:var(--mint);color:#507d65;box-shadow:0 5px 15px rgba(133,195,159,.21)}
+.mode-nav button:not([aria-pressed=true]):hover{background:#fbe7ef}
+.links{display:flex;align-items:center;gap:clamp(8px,1.6vw,26px)}
+.links button{padding:9px 4px;border:0;background:none;font-size:10px;letter-spacing:.15em;text-transform:uppercase;font-weight:700;color:#a17d8c;transition:color .2s}
+.links button:hover{color:#67a287}
+main{flex:1;min-height:0;position:relative}
+.commercial,.finance{position:absolute;inset:0;overflow:hidden}
+.commercial{background:linear-gradient(115deg,#fff7fa 0%,#fff 68%,#f4fbf7 100%)}
+/* A permanently visible start tab, followed by chapter tabs. */
+.start-rail{position:absolute;z-index:5;top:0;bottom:0;left:0;width:var(--intro);background:#fffafd;border-right:1px solid #eadce2}
+.start-rail button{border:0;width:100%;height:100%;background:transparent;display:flex;justify-content:flex-end;align-items:flex-end;padding:0 0 34px;color:#bb95a4;transition:background .25s;writing-mode:vertical-rl;transform:none}
+.start-rail button:hover{background:#f9e8ef}
+.start-rail span{transform:rotate(180deg);font-size:12px;font-weight:700;letter-spacing:.25em;text-transform:uppercase}
+.desktop-stage{position:absolute;inset:0 0 0 var(--intro);overflow:hidden;isolation:isolate}
+.chapter{position:absolute;top:0;bottom:0;left:0;width:calc(var(--tab) + var(--read));overflow:hidden;will-change:transform,clip-path;contain:layout paint style;box-shadow:3px 0 10px rgba(133,101,114,.035)}
+.chapter-tab{position:absolute;z-index:2;inset:0 auto 0 0;width:var(--tab);border:0;border-right:1px solid rgba(157,117,131,.12);background:#fff0f5;color:#a17b8a;display:flex;align-items:flex-end;justify-content:center;padding-bottom:34px;transition:background .3s,color .3s}
+.chapter.mint .chapter-tab{background:#eaf9f0;color:#729483}
+.chapter-tab:hover{background:#f7dce7;color:#7a5665}
+.chapter.mint .chapter-tab:hover{background:#daf3e5;color:#447c5e}
+.chapter-tab[aria-expanded=true]{background:#f5dbe5;color:#825b6d}
+.chapter.mint .chapter-tab[aria-expanded=true]{background:#d7f1e2;color:#4a7963}
+.chapter-tab span{writing-mode:vertical-rl;transform:rotate(180deg);font-size:clamp(12px,.98vw,15px);font-weight:650;letter-spacing:.18em;text-transform:uppercase;pointer-events:none;display:block}
+.chapter-body{position:absolute;inset:0 0 0 var(--tab);height:100%;min-width:0;overflow:hidden;background:white;padding:10px;}
+/* The rounded panel is always full width; only its opening is revealed. */
+.chapter-body>.panel-body{position:relative;left:auto;top:auto;bottom:auto;width:100%;height:100%;display:grid;grid-template-columns:37% 63%;overflow:hidden;border-radius:clamp(14px,1.8vw,28px);background:white;box-shadow:inset 0 0 0 1px rgba(160,107,134,.055)}
+.editorial-aside{min-width:0;position:relative;display:flex;flex-direction:column;justify-content:flex-end;align-items:flex-start;overflow:hidden;padding:clamp(20px,4.3vw,60px);border-right:1px solid rgba(131,162,143,.14);background:linear-gradient(148deg,#eaf8f0 4%,#f4fff8 51%,#fbeaf1 100%)}
+.chapter.mint .editorial-aside{background:linear-gradient(135deg,#ffeef5 0%,#fff8fb 63%,#f0fbf4 100%)}
+.editorial-aside::before{content:"";position:absolute;width:65%;aspect-ratio:1;top:12%;right:-19%;border:1px solid rgba(123,173,148,.20);border-radius:50%;pointer-events:none}
+.editorial-aside::after{content:"";position:absolute;width:47%;aspect-ratio:1;bottom:-21%;left:-18%;border:1px solid rgba(195,133,157,.14);border-radius:50%;pointer-events:none}
+
+
+.aside-title{font-family:Georgia,'Times New Roman',serif;line-height:1.03;font-weight:400;font-size:clamp(30px,4.15vw,70px);letter-spacing:-.04em;overflow-wrap:anywhere;color:#9db9a8;z-index:1}
+.chapter.mint .aside-title{color:#c79eae}
+.aside-stitch{position:absolute;right:10%;top:53%;height:1px;width:16%;background:#a9d4bc}
+.chapter.mint .aside-stitch{background:#e9c1d1}
+.editorial-copy{overflow:hidden;min-width:0;display:flex;flex-direction:column;padding:clamp(27px,4vw,65px);background:#fffefd}
+.eyebrow{font-weight:700;letter-spacing:.22em;text-transform:uppercase;color:#aa8191;font-size:clamp(9px,.8vw,11px);white-space:nowrap}
+.eyebrow-bullet{color:#85bba0;margin:0 7px}
+.copy-content{margin-top:clamp(24px,5vh,70px);min-width:0;max-width:670px;position:relative;z-index:1}
+.statement{font:400 clamp(16px,1.54vw,23px)/1.6 Georgia,'Times New Roman',serif;letter-spacing:-.01em;color:#856e77;margin:0}
+.chapter.mint .statement{color:#647d70}
+.panel-display{font-family:Arial,sans-serif;font-size:clamp(45px,5.5vw,98px);font-weight:750;line-height:.91;letter-spacing:.035em;text-align:right;margin:auto 0 0;color:#f0dbe3;overflow-wrap:anywhere}
+.chapter.mint .panel-display{color:#dbefe2}
+.empty-history{height:10vh;display:flex;align-items:center}.fine-line{width:120px;height:1px;background:#e6cfd8}
+.values-scroll{display:grid;gap:clamp(9px,1.3vh,17px);overflow-y:auto;max-height:clamp(290px,55vh,580px);overscroll-behavior:contain;scrollbar-width:thin;scrollbar-color:#e4bccd transparent;padding-right:6px}
+.value{display:grid;grid-template-columns:10px 1fr;gap:11px;padding-bottom:10px;border-bottom:1px solid #f6e9ed}
+.value:last-child{border:0}.value-dot{width:8px;height:8px;border-radius:50%;margin-top:8px;background:#a7d9bf}
+.value h3{color:#986e7c;margin:0 0 5px;font-size:clamp(13px,1.05vw,16px);line-height:1.3}
+.value p{margin:0;color:#8b7f83;line-height:1.48;font-size:clamp(12px,.98vw,15px)}
+/* A curved chapter overview button, rather than a sharp-edged interface. */
+.round-back{position:absolute;left:calc(var(--intro) - 17px);top:50%;transform:translateY(-50%);z-index:9;border:1px solid rgba(255,255,255,.88);width:42px;height:42px;border-radius:50%;color:white;background:#9b838c;box-shadow:0 5px 16px rgba(86,63,71,.15);font-size:23px;line-height:1;display:grid;place-items:center;transition:background .3s,transform .3s}
+.round-back:hover{background:#6c9d85;transform:translateY(-50%) scale(1.07)}
+.finance{background:linear-gradient(140deg,#fff4f8,#fbfffc);padding:clamp(18px,3.2vw,48px) clamp(20px,4vw,68px);display:flex;flex-direction:column;gap:clamp(12px,2.3vh,25px)}
+.finance h1{font:400 clamp(31px,3.4vw,51px)/1.1 Georgia,serif;margin:8px 0 0;color:#a07a89}
+.finance-cards{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:clamp(10px,1.3vw,20px)}
+.finance-card,.finance-plot{border:1px solid #f1e3e9;border-radius:clamp(14px,1.6vw,24px);background:rgba(255,255,255,.96);box-shadow:0 12px 35px rgba(153,110,130,.055)}
+.finance-card{height:clamp(95px,16vh,150px)}.finance-card:last-child{background:#e0f5e8;border-color:#d4ecdf}
+.finance-charts{flex:1;min-height:0;display:grid;grid-template-columns:1.35fr 1fr;gap:clamp(10px,1.3vw,20px)}
+.mobile-layout{display:none}
+.popover-backdrop{position:fixed;inset:0;background:rgba(67,54,62,.34);z-index:30;display:grid;place-items:center;padding:20px}
+.popover{background:#fffefe;border-radius:24px;padding:35px;min-height:230px;width:min(460px,93vw);box-shadow:0 20px 75px rgba(72,47,57,.16);position:relative;border:1px solid #f4e4eb;background-image:radial-gradient(circle at 0 0,#e5f8ed 0,transparent 45%)}
+.popover h2{margin:80px 0 0;font:400 45px/1.1 Georgia,serif;color:#a47b8c}
+.popover-close{border:0;border-radius:50%;background:#e4f5eb;color:#648e75;position:absolute;right:18px;top:18px;width:38px;height:38px;font-size:24px}
+.chapter-list{display:flex;flex-wrap:wrap;gap:8px;margin-top:15px}.chapter-list button{background:#fff4f8;color:#7c6570;border:1px solid #f1dce5;border-radius:40px;padding:10px 14px;font-weight:650}
+.chapter-list button:hover{background:#d9f3e4}
+@media(max-width:1100px){.brand{font-size:17px}.header{padding:0 17px;gap:9px}.links{gap:7px}.mode-nav button{padding:9px 13px}.editorial-copy{padding:clamp(22px,3.3vw,35px)}.copy-content{margin-top:28px}.statement{font-size:clamp(15px,1.6vw,19px)}.value p{font-size:12px}.values-scroll{gap:7px}.value{padding-bottom:6px}}
+@media(max-width:760px){
+:root{--header:102px;--intro:37px;--tab:40px}
+.header{display:grid;grid-template-columns:1fr auto;grid-template-rows:57px 45px;gap:0;padding:0 12px}
+.brand{font-size:clamp(15px,4.4vw,19px);letter-spacing:.1em}
+.mode-nav{margin:0}.mode-nav button{font-size:11px;padding:9px 12px}
+.links{grid-row:2;grid-column:1/-1;justify-content:space-around;border-top:1px solid #f5e9ee;gap:8px}
+.links button{font-size:9px;letter-spacing:.11em}
+.desktop-stage,.start-rail,.round-back{display:none}
+.mobile-layout{display:flex;position:absolute;inset:0;background:#fff;overflow:hidden;isolation:isolate}
+.mobile-intro,.mobile-current,.mobile-next{position:relative;flex:0 0 auto;border:0;border-right:1px solid #e8dce2;display:flex;align-items:center;justify-content:flex-end;padding:18px 0;background:#fff5f9;color:#ad8797;writing-mode:vertical-rl}
+.mobile-intro{width:38px;background:#fffafd}
+.mobile-current{width:40px;background:#faeaf0;transition:background .3s}
+.mobile-next{width:36px;background:#ecfaf3;color:#779988;border-right:0;border-left:1px solid #dcebe3}
+.mobile-intro span,.mobile-current span,.mobile-next span{transform:rotate(180deg);font-size:11px;font-weight:700;letter-spacing:.2em;text-transform:uppercase;max-height:100%;white-space:nowrap}
+.mobile-next[hidden]{display:flex!important;visibility:hidden}
+.mobile-back{position:absolute;z-index:7;left:56px;top:51%;width:42px;height:42px;border-radius:50%;border:2px solid white;background:#95848b;color:white;font-size:23px;display:grid;place-items:center;box-shadow:0 5px 16px #66525c22;transform:translate(-50%,-50%);transition:background .25s}
+.mobile-back:hover{background:#7ba78d}
+.mobile-view{position:relative;flex:1 1 0;min-width:0;overflow:hidden;touch-action:pan-y;background:#fff}
+.mobile-strip{height:100%;display:flex;will-change:transform}
+.mobile-slide{height:100%;flex:none;overflow:hidden;padding:7px 0 7px 7px}
+.mobile-slide>.panel-body{width:100%;height:100%;display:grid;grid-template-columns:minmax(0,1fr);grid-template-rows:28% 72%;overflow:hidden;border-radius:21px;background:white;border:1px solid #f2e5ea}
+.mobile-slide .editorial-aside{padding:18px 17px;flex-direction:row;align-items:flex-end;border-right:0;border-bottom:1px solid #e5f0e8}
+
+.mobile-slide .aside-title{font-size:clamp(28px,8vw,48px);text-align:right;max-width:90%}
+.mobile-slide .aside-stitch{display:none}
+.mobile-slide .editorial-copy{padding:20px 15px 16px;overflow:hidden}
+.mobile-slide .eyebrow{font-size:8px;letter-spacing:.12em}
+.mobile-slide .copy-content{margin-top:22px;overflow:hidden}
+.mobile-slide .statement{font-size:clamp(14px,3.6vw,17px);line-height:1.5}
+.mobile-slide .panel-display{font-size:clamp(29px,8vw,46px);letter-spacing:.015em}
+.mobile-slide .values-scroll{max-height:calc(100dvh - 420px);gap:8px;overflow:auto}
+.mobile-slide .value{grid-template-columns:6px 1fr;gap:7px;padding-bottom:7px}
+.mobile-slide .value h3{font-size:12px}.mobile-slide .value p{font-size:11.5px;line-height:1.42}
+.finance{padding:18px 14px;gap:12px}.finance h1{font-size:32px}
+.finance-cards{grid-template-columns:repeat(2,minmax(0,1fr));gap:9px}.finance-card{height:80px}
+.finance-charts{grid-template-columns:1fr;grid-template-rows:1fr 1fr;gap:9px}
+}
+@media(max-width:410px) and (max-height:750px){
+.mobile-slide .editorial-aside{padding:10px 12px}.mobile-slide .editorial-copy{padding:15px 12px 13px}.mobile-slide .copy-content{margin-top:14px}
+.mobile-slide .statement{font-size:13.5px;line-height:1.42}.mobile-slide .values-scroll{max-height:calc(100dvh - 360px)}
+.mobile-slide .panel-display{font-size:32px}
+}
+@media(prefers-reduced-motion:reduce){*,*::before,*::after{scroll-behavior:auto!important;transition-duration:0.01ms!important;animation-duration:0.01ms!important}}
+</style></head>
+<body><div class="app">
+<header class="header"><span class="brand">HILO BONITO</span><nav class="mode-nav" aria-label="Áreas">
+<button id="button-commercial" type="button" aria-pressed="true">Comercial</button><button id="button-finance" type="button" aria-pressed="false">Financiera</button></nav>
+<nav class="links" aria-label="Navegación"><button type="button" data-placeholder="Productos">Productos</button><button type="button" data-placeholder="Domicilios">Domicilios</button><button type="button" data-placeholder="Ubicaciones">Ubicaciones</button></nav>
+</header><main>
+<section class="commercial" id="commercial" aria-label="Comercial">
+<aside class="start-rail"><button type="button" id="desktop-home" aria-label="Ir a Historia"><span>Inicio</span></button></aside>
+<div class="desktop-stage" aria-label="Apartados"><section class="chapter rose" data-index="0" aria-label="Historia">
+  <button class="chapter-tab" type="button" aria-label="Abrir Historia" aria-expanded="true"><span>Historia</span></button>
+  <div class="chapter-body"><div class="panel-body">
+<div class="editorial-aside"><span class="aside-title">Historia</span><div aria-hidden="true" class="aside-stitch"></div></div>
+<div class="editorial-copy">
+<span class="eyebrow">Hilo Bonito <span class="eyebrow-bullet">·</span> Historia</span>
+<div class="copy-content"><div aria-hidden="true" class="empty-history"><div class="fine-line"></div></div></div>
+<h2 class="panel-display">Historia</h2>
+</div>
+</div></div>
+</section>
+<section class="chapter mint" data-index="1" aria-label="Filosofía">
+  <button class="chapter-tab" type="button" aria-label="Abrir Filosofía" aria-expanded="false"><span>Filosofía</span></button>
+  <div class="chapter-body"><div class="panel-body">
+<div class="editorial-aside"><span class="aside-title">Filosofía</span><div aria-hidden="true" class="aside-stitch"></div></div>
+<div class="editorial-copy">
+<span class="eyebrow">Hilo Bonito <span class="eyebrow-bullet">·</span> Filosofía</span>
+<div class="copy-content"><p class="statement">En Hilo Bonito entendemos la confección como un oficio de confianza y precisión. Creemos que detrás de cada uniforme o prenda a la medida hay una persona que necesita sentirse cómoda y segura; por eso apostamos por el trabajo honesto, el cuidado minucioso de cada acabado y la cercanía con nuestros clientes para transformar telas en prendas duraderas que acompañen su rutina con estilo y comodidad.</p></div>
+<h2 class="panel-display">Filosofía</h2>
+</div>
+</div></div>
+</section>
+<section class="chapter rose" data-index="2" aria-label="Misión">
+  <button class="chapter-tab" type="button" aria-label="Abrir Misión" aria-expanded="false"><span>Misión</span></button>
+  <div class="chapter-body"><div class="panel-body">
+<div class="editorial-aside"><span class="aside-title">Misión</span><div aria-hidden="true" class="aside-stitch"></div></div>
+<div class="editorial-copy">
+<span class="eyebrow">Hilo Bonito <span class="eyebrow-bullet">·</span> Misión</span>
+<div class="copy-content"><p class="statement">Confeccionar uniformes institucionales, dotaciones empresariales, prendas formales y arreglos de modistería con precisión en cada puntada. Garantizamos acabados impecables, horma perfecta y puntualidad para que cada cliente proyecte su mejor imagen a diario.</p></div>
+<h2 class="panel-display">Misión</h2>
+</div>
+</div></div>
+</section>
+<section class="chapter mint" data-index="3" aria-label="Visión">
+  <button class="chapter-tab" type="button" aria-label="Abrir Visión" aria-expanded="false"><span>Visión</span></button>
+  <div class="chapter-body"><div class="panel-body">
+<div class="editorial-aside"><span class="aside-title">Visión</span><div aria-hidden="true" class="aside-stitch"></div></div>
+<div class="editorial-copy">
+<span class="eyebrow">Hilo Bonito <span class="eyebrow-bullet">·</span> Visión</span>
+<div class="copy-content"><p class="statement">Para el año 2030, ser el taller de confección referente a nivel local y regional, reconocido por la precisión en cada hilo, la puntualidad en nuestras entregas y la excelencia al vestir a instituciones educativas, empresas y familias con prendas duraderas y de acabado impecable.</p></div>
+<h2 class="panel-display">Visión</h2>
+</div>
+</div></div>
+</section>
+<section class="chapter rose" data-index="4" aria-label="Valores">
+  <button class="chapter-tab" type="button" aria-label="Abrir Valores" aria-expanded="false"><span>Valores</span></button>
+  <div class="chapter-body"><div class="panel-body">
+<div class="editorial-aside"><span class="aside-title">Valores</span><div aria-hidden="true" class="aside-stitch"></div></div>
+<div class="editorial-copy">
+<span class="eyebrow">Hilo Bonito <span class="eyebrow-bullet">·</span> Valores</span>
+<div class="copy-content"><div class="values-scroll"><article class="value"><span aria-hidden="true" class="value-dot"></span><div><h3>Puntualidad y Cumplimiento</h3><p>Respetamos el tiempo de nuestros clientes entregando cada uniforme, pantalón o arreglo en la fecha pactada, sin excusas ni retrasos.</p></div></article><article class="value"><span aria-hidden="true" class="value-dot"></span><div><h3>Precisión y Calidad</h3><p>Cuidamos cada medida, corte y puntada con rigor artesanal para entregar prendas de excelente horma, acabados limpios y máxima durabilidad.</p></div></article><article class="value"><span aria-hidden="true" class="value-dot"></span><div><h3>Cercanía y Empatía</h3><p>Escuchamos con atención a cada persona para entender sus requerimientos, brindando un trato amable, respetuoso y personalizado.</p></div></article><article class="value"><span aria-hidden="true" class="value-dot"></span><div><h3>Pasión por el Detalle</h3><p>Creemos que la diferencia está en las pequeñas cosas; por eso revisamos cada costura y botón antes de entregar una prenda, honrando el arte de vestir bien.</p></div></article><article class="value"><span aria-hidden="true" class="value-dot"></span><div><h3>Honestidad y Transparencia</h3><p>Asesoramos con sinceridad sobre los tipos de tela, los arreglos más convenientes y los presupuestos justos para cada necesidad.</p></div></article></div></div>
+<h2 class="panel-display">Valores</h2>
+</div>
+</div></div>
+</section>
+<section class="chapter mint" data-index="5" aria-label="Objetivos">
+  <button class="chapter-tab" type="button" aria-label="Abrir Objetivos" aria-expanded="false"><span>Objetivos</span></button>
+  <div class="chapter-body"><div class="panel-body">
+<div class="editorial-aside"><span class="aside-title">Objetivos</span><div aria-hidden="true" class="aside-stitch"></div></div>
+<div class="editorial-copy">
+<span class="eyebrow">Hilo Bonito <span class="eyebrow-bullet">·</span> Objetivos</span>
+<div class="copy-content"><div aria-hidden="true" class="empty-history"><div class="fine-line"></div></div></div>
+<h2 class="panel-display">Objetivos</h2>
+</div>
+</div></div>
+</section></div>
+<button class="round-back" id="desktop-back" type="button" aria-label="Anterior">‹</button>
+<div class="mobile-layout" id="mobile-layout">
+<button class="mobile-intro" id="mobile-home" type="button" aria-label="Ir al inicio"><span>Inicio</span></button>
+<button class="mobile-current" id="mobile-current-button" type="button" aria-label="Ver apartados"><span id="mobile-current-label">Historia</span></button>
+<div class="mobile-view" id="mobile-view"><div class="mobile-strip" id="mobile-strip"></div></div>
+<button class="mobile-next" id="mobile-next-button" type="button" aria-label="Abrir Filosofía"><span id="mobile-next-label">Filosofía</span></button>
+<button class="mobile-back" id="mobile-back" type="button" aria-label="Anterior">‹</button>
+</div></section>
+<section class="finance" id="finance" hidden aria-label="Financiera"><div><span class="eyebrow">Hilo Bonito</span><h1>Financiera</h1></div>
+<div class="finance-cards"><div class="finance-card"></div><div class="finance-card"></div><div class="finance-card"></div><div class="finance-card"></div></div>
+<div class="finance-charts"><div class="finance-plot"></div><div class="finance-plot"></div></div></section></main></div>
+<div class="popover-backdrop" id="popup" hidden><div class="popover" role="dialog" aria-modal="true" aria-labelledby="popup-title"><button type="button" class="popover-close" id="popup-close" aria-label="Cerrar">×</button><h2 id="popup-title"></h2><div id="overview" class="chapter-list" hidden></div></div></div>
+<script>
+(()=>{'use strict';
+ const titles=['Historia','Filosofía','Misión','Visión','Valores','Objetivos'];
+ const chapters=[...document.querySelectorAll('.chapter')];
+ const desktopStage=document.querySelector('.desktop-stage');
+ const commercial=document.getElementById('commercial');
+ const finance=document.getElementById('finance');
+ const commercialButton=document.getElementById('button-commercial');
+ const financeButton=document.getElementById('button-finance');
+ const mobileView=document.getElementById('mobile-view');
+ const mobileStrip=document.getElementById('mobile-strip');
+ const mobileCurrent=document.getElementById('mobile-current-label');
+ const mobileNext=document.getElementById('mobile-next-label');
+ const mobileNextButton=document.getElementById('mobile-next-button');
+ const overview=document.getElementById('overview');
+ const modal=document.getElementById('popup');
+ const modalTitle=document.getElementById('popup-title');
+ const reduced=window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+ const count=chapters.length;
+ const clamp=(v,min,max)=>Math.min(max,Math.max(min,v));
+ let current=0,target=0,velocity=0,lastTime=0,frame=null;
+ let mode='commercial',width=0,readWidth=0,tabWidth=0,viewWidth=0,mobile=false,chosen=-1;
+
+ // Mobile uses an equally-sized strip, while desktop reveals the same chapters from the side.
+ chapters.forEach((chapter,i)=>{
+   chapter.querySelector('.chapter-tab').addEventListener('click',()=>go(i));
+   const slide=document.createElement('article');
+   slide.className='mobile-slide';
+   slide.setAttribute('aria-label',titles[i]);
+   slide.appendChild(chapter.querySelector('.panel-body').cloneNode(true));
+   mobileStrip.appendChild(slide);
+   const item=document.createElement('button');item.type='button';item.textContent=titles[i];item.addEventListener('click',()=>{closePopup();go(i)});
+   overview.appendChild(item);
+ });
+ function paint(){
+  if(mobile){
+   mobileStrip.style.transform=`translate3d(${(-current*viewWidth).toFixed(3)}px,0,0)`;
+  }else{
+   const N=count;
+   for(let i=0;i<N;i++){
+    const tabX=i*tabWidth+readWidth*clamp(i-current,0,1);
+    const nextX=(i+1)*tabWidth+readWidth*clamp(i+1-current,0,1);
+    const vis=Math.max(0,nextX-tabX-tabWidth);
+    const crop=Math.max(0,readWidth-vis);
+    const chapter=chapters[i];
+    chapter.style.transform=`translate3d(${tabX.toFixed(3)}px,0,0)`;
+    chapter.style.clipPath=`inset(0 ${crop.toFixed(3)}px 0 0)`;
+   }
+  }
+  const index=clamp(Math.round(current),0,count-1);
+  if(index!==chosen){
+    chosen=index;
+    chapters.forEach((chapter,i)=>chapter.querySelector('.chapter-tab').setAttribute('aria-expanded',String(i===index)));
+    mobileCurrent.textContent=titles[index];
+    mobileNext.textContent=titles[Math.min(index+1,count-1)];
+    mobileNextButton.style.opacity=index===count-1?'.3':'1';
+    mobileNextButton.setAttribute('aria-label',index===count-1?'Último apartado':`Abrir ${titles[index+1]}`);
+  }
+ }
+ function stop(){if(frame!==null){cancelAnimationFrame(frame);frame=null}lastTime=0}
+ function tick(time){
+  if(!lastTime)lastTime=time;
+  const dt=Math.min((time-lastTime)/1000,.05);lastTime=time;
+  if(reduced){current=target;velocity=0}
+  else{
+   // Analytic critically damped spring. It produces glide without bounce or forced snapping.
+   const k=9.4;
+   const diff=current-target;
+   const decay=Math.exp(-k*dt);
+   const temp=(velocity+k*diff)*dt;
+   current=target+(diff+temp)*decay;
+   velocity=(velocity-k*temp)*decay;
+  }
+  current=clamp(current,0,count-1);
+  if(Math.abs(target-current)<0.00003 && Math.abs(velocity)<.0003){current=target;velocity=0;paint();frame=null;lastTime=0;return}
+  paint();frame=requestAnimationFrame(tick);
+ }
+ function render(){if(frame===null)frame=requestAnimationFrame(tick)}
+ function go(i){target=clamp(i,0,count-1);render()}
+ function addDelta(delta){target=clamp(target+delta,0,count-1);render()}
+ function resize(){
+   const wasMobile=mobile;
+   mobile=window.innerWidth<=760;
+   tabWidth=parseFloat(getComputedStyle(document.documentElement).getPropertyValue('--tab'))||56;
+   width=desktopStage.getBoundingClientRect().width;
+   readWidth=Math.max(1,width-tabWidth*count);
+   document.documentElement.style.setProperty('--read',`${readWidth}px`);
+   viewWidth=mobileView.getBoundingClientRect().width;
+   document.documentElement.style.setProperty('--view',`${viewWidth}px`);
+   for(const slide of mobileStrip.children)slide.style.width=`${viewWidth}px`;
+   if(wasMobile!==mobile)chosen=-1;
+   paint();
+ }
+ function switchMode(next){
+  mode=next;commercial.hidden=next!=='commercial';finance.hidden=next!=='finance';
+  commercialButton.setAttribute('aria-pressed',String(next==='commercial'));
+  financeButton.setAttribute('aria-pressed',String(next==='finance'));
+  closePopup();if(next==='commercial')requestAnimationFrame(resize);
+ }
+ commercialButton.addEventListener('click',()=>switchMode('commercial'));
+ financeButton.addEventListener('click',()=>switchMode('finance'));
+ // Natural mouse-wheel or trackpad motion advances the commercial chapters horizontally.
+ window.addEventListener('wheel',e=>{
+  if(mode!=='commercial'||!modal.hidden||e.ctrlKey||e.metaKey)return;
+  if(e.target.closest('.values-scroll')&&e.target.closest('.values-scroll').scrollHeight>e.target.closest('.values-scroll').clientHeight+2)return;
+  e.preventDefault();
+  let delta=Math.abs(e.deltaY)>=Math.abs(e.deltaX)?e.deltaY:e.deltaX;
+  if(e.deltaMode===1)delta*=17;else if(e.deltaMode===2)delta*=window.innerHeight;
+  // Continuous movement. The position is never rounded to a chapter after input stops.
+  // Normalize physical-wheel steps and trackpad pixels into the same gentle travel scale.
+  addDelta(clamp(delta,-170,170)/(mobile?345:360));
+ },{passive:false});
+ // Swipe and click-drag have the same gradual settling, without resetting the chosen position.
+ let start=null,lastPointerX=0;
+ const stage=document.getElementById('commercial');
+ stage.addEventListener('pointerdown',e=>{
+  if(e.target.closest('button')||e.target.closest('.values-scroll')||modal.hidden===false||e.button!==0)return;
+  start={id:e.pointerId,x:e.clientX,y:e.clientY,position:target,type:e.pointerType,dragged:false};
+  if(e.pointerType!=='touch')stage.setPointerCapture?.(e.pointerId);
+ });
+ stage.addEventListener('pointermove',e=>{
+  if(!start||e.pointerId!==start.id)return;
+  const dx=e.clientX-start.x,dy=e.clientY-start.y;lastPointerX=e.clientX;
+  if(!start.dragged && Math.abs(dx)<6)return;
+  if(!start.dragged && Math.abs(dx)<Math.abs(dy))return;
+  start.dragged=true;
+  target=clamp(start.position-dx/(mobile?Math.max(viewWidth*.79,185):Math.max(width*.55,350)),0,count-1);
+  render();
+ });
+ const clearPointer=()=>{
+   // Preserve the precise position reached by the drag, without snapping back.
+   start=null;
+ };
+ stage.addEventListener('pointerup',clearPointer);stage.addEventListener('pointercancel',clearPointer);
+ document.getElementById('mobile-home').addEventListener('click',()=>go(0));
+ document.getElementById('desktop-home').addEventListener('click',()=>go(0));
+ document.getElementById('mobile-current-button').addEventListener('click',()=>openPopup('Apartados'));
+ mobileNextButton.addEventListener('click',()=>go(clamp(Math.round(target)+1,0,count-1)));
+ document.getElementById('mobile-back').addEventListener('click',()=>{
+    if(target>.03)go(Math.max(0,Math.round(target)-1));else openPopup('Apartados');
+ });
+ document.getElementById('desktop-back').addEventListener('click',()=>{
+    if(target>.03)go(Math.max(0,Math.round(target)-1));else openPopup('Apartados');
+ });
+ document.querySelectorAll('[data-placeholder]').forEach(b=>b.addEventListener('click',()=>openPopup(b.dataset.placeholder)));
+ function openPopup(title){modalTitle.textContent=title;overview.hidden=title!=='Apartados';modal.hidden=false}
+ function closePopup(){modal.hidden=true}
+ document.getElementById('popup-close').addEventListener('click',closePopup);
+ modal.addEventListener('click',e=>{if(e.target===modal)closePopup()});
+ window.addEventListener('keydown',e=>{
+  if(e.key==='Escape'){closePopup();return}
+  if(mode!=='commercial'||!modal.hidden)return;
+  if(['ArrowRight','ArrowLeft','PageDown','PageUp','Home','End'].includes(e.key)){
+    e.preventDefault();if(e.key==='Home')go(0);else if(e.key==='End')go(count-1);
+    else go(clamp(Math.round(target)+(e.key==='ArrowLeft'||e.key==='PageUp'?-1:1),0,count-1));
+  }
+ });
+ window.addEventListener('resize',()=>{stop();resize();},{passive:true});
+ resize();
+})();
+</script></body></html>
