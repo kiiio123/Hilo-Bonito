@@ -260,22 +260,11 @@ main{flex:1;min-height:0;position:relative}
 .hb-card-number{background:#ffffffb3;border-radius:50px;padding:4px 10px;font:700 11px Arial,sans-serif;letter-spacing:.1em}
 .hb-stage-name{font:400 clamp(15px,1.5vw,20px)/1.2 Georgia,serif;color:#5a5357;overflow-wrap:anywhere}
 .hb-stage-description{font:400 13px/1.5 'Segoe UI',Arial,sans-serif;color:#766d73}
-.hb-stage-detail{border-radius:17px;padding:clamp(16px,2.3vw,25px);display:flex;flex-direction:column;gap:9px;background:#f4faf6}
-.hb-stage-detail.hb-rosa{background:#fff5f9}
-.hb-stage-kicker{font:700 10px 'Segoe UI',Arial,sans-serif;letter-spacing:.16em;color:#9a8590}
-.hb-stage-detail h3{font:400 25px/1.2 Georgia,serif;color:#79616d;margin:0}
-.hb-stage-detail p{font:400 14px/1.55 'Segoe UI',Arial,sans-serif;color:#70666b;margin:0}
-.hb-stage-date{display:flex;align-items:center;gap:9px;color:#887980;font-size:12px;border-top:1px solid #eadfe4;padding-top:12px;margin-top:3px}
-.hb-stage-date svg{flex:none;width:18px;height:18px;color:#a08a95}
-.hb-stage-navigation{display:flex;align-items:center;justify-content:space-between;gap:8px}
-.hb-stage-navigation button{border:1px solid #ead8e1;border-radius:9px;padding:9px 15px;background:#fff;color:#866373;font-size:12px;font-weight:600}
-.hb-stage-navigation button:disabled{opacity:.4;cursor:default}.hb-stage-navigation button:not(:disabled):hover{background:#f7eaf0}
-.hb-stage-navigation>span{font-size:12px;color:#9b8993}
 @media(max-width:760px){
  .hb-activities-trigger{padding:9px 12px;gap:3px}.hb-trigger-icon svg{width:17px;height:17px}.hb-trigger-title{font-size:17px}.hb-trigger-subtitle{font-size:9px}
  .hb-activities-dialog{width:calc(100% - 20px);max-height:calc(100dvh - 24px);border-radius:19px}
  .hb-activities-inner{padding:17px;gap:15px}.hb-activity-grid{min-width:790px;grid-template-columns:repeat(5,148px);gap:12px}
- .hb-stage-card{min-height:157px;padding:14px 12px}.hb-stage-description{font-size:12px}.hb-stage-detail h3{font-size:22px}.hb-stage-detail p{font-size:13px}
+ .hb-stage-card{min-height:157px;padding:14px 12px}.hb-stage-description{font-size:12px}
 }
 
 </style></head>
@@ -547,17 +536,6 @@ main{flex:1;min-height:0;position:relative}
     </div>
    </div>
   </div>
-  <div class="hb-stage-detail hb-menta" id="hb-stage-detail" aria-live="polite">
-   <span class="hb-stage-kicker" id="hb-stage-kicker">ETAPA 01 / 05</span>
-   <h3 id="hb-stage-detail-name">Diagnóstico</h3>
-   <p id="hb-stage-detail-description">Análisis de necesidades y fallas del sector SENA.</p>
-   <div class="hb-stage-date"><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M7 3v4M17 3v4M3 10h18"/></svg><span id="hb-stage-detail-date">Fecha pendiente de confirmar</span></div>
-  </div>
-  <div class="hb-stage-navigation">
-   <button type="button" id="hb-stage-prev" disabled><span aria-hidden="true">‹</span> Anterior</button>
-   <span id="hb-stage-count">1 de 5</span>
-   <button type="button" id="hb-stage-next">Siguiente <span aria-hidden="true">›</span></button>
-  </div>
  </div>
 </dialog>
 <div class="popover-backdrop" id="popup" hidden><div class="popover" role="dialog" aria-modal="true" aria-labelledby="popup-title"><button type="button" class="popover-close" id="popup-close" aria-label="Cerrar">×</button><h2 id="popup-title"></h2><div id="overview" class="chapter-list" hidden></div></div></div>
@@ -819,23 +797,11 @@ main{flex:1;min-height:0;position:relative}
  const activityScroll=document.getElementById('hb-activity-scroll');
  const activityCards=[...activitiesDialog.querySelectorAll('.hb-stage-card')];
  const activitySelectors=[...activitiesDialog.querySelectorAll('.hb-stage-select')];
- const activityPrev=document.getElementById('hb-stage-prev');
- const activityNext=document.getElementById('hb-stage-next');
  let activityIndex=0;
  function selectActivity(index,scroll=true){
   activityIndex=Math.max(0,Math.min(activityCards.length-1,index));
   const card=activityCards[activityIndex];
   activitySelectors.forEach(button=>button.setAttribute('aria-pressed',String(Number(button.dataset.stage)===activityIndex)));
-  const detail=document.getElementById('hb-stage-detail');
-  detail.classList.toggle('hb-menta',activityIndex%2===0);
-  detail.classList.toggle('hb-rosa',activityIndex%2!==0);
-  document.getElementById('hb-stage-kicker').textContent='ETAPA '+String(activityIndex+1).padStart(2,'0')+' / '+String(activityCards.length).padStart(2,'0');
-  document.getElementById('hb-stage-detail-name').textContent=card.querySelector('.hb-stage-name').textContent;
-  document.getElementById('hb-stage-detail-description').textContent=card.querySelector('.hb-stage-description').textContent;
-  document.getElementById('hb-stage-detail-date').textContent=card.dataset.date||'Fecha pendiente de confirmar';
-  document.getElementById('hb-stage-count').textContent=(activityIndex+1)+' de '+activityCards.length;
-  activityPrev.disabled=activityIndex===0;
-  activityNext.disabled=activityIndex===activityCards.length-1;
   if(scroll){
    const bounds=card.getBoundingClientRect(),viewport=activityScroll.getBoundingClientRect();
    if(bounds.left<viewport.left||bounds.right>viewport.right){
@@ -844,8 +810,6 @@ main{flex:1;min-height:0;position:relative}
   }
  }
  activitySelectors.forEach(button=>button.addEventListener('click',()=>selectActivity(Number(button.dataset.stage))));
- activityPrev.addEventListener('click',()=>selectActivity(activityIndex-1));
- activityNext.addEventListener('click',()=>selectActivity(activityIndex+1));
  activitiesOpen.addEventListener('click',()=>{
   if(!activitiesDialog.open){activitiesDialog.showModal();activityScroll.scrollLeft=0;selectActivity(0,false);}
  });
