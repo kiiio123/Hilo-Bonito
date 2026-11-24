@@ -328,6 +328,26 @@ main{flex:1;min-height:0;position:relative}
  .hb-stage-card:hover,.hb-activities-trigger:hover,.hb-stage-number:hover,.hb-activities-close:hover,.history-details summary:hover,.hb-stage-card:active,.hb-activities-trigger:active{transform:none}
 }
 
+
+/* Activity details: independent floating windows in a shared workspace. */
+.hb-bubble-workspace{position:fixed;inset:0;margin:0;padding:0;width:100%;height:100%;max-width:none;max-height:none;overflow:hidden;border:0;background:transparent;color:#5b4b52}
+.hb-bubble-workspace::backdrop{background:#43363e36;backdrop-filter:blur(2px)}
+.hb-bubble-workspace[open]::backdrop{animation:hb-window-fade .22s ease-out both}
+.hb-bubble-scroll{width:100%;height:100%;overflow:auto;overscroll-behavior:contain;scrollbar-width:thin;scrollbar-color:#d9bdcb transparent}
+.hb-bubble-canvas{position:relative;min-height:100%;width:100%;isolation:isolate}
+.hb-detail-bubble{position:absolute;width:var(--hb-bubble-width,420px);border:1px solid #deebe2;border-radius:25px;background:linear-gradient(145deg,#ffffff90,transparent 85%),#f4faf6;box-shadow:0 24px 80px #43363e38;transition:left .32s cubic-bezier(.22,1,.36,1),top .32s cubic-bezier(.22,1,.36,1)}
+.hb-detail-bubble.hb-detail-pink{background:linear-gradient(145deg,#ffffff90,transparent 85%),#fff3f8;border-color:#efdce6}
+.hb-detail-bubble .hb-activity-detail-inner{position:relative}
+.hb-detail-bubble.hb-bubble-enter{animation:hb-window-content .36s cubic-bezier(.22,1,.36,1) both}
+.hb-detail-bubble.hb-window-dragging{transition:none;box-shadow:0 28px 90px #43363e50}
+.hb-bubble-menu{position:absolute;top:61px;right:54px;z-index:4;display:flex;flex-wrap:wrap;gap:6px;padding:9px;background:#fffefd;border:1px solid #eadce4;border-radius:13px;box-shadow:0 10px 28px #43363e26;animation:hb-expand-content .2s ease-out both}
+.hb-bubble-menu button{width:32px;height:32px;border:1px solid #e4e9e4;border-radius:9px;background:#e7f4ec;color:#587263;font-size:12px;font-weight:700;transition:background .2s,transform .2s}
+.hb-bubble-menu button:nth-child(even){background:#fbe4f0;color:#866373;border-color:#efdae5}
+.hb-bubble-menu button:hover,.hb-bubble-menu button:focus-visible{transform:translateY(-2px);border-color:#a7bdad}
+.hb-bubble-menu button[data-open="true"]{box-shadow:inset 0 0 0 1px #8da99a}
+@media(max-width:760px){.hb-detail-bubble{border-radius:20px}.hb-bubble-menu{top:52px;right:45px}.hb-bubble-menu button{width:30px;height:30px}}
+@media(prefers-reduced-motion:reduce){.hb-detail-bubble,.hb-bubble-menu,.hb-bubble-workspace[open]::backdrop,.hb-detail-bubble.hb-bubble-enter{animation:none!important;transition:none!important}}
+
 </style></head>
 <body><div class="app">
 <header class="header"><span class="brand">HILO BONITO</span><nav class="mode-nav" aria-label="Áreas">
@@ -600,22 +620,8 @@ main{flex:1;min-height:0;position:relative}
   </div>
  </div>
 </dialog>
-<dialog id="hb-activity-detail-dialog" class="hb-activity-detail-dialog" aria-labelledby="hb-activity-detail-title">
- <div class="hb-activity-detail-inner">
-  <div class="hb-activity-detail-top hb-window-handle">
-   <span class="eyebrow" id="hb-activity-detail-step"></span>
-   <button type="button" class="hb-window-grip" aria-label="Mover ventana con las flechas del teclado" title="Arrastra el encabezado para mover la ventana"><svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor" aria-hidden="true"><circle cx="8" cy="6" r="1.5"/><circle cx="16" cy="6" r="1.5"/><circle cx="8" cy="12" r="1.5"/><circle cx="16" cy="12" r="1.5"/><circle cx="8" cy="18" r="1.5"/><circle cx="16" cy="18" r="1.5"/></svg></button>
-   <button type="button" class="hb-activities-close" id="hb-activity-detail-close" aria-label="Cerrar detalle">×</button>
-  </div>
-  <h3 id="hb-activity-detail-title"></h3>
-  <p id="hb-activity-detail-text"></p>
-  <div class="hb-activity-detail-meta">
-   <span class="hb-activity-detail-label">Fecha</span>
-   <p id="hb-activity-detail-date"></p>
-   <span class="hb-activity-detail-label">Responsables</span>
-   <p id="hb-activity-detail-responsible"></p>
-  </div>
- </div>
+<dialog id="hb-activity-detail-dialog" class="hb-bubble-workspace" aria-label="Detalles de actividades">
+ <div class="hb-bubble-scroll"><div class="hb-bubble-canvas"></div></div>
 </dialog>
 <div class="popover-backdrop" id="popup" hidden><div class="popover" role="dialog" aria-modal="true" aria-labelledby="popup-title"><button type="button" class="popover-close" id="popup-close" aria-label="Cerrar">×</button><h2 id="popup-title"></h2><div id="overview" class="chapter-list" hidden></div></div></div>
 <script>
@@ -949,30 +955,166 @@ main{flex:1;min-height:0;position:relative}
    dialog.close();dialog.classList.remove('hb-window-closing');
   });
  }
- [activitiesDialog,activityDetailDialog].forEach(dialog=>{
+ [activitiesDialog].forEach(dialog=>{
   makeMovableWindow(dialog);
   dialog.addEventListener('cancel',event=>{event.preventDefault();closeAnimatedWindow(dialog)});
  });
 
+
+ const bubbleScroll=activityDetailDialog.querySelector('.hb-bubble-scroll');
+ const bubbleCanvas=activityDetailDialog.querySelector('.hb-bubble-canvas');
+ const openBubbles=new Map();
+ let bubbleLayer=1,detailReturnIndex=0;
+ function closeBubbleMenus(except=null){
+  openBubbles.forEach(bubble=>{
+   if(bubble===except)return;
+   bubble.querySelector('.hb-bubble-menu').hidden=true;
+   bubble.querySelector('.hb-window-grip').setAttribute('aria-expanded','false');
+  });
+ }
+ function raiseBubble(bubble){bubble.style.zIndex=String(++bubbleLayer);}
+ function refreshBubbleMenus(){
+  openBubbles.forEach(bubble=>bubble.querySelectorAll('.hb-bubble-menu button').forEach(button=>{
+   button.dataset.open=String(openBubbles.has(Number(button.dataset.index)));
+  }));
+ }
+ function layoutBubbles(animate=true){
+  if(!activityDetailDialog.open)return;
+  const bubbles=[...openBubbles.values()];
+  if(!bubbles.length)return;
+  const gap=18,pad=14,available=bubbleScroll.clientWidth;
+  const capacity=Math.max(1,Math.floor((available-2*pad+gap)/(320+gap)));
+  const columns=Math.min(capacity,bubbles.length);
+  const width=Math.min(420,Math.floor((available-2*pad-(columns-1)*gap)/columns));
+  bubbles.forEach(bubble=>bubble.style.setProperty('--hb-bubble-width',Math.max(1,width)+'px'));
+  const rows=[];
+  for(let i=0;i<bubbles.length;i+=columns){
+   const members=bubbles.slice(i,i+columns);
+   rows.push({members,height:Math.max(...members.map(b=>b.offsetHeight))});
+  }
+  const total=rows.reduce((sum,row)=>sum+row.height,0)+gap*(rows.length-1);
+  const height=Math.max(bubbleScroll.clientHeight,total+2*pad);
+  bubbleCanvas.style.height=height+'px';
+  let y=Math.max(pad,(height-total)/2);
+  rows.forEach(row=>{
+   let x=Math.max(pad,(available-row.members.length*width-(row.members.length-1)*gap)/2);
+   row.members.forEach(bubble=>{
+    if(!animate)bubble.style.transition='none';
+    bubble.style.left=x+'px';bubble.style.top=y+'px';
+    if(!animate){bubble.getBoundingClientRect();bubble.style.removeProperty('transition');}
+    x+=width+gap;
+   });
+   y+=row.height+gap;
+  });
+ }
+ function toggleBubbleMenu(bubble){
+  const menu=bubble.querySelector('.hb-bubble-menu'),show=menu.hidden;
+  closeBubbleMenus(bubble);raiseBubble(bubble);
+  menu.hidden=!show;
+  bubble.querySelector('.hb-window-grip').setAttribute('aria-expanded',String(show));
+ }
+ function closeActivityBubble(index){
+  const bubble=openBubbles.get(index);
+  if(!bubble||bubble.dataset.closing==='true')return;
+  bubble.dataset.closing='true';closeBubbleMenus();
+  const finish=()=>{
+   if(!openBubbles.has(index))return;
+   bubble.remove();openBubbles.delete(index);refreshBubbleMenus();
+   if(openBubbles.size===0)activityDetailDialog.close();
+   else{layoutBubbles();const last=[...openBubbles.values()].pop();last.querySelector('.hb-window-grip').focus({preventScroll:true});}
+  };
+  if(reduced||!bubble.animate){finish();return;}
+  bubble.animate([{opacity:1},{opacity:0,transform:'translateY(5px) scale(.98)'}],{duration:140,easing:'ease-in',fill:'forwards'}).finished.then(finish,finish);
+ }
+ function enableBubbleDrag(bubble){
+  const handle=bubble.querySelector('.hb-window-handle'),grip=bubble.querySelector('.hb-window-grip');
+  let drag=null;
+  function move(x,y){
+   bubble.style.left=Math.max(6,Math.min(Math.max(6,bubbleCanvas.clientWidth-bubble.offsetWidth-6),x))+'px';
+   bubble.style.top=Math.max(6,Math.min(Math.max(6,bubbleCanvas.clientHeight-bubble.offsetHeight-6),y))+'px';
+  }
+  bubble.addEventListener('pointerdown',()=>raiseBubble(bubble));
+  handle.addEventListener('pointerdown',event=>{
+   if(!event.isPrimary||event.button!==0||event.target.closest('.hb-activities-close'))return;
+   const rect=bubble.getBoundingClientRect(),canvasRect=bubbleCanvas.getBoundingClientRect();
+   drag={id:event.pointerId,startX:event.clientX,startY:event.clientY,x:rect.left-canvasRect.left,y:rect.top-canvasRect.top,fromGrip:!!event.target.closest('.hb-window-grip'),moved:false};
+   handle.setPointerCapture(event.pointerId);
+   event.preventDefault();
+  });
+  handle.addEventListener('pointermove',event=>{
+   if(!drag||drag.id!==event.pointerId)return;
+   const dx=event.clientX-drag.startX,dy=event.clientY-drag.startY;
+   if(!drag.moved&&Math.hypot(dx,dy)<5)return;
+   if(!drag.moved){drag.moved=true;closeBubbleMenus();bubble.classList.add('hb-window-dragging');}
+   move(drag.x+dx,drag.y+dy);
+  });
+  function end(event){
+   if(!drag||drag.id!==event.pointerId)return;
+   const tap=event.type==='pointerup'&&!drag.moved&&drag.fromGrip;
+   drag=null;bubble.classList.remove('hb-window-dragging');
+   if(handle.hasPointerCapture(event.pointerId))handle.releasePointerCapture(event.pointerId);
+   if(tap){toggleBubbleMenu(bubble);grip.focus({preventScroll:true});}
+  }
+  ['pointerup','pointercancel','lostpointercapture'].forEach(type=>handle.addEventListener(type,end));
+  grip.addEventListener('click',event=>{if(event.detail===0)toggleBubbleMenu(bubble);});
+  grip.addEventListener('keydown',event=>{
+   const delta={ArrowLeft:[-16,0],ArrowRight:[16,0],ArrowUp:[0,-16],ArrowDown:[0,16]}[event.key];
+   if(!delta)return;
+   event.preventDefault();event.stopPropagation();move(bubble.offsetLeft+delta[0],bubble.offsetTop+delta[1]);
+  });
+ }
  function openActivityDetail(index){
+  index=Math.max(0,Math.min(activityCards.length-1,index));
   selectActivity(index);
-  const card=activityCards[activityIndex];
-  activityDetailDialog.classList.toggle('hb-detail-pink',activityIndex%2!==0);
-  document.getElementById('hb-activity-detail-step').textContent='PASO '+(activityIndex+1);
-  document.getElementById('hb-activity-detail-title').textContent=card.querySelector('.hb-stage-name').textContent;
-  document.getElementById('hb-activity-detail-text').textContent=card.dataset.detail;
-  document.getElementById('hb-activity-detail-date').textContent=card.dataset.date;
-  document.getElementById('hb-activity-detail-responsible').textContent=card.dataset.responsible;
-  if(!activityDetailDialog.open)activityDetailDialog.showModal();
+  const existing=openBubbles.get(index);
+  closeBubbleMenus();
+  if(existing){raiseBubble(existing);existing.querySelector('.hb-window-grip').focus({preventScroll:true});existing.scrollIntoView({block:'nearest',inline:'nearest',behavior:reduced?'auto':'smooth'});return;}
+  const card=activityCards[index];
+  const bubble=document.createElement('article');
+  bubble.className='hb-detail-bubble'+(index%2?' hb-detail-pink':'');
+  bubble.setAttribute('aria-labelledby','hb-bubble-title-'+index);
+  bubble.innerHTML='<div class="hb-activity-detail-inner"><div class="hb-activity-detail-top hb-window-handle"><span class="eyebrow">PASO '+(index+1)+'</span><button type="button" class="hb-window-grip" aria-label="Abrir menú de actividades o arrastrar ventana" aria-expanded="false" title="Clic: otras actividades. Arrastra para mover."><svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor" aria-hidden="true"><circle cx="8" cy="6" r="1.5"/><circle cx="16" cy="6" r="1.5"/><circle cx="8" cy="12" r="1.5"/><circle cx="16" cy="12" r="1.5"/><circle cx="8" cy="18" r="1.5"/><circle cx="16" cy="18" r="1.5"/></svg></button><button type="button" class="hb-activities-close" aria-label="Cerrar detalle">×</button></div><div class="hb-bubble-menu" aria-label="Otras actividades" hidden></div><h3 id="hb-bubble-title-'+index+'"></h3><p class="hb-bubble-description"></p><div class="hb-activity-detail-meta"><span class="hb-activity-detail-label">Fecha</span><p class="hb-bubble-date"></p><span class="hb-activity-detail-label">Responsables</span><p class="hb-bubble-responsible"></p></div></div>';
+  bubble.querySelector('h3').textContent=card.querySelector('.hb-stage-name').textContent;
+  bubble.querySelector('.hb-bubble-description').textContent=card.dataset.detail;
+  bubble.querySelector('.hb-bubble-date').textContent=card.dataset.date;
+  bubble.querySelector('.hb-bubble-responsible').textContent=card.dataset.responsible;
+  const menu=bubble.querySelector('.hb-bubble-menu');
+  activityCards.forEach((other,i)=>{
+   if(i===index)return;
+   const button=document.createElement('button');
+   button.type='button';button.textContent=String(i+1);button.dataset.index=String(i);
+   button.setAttribute('aria-label','Abrir '+other.querySelector('.hb-stage-name').textContent);
+   button.addEventListener('click',()=>openActivityDetail(i));
+   menu.append(button);
+  });
+  bubble.querySelector('.hb-activities-close').addEventListener('click',()=>closeActivityBubble(index));
+  openBubbles.set(index,bubble);bubbleCanvas.append(bubble);enableBubbleDrag(bubble);raiseBubble(bubble);refreshBubbleMenus();
+  if(!activityDetailDialog.open){detailReturnIndex=index;activityDetailDialog.showModal();bubbleScroll.scrollTop=0;}
+  layoutBubbles(openBubbles.size>1);
+  bubble.classList.add('hb-bubble-enter');
+  bubble.addEventListener('animationend',()=>bubble.classList.remove('hb-bubble-enter'),{once:true});
+  bubble.querySelector('.hb-window-grip').focus({preventScroll:true});
+  if(bubble.offsetTop+bubble.offsetHeight>bubbleScroll.scrollTop+bubbleScroll.clientHeight){
+   bubbleScroll.scrollTo({top:Math.max(0,bubble.offsetTop-14),behavior:reduced?'auto':'smooth'});
+  }
  }
  activitySelectors.forEach(button=>button.addEventListener('click',()=>openActivityDetail(Number(button.dataset.stage))));
- document.getElementById('hb-activity-detail-close').addEventListener('click',()=>closeAnimatedWindow(activityDetailDialog));
- activityDetailDialog.addEventListener('click',event=>{
-  if(event.target!==activityDetailDialog)return;
-  const box=activityDetailDialog.getBoundingClientRect();
-  if(event.clientX<box.left||event.clientX>box.right||event.clientY<box.top||event.clientY>box.bottom)closeAnimatedWindow(activityDetailDialog);
+ activityDetailDialog.addEventListener('cancel',event=>{
+  event.preventDefault();
+  const entries=[...openBubbles.entries()].sort((a,b)=>Number(b[1].style.zIndex)-Number(a[1].style.zIndex));
+  if(!entries.length){activityDetailDialog.close();return;}
+  const [index,bubble]=entries[0];
+  if(!bubble.querySelector('.hb-bubble-menu').hidden){closeBubbleMenus();return;}
+  closeActivityBubble(index);
  });
- activityDetailDialog.addEventListener('close',()=>activityCards[activityIndex].focus({preventScroll:true}));
+ activityDetailDialog.addEventListener('click',event=>{
+  if(event.target===bubbleCanvas||event.target===bubbleScroll)closeBubbleMenus();
+ });
+ activityDetailDialog.addEventListener('close',()=>{
+  openBubbles.clear();bubbleCanvas.replaceChildren();bubbleCanvas.style.removeProperty('height');
+  activityCards[detailReturnIndex].focus({preventScroll:true});
+ });
+ window.addEventListener('resize',()=>{if(activityDetailDialog.open)layoutBubbles(false);});
  activitiesOpen.addEventListener('click',()=>{
   if(!activitiesDialog.open){activitiesDialog.showModal();activityScroll.scrollLeft=0;activityIndex=0;activitySelectors.forEach(button=>button.setAttribute('aria-pressed','false'));}
  });
