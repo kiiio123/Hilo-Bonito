@@ -1000,30 +1000,58 @@ main{flex:1;min-height:0;position:relative}
  function layoutBubbles(animate=true){
   if(!activityDetailDialog.open)return;
   const bubbles=[...openBubbles.values()];
-  if(!bubbles.length)return;
-  const gap=18,pad=14,available=bubbleScroll.clientWidth;
-  const capacity=Math.max(1,Math.floor((available-2*pad+gap)/(320+gap)));
-  const columns=Math.min(capacity,bubbles.length);
-  const width=Math.min(420,Math.floor((available-2*pad-(columns-1)*gap)/columns));
-  bubbles.forEach(bubble=>bubble.style.setProperty('--hb-bubble-width',Math.max(1,width)+'px'));
-  const rows=[];
-  for(let i=0;i<bubbles.length;i+=columns){
-   const members=bubbles.slice(i,i+columns);
-   rows.push({members,height:Math.max(...members.map(b=>b.offsetHeight))});
+  const n=bubbles.length;
+  if(!n)return;
+  const available=bubbleScroll.clientWidth;
+  const viewportHeight=bubbleScroll.clientHeight;
+  const pad=available<600?12:Math.min(44,Math.max(18,available*.032));
+  const gap=available<600?14:22;
+  const usable=Math.max(1,available-2*pad);
+  const capacity=Math.min(n,Math.max(1,Math.floor((usable+gap)/(310+gap))));
+  const preferredRows=n>=4?2:n===3&&viewportHeight>=620?2:1;
+  const plans=[];
+  // Measure actual text heights at each possible width, rather than guessing.
+  for(let columns=1;columns<=capacity;columns++){
+   const width=Math.min(n===1?420:460,Math.floor((usable-(columns-1)*gap)/columns));
+   bubbles.forEach(bubble=>bubble.style.setProperty('--hb-bubble-width',Math.max(1,width)+'px'));
+   const rowCount=Math.ceil(n/columns),rows=[];
+   let cursor=0;
+   for(let row=0;row<rowCount;row++){
+    const take=Math.ceil((n-cursor)/(rowCount-row));
+    let members=bubbles.slice(cursor,cursor+take);
+    if(row%2)members=members.reverse();
+    rows.push({members,height:Math.max(...members.map(bubble=>bubble.offsetHeight))});
+    cursor+=take;
+   }
+   const required=2*pad+rows.reduce((total,row)=>total+row.height,0)+gap*(rowCount-1);
+   const overflow=Math.max(0,required-viewportHeight);
+   plans.push({width,rows,required,score:overflow*100+Math.abs(rowCount-preferredRows)*65+(460-width)*.12});
   }
-  const total=rows.reduce((sum,row)=>sum+row.height,0)+gap*(rows.length-1);
-  const height=Math.max(bubbleScroll.clientHeight,total+2*pad);
+  const plan=plans.sort((a,b)=>a.score-b.score)[0];
+  const {rows,width}=plan;
+  bubbles.forEach(bubble=>bubble.style.setProperty('--hb-bubble-width',Math.max(1,width)+'px'));
+  rows.forEach(row=>row.height=Math.max(...row.members.map(bubble=>bubble.offsetHeight)));
+  const minHeight=2*pad+rows.reduce((sum,row)=>sum+row.height,0)+gap*(rows.length-1);
+  const height=Math.max(viewportHeight,minHeight);
   bubbleCanvas.style.height=height+'px';
-  let y=Math.max(pad,(height-total)/2);
-  rows.forEach(row=>{
-   let x=Math.max(pad,(available-row.members.length*width-(row.members.length-1)*gap)/2);
-   row.members.forEach(bubble=>{
+  const spare=Math.max(0,height-minHeight);
+  const stagger=rows.length===1?Math.min(spare,180):Math.min(82,spare/(rows.length*2));
+  const extraGap=rows.length>1?Math.max(0,spare-stagger*rows.length)/(rows.length-1):0;
+  let y=n===1?Math.max(pad,(height-rows[0].height)/2):pad;
+  rows.forEach((row,r)=>{
+   const count=row.members.length;
+   const freeX=Math.max(0,usable-count*width-gap*(count-1));
+   row.members.forEach((bubble,i)=>{
+    const fraction=count===1?(n===1?.5:r%2?.82:.18):i/(count-1);
+    const x=pad+i*(width+gap)+freeX*fraction;
+    const wave=count===1?0:((r+i)%2===0?.08:.92);
+    const room=Math.max(0,row.height-bubble.offsetHeight);
+    const vertical=n===1?y:y+wave*(stagger+room);
     if(!animate)bubble.style.transition='none';
-    bubble.style.left=x+'px';bubble.style.top=y+'px';
+    bubble.style.left=Math.round(x)+'px';bubble.style.top=Math.round(vertical)+'px';
     if(!animate){bubble.getBoundingClientRect();bubble.style.removeProperty('transition');}
-    x+=width+gap;
    });
-   y+=row.height+gap;
+   y+=row.height+stagger+gap+extraGap;
   });
  }
  function toggleBubbleMenu(bubble){
