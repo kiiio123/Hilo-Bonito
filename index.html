@@ -267,6 +267,23 @@ main{flex:1;min-height:0;position:relative}
  .hb-stage-card{min-height:157px;padding:14px 12px}.hb-stage-description{font-size:12px}
 }
 
+
+/* Activities: clean schedule cards and on-demand floating details. */
+.hb-stage-card{min-height:144px}
+.hb-stage-card .hb-stage-name{margin-top:auto}
+.hb-stage-date-label{font:400 11px/1.4 'Segoe UI',Arial,sans-serif;color:#71666d;white-space:normal}
+.hb-activity-detail-dialog{width:min(420px,calc(100% - 34px));max-height:calc(100dvh - 40px);overflow:auto;padding:0;border:1px solid #deebe2;border-radius:25px;color:#5b4b52;background:#f4faf6;box-shadow:0 20px 70px #43363e35}
+.hb-activity-detail-dialog.hb-detail-pink{background:#fff3f8;border-color:#efdce6}
+.hb-activity-detail-dialog::backdrop{background:#43363e36;backdrop-filter:blur(2px)}
+.hb-activity-detail-inner{padding:24px;display:flex;flex-direction:column;gap:12px}
+.hb-activity-detail-top{display:flex;align-items:center;justify-content:space-between;gap:12px}
+.hb-activity-detail-inner h3{font:400 28px/1.2 Georgia,serif;color:#79616d;margin:0}
+.hb-activity-detail-inner p{font:400 14px/1.55 'Segoe UI',Arial,sans-serif;color:#70666b;margin:0}
+.hb-activity-detail-meta{border-top:1px solid #d9e4dd;padding-top:14px;display:grid;gap:6px}
+.hb-activity-detail-label{font:700 10px 'Segoe UI',Arial,sans-serif;letter-spacing:.14em;text-transform:uppercase;color:#8d7381}
+.hb-activity-detail-meta p+p,.hb-activity-detail-meta p+.hb-activity-detail-label{margin-top:8px}
+@media(max-width:760px){.hb-stage-card{min-height:144px}.hb-activity-detail-inner{padding:19px}.hb-activity-detail-inner h3{font-size:25px}}
+
 </style></head>
 <body><div class="app">
 <header class="header"><span class="brand">HILO BONITO</span><nav class="mode-nav" aria-label="Áreas">
@@ -490,51 +507,67 @@ main{flex:1;min-height:0;position:relative}
   <div class="hb-activity-scroll" id="hb-activity-scroll">
    <div class="hb-activity-grid" aria-label="Etapas del proyecto">
     <div class="hb-activity-stage">
-     <button type="button" class="hb-stage-number hb-stage-select" data-stage="0" aria-label="Etapa 1: Diagnóstico" aria-pressed="true">01</button>
+     <button type="button" class="hb-stage-number hb-stage-select" data-stage="0" aria-label="Etapa 1: Diagnóstico" aria-pressed="false">01</button>
      <span class="hb-stage-connector" aria-hidden="true"></span>
-     <button type="button" class="hb-stage-card hb-stage-select hb-menta" data-stage="0" aria-pressed="true">
-      <span class="hb-stage-card-top"><span class="hb-card-number">01</span><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx='10' cy='10' r='6'/><path d='m15 15 5 5'/></svg></span>
+     <button type="button" class="hb-stage-card hb-stage-select hb-menta" data-stage="0" aria-pressed="false" aria-haspopup="dialog" data-detail="Análisis de necesidades y fallas del sector SENA." data-date="Nov 2026 Sem 3-4">
+      <span class="hb-stage-card-top"><span class="hb-card-number">PASO 1</span><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx='10' cy='10' r='6'/><path d='m15 15 5 5'/></svg></span>
       <span class="hb-stage-name">Diagnóstico</span>
-      <span class="hb-stage-description">Análisis de necesidades y fallas del sector SENA.</span>
+      <span class="hb-stage-date-label">Nov 2026 Sem 3-4</span>
      </button>
     </div>
     <div class="hb-activity-stage">
      <button type="button" class="hb-stage-number hb-stage-select" data-stage="1" aria-label="Etapa 2: Diseño" aria-pressed="false">02</button>
      <span class="hb-stage-connector" aria-hidden="true"></span>
-     <button type="button" class="hb-stage-card hb-stage-select hb-rosa" data-stage="1" aria-pressed="false">
-      <span class="hb-stage-card-top"><span class="hb-card-number">02</span><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d='m12 3 9 9-8 8-9-9 8-8Z'/><path d='M8 7l9 9M6 15l3 3'/></svg></span>
+     <button type="button" class="hb-stage-card hb-stage-select hb-rosa" data-stage="1" aria-pressed="false" aria-haspopup="dialog" data-detail="Selección de telas uniformes y precios justos." data-date="Nov-Dic 2026">
+      <span class="hb-stage-card-top"><span class="hb-card-number">PASO 2</span><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d='m12 3 9 9-8 8-9-9 8-8Z'/><path d='M8 7l9 9M6 15l3 3'/></svg></span>
       <span class="hb-stage-name">Diseño</span>
-      <span class="hb-stage-description">Selección de telas uniformes y precios justos.</span>
+      <span class="hb-stage-date-label">Nov-Dic 2026</span>
      </button>
     </div>
     <div class="hb-activity-stage">
      <button type="button" class="hb-stage-number hb-stage-select" data-stage="2" aria-label="Etapa 3: Implementación" aria-pressed="false">03</button>
      <span class="hb-stage-connector" aria-hidden="true"></span>
-     <button type="button" class="hb-stage-card hb-stage-select hb-menta" data-stage="2" aria-pressed="false">
-      <span class="hb-stage-card-top"><span class="hb-card-number">03</span><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx='6' cy='6' r='3'/><circle cx='6' cy='18' r='3'/><path d='m9 8 12 13M9 16 21 3M14 12l3-3'/></svg></span>
+     <button type="button" class="hb-stage-card hb-stage-select hb-menta" data-stage="2" aria-pressed="false" aria-haspopup="dialog" data-detail="Puesta en marcha del taller y atención cercana." data-date="Dic 2026 Sem 1-4">
+      <span class="hb-stage-card-top"><span class="hb-card-number">PASO 3</span><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx='6' cy='6' r='3'/><circle cx='6' cy='18' r='3'/><path d='m9 8 12 13M9 16 21 3M14 12l3-3'/></svg></span>
       <span class="hb-stage-name">Implementación</span>
-      <span class="hb-stage-description">Puesta en marcha del taller y atención cercana.</span>
+      <span class="hb-stage-date-label">Dic 2026 Sem 1-4</span>
      </button>
     </div>
     <div class="hb-activity-stage">
      <button type="button" class="hb-stage-number hb-stage-select" data-stage="3" aria-label="Etapa 4: Evaluación" aria-pressed="false">04</button>
      <span class="hb-stage-connector" aria-hidden="true"></span>
-     <button type="button" class="hb-stage-card hb-stage-select hb-rosa" data-stage="3" aria-pressed="false">
-      <span class="hb-stage-card-top"><span class="hb-card-number">04</span><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x='5' y='5' width='14' height='16' rx='2'/><path d='M9 5V3h6v2M8 13l3 3 5-6'/></svg></span>
+     <button type="button" class="hb-stage-card hb-stage-select hb-rosa" data-stage="3" aria-pressed="false" aria-haspopup="dialog" data-detail="Control de calidad en costuras y puntualidad." data-date="Dic 2026-Ene 2027">
+      <span class="hb-stage-card-top"><span class="hb-card-number">PASO 4</span><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x='5' y='5' width='14' height='16' rx='2'/><path d='M9 5V3h6v2M8 13l3 3 5-6'/></svg></span>
       <span class="hb-stage-name">Evaluación</span>
-      <span class="hb-stage-description">Control de calidad en costuras y puntualidad.</span>
+      <span class="hb-stage-date-label">Dic 2026-Ene 2027</span>
      </button>
     </div>
     <div class="hb-activity-stage">
      <button type="button" class="hb-stage-number hb-stage-select" data-stage="4" aria-label="Etapa 5: Cierre" aria-pressed="false">05</button>
      <span class="hb-stage-connector" aria-hidden="true"></span>
-     <button type="button" class="hb-stage-card hb-stage-select hb-menta" data-stage="4" aria-pressed="false">
-      <span class="hb-stage-card-top"><span class="hb-card-number">05</span><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d='m3 7 9-4 9 4v10l-9 4-9-4V7Zm0 0 9 4 9-4M12 11v10'/><path d='m8 5 9 4'/></svg></span>
+     <button type="button" class="hb-stage-card hb-stage-select hb-menta" data-stage="4" aria-pressed="false" aria-haspopup="dialog" data-detail="Entrega puntual y consolidación de marca." data-date="Ene 2027 Sem 1-2">
+      <span class="hb-stage-card-top"><span class="hb-card-number">PASO 5</span><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d='m3 7 9-4 9 4v10l-9 4-9-4V7Zm0 0 9 4 9-4M12 11v10'/><path d='m8 5 9 4'/></svg></span>
       <span class="hb-stage-name">Cierre</span>
-      <span class="hb-stage-description">Entrega puntual y consolidación de marca.</span>
+      <span class="hb-stage-date-label">Ene 2027 Sem 1-2</span>
      </button>
     </div>
    </div>
+  </div>
+ </div>
+</dialog>
+<dialog id="hb-activity-detail-dialog" class="hb-activity-detail-dialog" aria-labelledby="hb-activity-detail-title">
+ <div class="hb-activity-detail-inner">
+  <div class="hb-activity-detail-top">
+   <span class="eyebrow" id="hb-activity-detail-step"></span>
+   <button type="button" class="hb-activities-close" id="hb-activity-detail-close" aria-label="Cerrar detalle">×</button>
+  </div>
+  <h3 id="hb-activity-detail-title"></h3>
+  <p id="hb-activity-detail-text"></p>
+  <div class="hb-activity-detail-meta">
+   <span class="hb-activity-detail-label">Fecha</span>
+   <p id="hb-activity-detail-date"></p>
+   <span class="hb-activity-detail-label">Responsables</span>
+   <p>Geraldine Ardila Buitrago y Any Tatiana Barrera</p>
   </div>
  </div>
 </dialog>
@@ -809,9 +842,27 @@ main{flex:1;min-height:0;position:relative}
    }
   }
  }
- activitySelectors.forEach(button=>button.addEventListener('click',()=>selectActivity(Number(button.dataset.stage))));
+ const activityDetailDialog=document.getElementById('hb-activity-detail-dialog');
+ function openActivityDetail(index){
+  selectActivity(index);
+  const card=activityCards[activityIndex];
+  activityDetailDialog.classList.toggle('hb-detail-pink',activityIndex%2!==0);
+  document.getElementById('hb-activity-detail-step').textContent='PASO '+(activityIndex+1);
+  document.getElementById('hb-activity-detail-title').textContent=card.querySelector('.hb-stage-name').textContent;
+  document.getElementById('hb-activity-detail-text').textContent=card.dataset.detail;
+  document.getElementById('hb-activity-detail-date').textContent=card.dataset.date;
+  if(!activityDetailDialog.open)activityDetailDialog.showModal();
+ }
+ activitySelectors.forEach(button=>button.addEventListener('click',()=>openActivityDetail(Number(button.dataset.stage))));
+ document.getElementById('hb-activity-detail-close').addEventListener('click',()=>activityDetailDialog.close());
+ activityDetailDialog.addEventListener('click',event=>{
+  if(event.target!==activityDetailDialog)return;
+  const box=activityDetailDialog.getBoundingClientRect();
+  if(event.clientX<box.left||event.clientX>box.right||event.clientY<box.top||event.clientY>box.bottom)activityDetailDialog.close();
+ });
+ activityDetailDialog.addEventListener('close',()=>activityCards[activityIndex].focus({preventScroll:true}));
  activitiesOpen.addEventListener('click',()=>{
-  if(!activitiesDialog.open){activitiesDialog.showModal();activityScroll.scrollLeft=0;selectActivity(0,false);}
+  if(!activitiesDialog.open){activitiesDialog.showModal();activityScroll.scrollLeft=0;activityIndex=0;activitySelectors.forEach(button=>button.setAttribute('aria-pressed','false'));}
  });
  document.getElementById('hb-activities-close').addEventListener('click',()=>activitiesDialog.close());
  activitiesDialog.addEventListener('click',event=>{
