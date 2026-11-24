@@ -284,6 +284,50 @@ main{flex:1;min-height:0;position:relative}
 .hb-activity-detail-meta p+p,.hb-activity-detail-meta p+.hb-activity-detail-label{margin-top:8px}
 @media(max-width:760px){.hb-stage-card{min-height:144px}.hb-activity-detail-inner{padding:19px}.hb-activity-detail-inner h3{font-size:25px}}
 
+
+/* Soft motion and movable financial windows. */
+.hb-activities-dialog,.hb-activity-detail-dialog{translate:var(--hb-window-x,0px) var(--hb-window-y,0px)}
+.hb-activities-dialog[open],.hb-activity-detail-dialog[open]{animation:hb-window-fade .28s ease-out both}
+.hb-activities-dialog[open] .hb-activities-inner,.hb-activity-detail-dialog[open] .hb-activity-detail-inner{animation:hb-window-content .36s cubic-bezier(.22,1,.36,1) both}
+.hb-activities-dialog[open]::backdrop,.hb-activity-detail-dialog[open]::backdrop{animation:hb-window-fade .25s ease-out both}
+@keyframes hb-window-fade{from{opacity:0}to{opacity:1}}
+@keyframes hb-window-content{from{opacity:0;transform:translateY(12px) scale(.985)}to{opacity:1;transform:translateY(0) scale(1)}}
+.hb-window-handle{cursor:grab;touch-action:none;user-select:none;position:relative;min-height:34px}
+.hb-window-handle:active,.hb-window-grip:active,.hb-window-dragging .hb-window-handle,.hb-window-dragging .hb-window-grip{cursor:grabbing}
+.hb-window-grip{display:grid;place-items:center;width:30px;height:28px;padding:0;border:0;border-radius:8px;color:#b19aa5;background:transparent;cursor:grab;touch-action:none;margin-left:auto}
+.hb-window-grip:hover,.hb-window-grip:focus-visible{background:#f4e9ee;color:#866373}
+.hb-window-dragging{box-shadow:0 26px 90px #43363e40}
+.hb-activities-trigger{background:linear-gradient(145deg,#fff 38%,#fff6f9);transition:transform .28s cubic-bezier(.22,1,.36,1),box-shadow .28s,border-color .28s}
+.hb-activities-trigger:hover,.hb-activities-trigger:focus-visible{transform:translateY(-4px);box-shadow:0 14px 34px #9d708226}
+.hb-trigger-icon svg,.hb-stage-card-top svg{transition:transform .32s cubic-bezier(.22,1,.36,1)}
+.hb-activities-trigger:hover .hb-trigger-icon svg,.hb-stage-card:hover .hb-stage-card-top svg{transform:translateY(-2px) scale(1.12)}
+.hb-activities-trigger:active{transform:translateY(0) scale(.99)}
+.hb-activity-scroll{padding-top:9px;padding-bottom:17px}
+.hb-activity-grid::before{transform-origin:left;animation:hb-timeline-grow .65s cubic-bezier(.22,1,.36,1) both}
+@keyframes hb-timeline-grow{from{transform:scaleX(0);opacity:.25}to{transform:scaleX(1);opacity:1}}
+.hb-activities-dialog[open] .hb-activity-stage{animation:hb-stage-enter .42s cubic-bezier(.22,1,.36,1) both;animation-delay:calc(70ms + var(--hb-stage-order,0)*65ms)}
+.hb-activity-stage:nth-child(2){--hb-stage-order:1}.hb-activity-stage:nth-child(3){--hb-stage-order:2}.hb-activity-stage:nth-child(4){--hb-stage-order:3}.hb-activity-stage:nth-child(5){--hb-stage-order:4}
+@keyframes hb-stage-enter{from{opacity:0;transform:translateY(9px)}to{opacity:1;transform:translateY(0)}}
+.hb-stage-card{background-image:linear-gradient(145deg,#ffffff65,transparent 75%);box-shadow:0 4px 11px #75606a0c;border-color:#9d708215;transition:transform .28s cubic-bezier(.22,1,.36,1),box-shadow .28s,border-color .28s}
+.hb-stage-card:hover,.hb-stage-card:focus-visible{transform:translateY(-4px);box-shadow:0 9px 20px #75606a20;border-color:#9d708240}
+.hb-stage-card[aria-pressed="true"]{border-color:#8da99a;box-shadow:0 7px 19px #688c7625}
+.hb-stage-card:active{transform:translateY(-1px) scale(.98)}
+.hb-stage-number{transition:background .25s,color .25s,box-shadow .25s,transform .25s}
+.hb-stage-number:hover,.hb-stage-number:focus-visible{transform:scale(1.08);box-shadow:0 0 0 4px #a7d9bf35}
+.hb-stage-number[aria-pressed="true"]{box-shadow:0 0 0 5px #a7d9bf40}
+.hb-activities-close{transition:background .2s,transform .25s}
+.hb-activities-close:hover{background:#d2eadd;transform:rotate(8deg)}
+.hb-activity-detail-dialog{background-image:linear-gradient(145deg,#ffffff90,transparent 85%);box-shadow:0 24px 80px #43363e38}
+.hb-activity-detail-dialog[open] .hb-activity-detail-meta{animation:hb-stage-enter .38s .09s cubic-bezier(.22,1,.36,1) both}
+.history-details summary{transition:background .2s,transform .2s,box-shadow .2s}
+.history-details summary:hover{transform:translateY(-1px);box-shadow:0 3px 10px #95848b30}
+.history-details[open]>:not(summary){animation:hb-expand-content .35s cubic-bezier(.22,1,.36,1) both}
+@keyframes hb-expand-content{from{opacity:0;transform:translateY(-5px)}to{opacity:1;transform:translateY(0)}}
+@media(prefers-reduced-motion:reduce){
+ .hb-activities-dialog[open],.hb-activity-detail-dialog[open],.hb-activities-dialog[open] .hb-activities-inner,.hb-activity-detail-dialog[open] .hb-activity-detail-inner,.hb-activities-dialog[open]::backdrop,.hb-activity-detail-dialog[open]::backdrop,.hb-activity-grid::before,.hb-activities-dialog[open] .hb-activity-stage,.hb-activity-detail-dialog[open] .hb-activity-detail-meta,.history-details[open]>:not(summary){animation:none!important}
+ .hb-stage-card:hover,.hb-activities-trigger:hover,.hb-stage-number:hover,.hb-activities-close:hover,.history-details summary:hover,.hb-stage-card:active,.hb-activities-trigger:active{transform:none}
+}
+
 </style></head>
 <body><div class="app">
 <header class="header"><span class="brand">HILO BONITO</span><nav class="mode-nav" aria-label="Áreas">
@@ -496,8 +540,9 @@ main{flex:1;min-height:0;position:relative}
 </main></div>
 <dialog class="hb-activities-dialog" id="hb-activities-dialog" aria-labelledby="hb-activities-title">
  <div class="hb-activities-inner">
-  <div class="hb-activities-top">
+  <div class="hb-activities-top hb-window-handle">
    <span class="eyebrow">Hilo Bonito <span class="eyebrow-bullet">·</span> Proceso</span>
+   <button type="button" class="hb-window-grip" aria-label="Mover ventana con las flechas del teclado" title="Arrastra el encabezado para mover la ventana"><svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor" aria-hidden="true"><circle cx="8" cy="6" r="1.5"/><circle cx="16" cy="6" r="1.5"/><circle cx="8" cy="12" r="1.5"/><circle cx="16" cy="12" r="1.5"/><circle cx="8" cy="18" r="1.5"/><circle cx="16" cy="18" r="1.5"/></svg></button>
    <button type="button" class="hb-activities-close" id="hb-activities-close" aria-label="Cerrar actividades">×</button>
   </div>
   <header class="hb-activities-heading">
@@ -557,8 +602,9 @@ main{flex:1;min-height:0;position:relative}
 </dialog>
 <dialog id="hb-activity-detail-dialog" class="hb-activity-detail-dialog" aria-labelledby="hb-activity-detail-title">
  <div class="hb-activity-detail-inner">
-  <div class="hb-activity-detail-top">
+  <div class="hb-activity-detail-top hb-window-handle">
    <span class="eyebrow" id="hb-activity-detail-step"></span>
+   <button type="button" class="hb-window-grip" aria-label="Mover ventana con las flechas del teclado" title="Arrastra el encabezado para mover la ventana"><svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor" aria-hidden="true"><circle cx="8" cy="6" r="1.5"/><circle cx="16" cy="6" r="1.5"/><circle cx="8" cy="12" r="1.5"/><circle cx="16" cy="12" r="1.5"/><circle cx="8" cy="18" r="1.5"/><circle cx="16" cy="18" r="1.5"/></svg></button>
    <button type="button" class="hb-activities-close" id="hb-activity-detail-close" aria-label="Cerrar detalle">×</button>
   </div>
   <h3 id="hb-activity-detail-title"></h3>
@@ -843,6 +889,71 @@ main{flex:1;min-height:0;position:relative}
   }
  }
  const activityDetailDialog=document.getElementById('hb-activity-detail-dialog');
+
+ // Move each window independently, while keeping its full box within the viewport.
+ function makeMovableWindow(dialog){
+  const handle=dialog.querySelector('.hb-window-handle');
+  const grip=handle.querySelector('.hb-window-grip');
+  let x=0,y=0,drag=null;
+  const margin=6;
+  function move(nextX,nextY){
+   const rect=dialog.getBoundingClientRect();
+   const baseLeft=rect.left-x,baseTop=rect.top-y;
+   const minX=margin-baseLeft,maxX=window.innerWidth-margin-rect.width-baseLeft;
+   const minY=margin-baseTop,maxY=window.innerHeight-margin-rect.height-baseTop;
+   x=maxX<minX?(minX+maxX)/2:Math.max(minX,Math.min(maxX,nextX));
+   y=maxY<minY?(minY+maxY)/2:Math.max(minY,Math.min(maxY,nextY));
+   dialog.style.setProperty('--hb-window-x',x+'px');
+   dialog.style.setProperty('--hb-window-y',y+'px');
+  }
+  function reset(){
+   x=0;y=0;drag=null;
+   dialog.style.removeProperty('--hb-window-x');
+   dialog.style.removeProperty('--hb-window-y');
+   dialog.classList.remove('hb-window-dragging');
+  }
+  handle.addEventListener('pointerdown',event=>{
+   if(!event.isPrimary||event.button!==0||event.target.closest('.hb-activities-close'))return;
+   drag={id:event.pointerId,startX:event.clientX,startY:event.clientY,x,y};
+   handle.setPointerCapture(event.pointerId);
+   dialog.classList.add('hb-window-dragging');
+   event.preventDefault();
+  });
+  handle.addEventListener('pointermove',event=>{
+   if(!drag||drag.id!==event.pointerId)return;
+   move(drag.x+event.clientX-drag.startX,drag.y+event.clientY-drag.startY);
+  });
+  function endDrag(event){
+   if(!drag||drag.id!==event.pointerId)return;
+   drag=null;dialog.classList.remove('hb-window-dragging');
+   if(handle.hasPointerCapture(event.pointerId))handle.releasePointerCapture(event.pointerId);
+  }
+  ['pointerup','pointercancel','lostpointercapture'].forEach(type=>handle.addEventListener(type,endDrag));
+  grip.addEventListener('keydown',event=>{
+   const deltas={ArrowLeft:[-16,0],ArrowRight:[16,0],ArrowUp:[0,-16],ArrowDown:[0,16]};
+   if(!deltas[event.key])return;
+   event.preventDefault();event.stopPropagation();
+   const [dx,dy]=deltas[event.key];move(x+dx,y+dy);
+  });
+  window.addEventListener('resize',()=>{if(dialog.open)move(x,y)});
+  dialog.addEventListener('close',reset);
+ }
+ function closeAnimatedWindow(dialog){
+  if(!dialog.open||dialog.classList.contains('hb-window-closing'))return;
+  if(reduced||!dialog.animate){dialog.close();return;}
+  dialog.classList.add('hb-window-closing');
+  const motion=dialog.animate([{opacity:1},{opacity:0}],{duration:150,easing:'ease-in',fill:'forwards'});
+  motion.finished.then(()=>{
+   dialog.close();motion.cancel();dialog.classList.remove('hb-window-closing');
+  },()=>{
+   dialog.close();dialog.classList.remove('hb-window-closing');
+  });
+ }
+ [activitiesDialog,activityDetailDialog].forEach(dialog=>{
+  makeMovableWindow(dialog);
+  dialog.addEventListener('cancel',event=>{event.preventDefault();closeAnimatedWindow(dialog)});
+ });
+
  function openActivityDetail(index){
   selectActivity(index);
   const card=activityCards[activityIndex];
@@ -854,21 +965,21 @@ main{flex:1;min-height:0;position:relative}
   if(!activityDetailDialog.open)activityDetailDialog.showModal();
  }
  activitySelectors.forEach(button=>button.addEventListener('click',()=>openActivityDetail(Number(button.dataset.stage))));
- document.getElementById('hb-activity-detail-close').addEventListener('click',()=>activityDetailDialog.close());
+ document.getElementById('hb-activity-detail-close').addEventListener('click',()=>closeAnimatedWindow(activityDetailDialog));
  activityDetailDialog.addEventListener('click',event=>{
   if(event.target!==activityDetailDialog)return;
   const box=activityDetailDialog.getBoundingClientRect();
-  if(event.clientX<box.left||event.clientX>box.right||event.clientY<box.top||event.clientY>box.bottom)activityDetailDialog.close();
+  if(event.clientX<box.left||event.clientX>box.right||event.clientY<box.top||event.clientY>box.bottom)closeAnimatedWindow(activityDetailDialog);
  });
  activityDetailDialog.addEventListener('close',()=>activityCards[activityIndex].focus({preventScroll:true}));
  activitiesOpen.addEventListener('click',()=>{
   if(!activitiesDialog.open){activitiesDialog.showModal();activityScroll.scrollLeft=0;activityIndex=0;activitySelectors.forEach(button=>button.setAttribute('aria-pressed','false'));}
  });
- document.getElementById('hb-activities-close').addEventListener('click',()=>activitiesDialog.close());
+ document.getElementById('hb-activities-close').addEventListener('click',()=>closeAnimatedWindow(activitiesDialog));
  activitiesDialog.addEventListener('click',event=>{
   if(event.target!==activitiesDialog)return;
   const box=activitiesDialog.getBoundingClientRect();
-  if(event.clientX<box.left||event.clientX>box.right||event.clientY<box.top||event.clientY>box.bottom)activitiesDialog.close();
+  if(event.clientX<box.left||event.clientX>box.right||event.clientY<box.top||event.clientY>box.bottom)closeAnimatedWindow(activitiesDialog);
  });
  activitiesDialog.addEventListener('close',()=>activitiesOpen.focus());
  activitiesDialog.addEventListener('keydown',event=>{
