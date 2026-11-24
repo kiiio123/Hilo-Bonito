@@ -251,7 +251,7 @@ main{flex:1;min-height:0;position:relative}
 .hb-activity-stage:nth-child(even) .hb-stage-number{background:#fbe4f0;border-color:#efd6e3;color:#9e7a8c}
 .hb-activity-grid .hb-stage-number[aria-pressed="true"]{background:#779889;border-color:#779889;color:white}
 .hb-stage-connector{width:1px;height:18px;background:#d9e4dc}
-.hb-stage-card{width:100%;min-height:166px;flex:1;display:flex;flex-direction:column;align-items:flex-start;gap:12px;padding:18px 13px;border:1px solid #00000006;border-radius:17px;text-align:left;color:#5b4b52;transition:transform .2s,border-color .2s,box-shadow .2s}
+.hb-stage-card{width:100%;min-height:104px;flex:1;display:flex;flex-direction:column;align-items:flex-start;gap:12px;padding:18px 13px;border:1px solid #00000006;border-radius:17px;text-align:left;color:#5b4b52;transition:transform .2s,border-color .2s,box-shadow .2s}
 .hb-menta{background:#e7f4ec}.hb-rosa{background:#fbe4f0}
 .hb-stage-card[aria-pressed="true"]{border-color:#8da99a;box-shadow:0 5px 15px #688c7614}
 .hb-stage-card:hover{transform:translateY(-2px)}
@@ -259,12 +259,23 @@ main{flex:1;min-height:0;position:relative}
 .hb-rosa .hb-stage-card-top{color:#9e7a8c}
 .hb-card-number{background:#ffffffb3;border-radius:50px;padding:4px 10px;font:700 11px Arial,sans-serif;letter-spacing:.1em}
 .hb-stage-name{font:400 clamp(15px,1.5vw,20px)/1.2 Georgia,serif;color:#5a5357;overflow-wrap:anywhere}
-.hb-stage-description{font:400 13px/1.5 'Segoe UI',Arial,sans-serif;color:#766d73}
+.hb-stage-description{display:none}
+.hb-activity-detail[hidden]{display:none!important}
+.hb-activity-detail{padding:clamp(18px,2.5vw,28px);border:1px solid #e0e9df;border-radius:18px;background:#f8fbf8;display:grid;gap:16px;animation:hb-detail-in .22s ease-out}
+.hb-activity-detail h3{font:400 clamp(21px,2.4vw,29px)/1.2 Georgia,serif;margin:0;color:#866373}
+.hb-detail-grid{display:grid;grid-template-columns:1.4fr 1.2fr .8fr;gap:12px}
+.hb-detail-field{padding:13px 15px;border:1px solid #e8e4e6;border-radius:12px;background:#fffefd;min-width:0}
+.hb-detail-label{display:block;font-size:10px;letter-spacing:.11em;text-transform:uppercase;color:#866373;font-weight:700;margin-bottom:7px}
+.hb-detail-field p{font:400 13px/1.5 'Segoe UI',Arial,sans-serif;color:#5b4b52;margin:0;overflow-wrap:anywhere}
+.hb-stage-select:focus-visible{outline:2px solid #779889;outline-offset:3px}
+@keyframes hb-detail-in{from{opacity:0;transform:translateY(5px)}to{opacity:1;transform:translateY(0)}}
+@media(max-width:760px){.hb-detail-grid{grid-template-columns:1fr}}
+@media(prefers-reduced-motion:reduce){.hb-activity-detail{animation:none}}
 @media(max-width:760px){
  .hb-activities-trigger{padding:9px 12px;gap:3px}.hb-trigger-icon svg{width:17px;height:17px}.hb-trigger-title{font-size:17px}.hb-trigger-subtitle{font-size:9px}
  .hb-activities-dialog{width:calc(100% - 20px);max-height:calc(100dvh - 24px);border-radius:19px}
  .hb-activities-inner{padding:17px;gap:15px}.hb-activity-grid{min-width:790px;grid-template-columns:repeat(5,148px);gap:12px}
- .hb-stage-card{min-height:157px;padding:14px 12px}.hb-stage-description{font-size:12px}
+ .hb-stage-card{min-height:100px;padding:14px 12px}.hb-stage-description{font-size:12px}
 }
 
 </style></head>
@@ -490,53 +501,61 @@ main{flex:1;min-height:0;position:relative}
   <div class="hb-activity-scroll" id="hb-activity-scroll">
    <div class="hb-activity-grid" aria-label="Etapas del proyecto">
     <div class="hb-activity-stage">
-     <button type="button" class="hb-stage-number hb-stage-select" data-stage="0" aria-label="Etapa 1: Diagnóstico" aria-pressed="true">01</button>
+     <button type="button" class="hb-stage-number hb-stage-select" data-stage="0" aria-label="Etapa 1: Diagnóstico" aria-pressed="false" aria-expanded="false" aria-controls="hb-activity-detail">01</button>
      <span class="hb-stage-connector" aria-hidden="true"></span>
-     <button type="button" class="hb-stage-card hb-stage-select hb-menta" data-stage="0" aria-pressed="true">
+     <button type="button" class="hb-stage-card hb-stage-select hb-menta" data-stage="0" data-date="" aria-pressed="false" aria-expanded="false" aria-controls="hb-activity-detail">
       <span class="hb-stage-card-top"><span class="hb-card-number">01</span><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx='10' cy='10' r='6'/><path d='m15 15 5 5'/></svg></span>
       <span class="hb-stage-name">Diagnóstico</span>
-      <span class="hb-stage-description">Análisis de necesidades y fallas del sector SENA.</span>
+      <span class="hb-stage-description" hidden>Análisis de necesidades y fallas del sector SENA.</span>
      </button>
     </div>
     <div class="hb-activity-stage">
-     <button type="button" class="hb-stage-number hb-stage-select" data-stage="1" aria-label="Etapa 2: Diseño" aria-pressed="false">02</button>
+     <button type="button" class="hb-stage-number hb-stage-select" data-stage="1" aria-label="Etapa 2: Diseño" aria-pressed="false" aria-expanded="false" aria-controls="hb-activity-detail">02</button>
      <span class="hb-stage-connector" aria-hidden="true"></span>
-     <button type="button" class="hb-stage-card hb-stage-select hb-rosa" data-stage="1" aria-pressed="false">
+     <button type="button" class="hb-stage-card hb-stage-select hb-rosa" data-stage="1" data-date="" aria-pressed="false" aria-expanded="false" aria-controls="hb-activity-detail">
       <span class="hb-stage-card-top"><span class="hb-card-number">02</span><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d='m12 3 9 9-8 8-9-9 8-8Z'/><path d='M8 7l9 9M6 15l3 3'/></svg></span>
       <span class="hb-stage-name">Diseño</span>
-      <span class="hb-stage-description">Selección de telas uniformes y precios justos.</span>
+      <span class="hb-stage-description" hidden>Selección de telas uniformes y precios justos.</span>
      </button>
     </div>
     <div class="hb-activity-stage">
-     <button type="button" class="hb-stage-number hb-stage-select" data-stage="2" aria-label="Etapa 3: Implementación" aria-pressed="false">03</button>
+     <button type="button" class="hb-stage-number hb-stage-select" data-stage="2" aria-label="Etapa 3: Implementación" aria-pressed="false" aria-expanded="false" aria-controls="hb-activity-detail">03</button>
      <span class="hb-stage-connector" aria-hidden="true"></span>
-     <button type="button" class="hb-stage-card hb-stage-select hb-menta" data-stage="2" aria-pressed="false">
+     <button type="button" class="hb-stage-card hb-stage-select hb-menta" data-stage="2" data-date="" aria-pressed="false" aria-expanded="false" aria-controls="hb-activity-detail">
       <span class="hb-stage-card-top"><span class="hb-card-number">03</span><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx='6' cy='6' r='3'/><circle cx='6' cy='18' r='3'/><path d='m9 8 12 13M9 16 21 3M14 12l3-3'/></svg></span>
       <span class="hb-stage-name">Implementación</span>
-      <span class="hb-stage-description">Puesta en marcha del taller y atención cercana.</span>
+      <span class="hb-stage-description" hidden>Puesta en marcha del taller y atención cercana.</span>
      </button>
     </div>
     <div class="hb-activity-stage">
-     <button type="button" class="hb-stage-number hb-stage-select" data-stage="3" aria-label="Etapa 4: Evaluación" aria-pressed="false">04</button>
+     <button type="button" class="hb-stage-number hb-stage-select" data-stage="3" aria-label="Etapa 4: Evaluación" aria-pressed="false" aria-expanded="false" aria-controls="hb-activity-detail">04</button>
      <span class="hb-stage-connector" aria-hidden="true"></span>
-     <button type="button" class="hb-stage-card hb-stage-select hb-rosa" data-stage="3" aria-pressed="false">
+     <button type="button" class="hb-stage-card hb-stage-select hb-rosa" data-stage="3" data-date="" aria-pressed="false" aria-expanded="false" aria-controls="hb-activity-detail">
       <span class="hb-stage-card-top"><span class="hb-card-number">04</span><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x='5' y='5' width='14' height='16' rx='2'/><path d='M9 5V3h6v2M8 13l3 3 5-6'/></svg></span>
       <span class="hb-stage-name">Evaluación</span>
-      <span class="hb-stage-description">Control de calidad en costuras y puntualidad.</span>
+      <span class="hb-stage-description" hidden>Control de calidad en costuras y puntualidad.</span>
      </button>
     </div>
     <div class="hb-activity-stage">
-     <button type="button" class="hb-stage-number hb-stage-select" data-stage="4" aria-label="Etapa 5: Cierre" aria-pressed="false">05</button>
+     <button type="button" class="hb-stage-number hb-stage-select" data-stage="4" aria-label="Etapa 5: Cierre" aria-pressed="false" aria-expanded="false" aria-controls="hb-activity-detail">05</button>
      <span class="hb-stage-connector" aria-hidden="true"></span>
-     <button type="button" class="hb-stage-card hb-stage-select hb-menta" data-stage="4" aria-pressed="false">
+     <button type="button" class="hb-stage-card hb-stage-select hb-menta" data-stage="4" data-date="" aria-pressed="false" aria-expanded="false" aria-controls="hb-activity-detail">
       <span class="hb-stage-card-top"><span class="hb-card-number">05</span><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d='m3 7 9-4 9 4v10l-9 4-9-4V7Zm0 0 9 4 9-4M12 11v10'/><path d='m8 5 9 4'/></svg></span>
       <span class="hb-stage-name">Cierre</span>
-      <span class="hb-stage-description">Entrega puntual y consolidación de marca.</span>
+      <span class="hb-stage-description" hidden>Entrega puntual y consolidación de marca.</span>
      </button>
     </div>
    </div>
   </div>
- </div>
+ <section class="hb-activity-detail" id="hb-activity-detail" aria-live="polite" aria-labelledby="hb-detail-title" hidden>
+    <h3 id="hb-detail-title"></h3>
+    <div class="hb-detail-grid">
+     <div class="hb-detail-field"><span class="hb-detail-label">Detalle</span><p id="hb-detail-description"></p></div>
+     <div class="hb-detail-field"><span class="hb-detail-label">Responsables</span><p>Geraldine Ardila Buitrago<br>Any Tatiana Barrera</p></div>
+     <div class="hb-detail-field"><span class="hb-detail-label">Fechas</span><p id="hb-detail-date"></p></div>
+    </div>
+   </section>
+  </div>
 </dialog>
 <div class="popover-backdrop" id="popup" hidden><div class="popover" role="dialog" aria-modal="true" aria-labelledby="popup-title"><button type="button" class="popover-close" id="popup-close" aria-label="Cerrar">×</button><h2 id="popup-title"></h2><div id="overview" class="chapter-list" hidden></div></div></div>
 <script>
@@ -797,11 +816,24 @@ main{flex:1;min-height:0;position:relative}
  const activityScroll=document.getElementById('hb-activity-scroll');
  const activityCards=[...activitiesDialog.querySelectorAll('.hb-stage-card')];
  const activitySelectors=[...activitiesDialog.querySelectorAll('.hb-stage-select')];
- let activityIndex=0;
+ const activityDetail=document.getElementById('hb-activity-detail');
+ const activityDetailTitle=document.getElementById('hb-detail-title');
+ const activityDetailDescription=document.getElementById('hb-detail-description');
+ const activityDetailDate=document.getElementById('hb-detail-date');
+ let activityIndex=-1;
+ function resetActivity(){
+  activityIndex=-1;
+  activityDetail.hidden=true;
+  activitySelectors.forEach(button=>{button.setAttribute('aria-pressed','false');button.setAttribute('aria-expanded','false')});
+ }
  function selectActivity(index,scroll=true){
   activityIndex=Math.max(0,Math.min(activityCards.length-1,index));
   const card=activityCards[activityIndex];
-  activitySelectors.forEach(button=>button.setAttribute('aria-pressed',String(Number(button.dataset.stage)===activityIndex)));
+  activitySelectors.forEach(button=>{const active=String(Number(button.dataset.stage)===activityIndex);button.setAttribute('aria-pressed',active);button.setAttribute('aria-expanded',active)});
+  activityDetailTitle.textContent=card.querySelector('.hb-stage-name').textContent;
+  activityDetailDescription.textContent=card.querySelector('.hb-stage-description').textContent;
+  activityDetailDate.textContent=card.dataset.date||'Por definir';
+  activityDetail.hidden=false;
   if(scroll){
    const bounds=card.getBoundingClientRect(),viewport=activityScroll.getBoundingClientRect();
    if(bounds.left<viewport.left||bounds.right>viewport.right){
@@ -809,9 +841,9 @@ main{flex:1;min-height:0;position:relative}
    }
   }
  }
- activitySelectors.forEach(button=>button.addEventListener('click',()=>selectActivity(Number(button.dataset.stage))));
+ activitySelectors.forEach(button=>button.addEventListener('click',()=>{const index=Number(button.dataset.stage);if(index===activityIndex){resetActivity()}else{selectActivity(index)}}));
  activitiesOpen.addEventListener('click',()=>{
-  if(!activitiesDialog.open){activitiesDialog.showModal();activityScroll.scrollLeft=0;selectActivity(0,false);}
+  if(!activitiesDialog.open){activitiesDialog.showModal();activityScroll.scrollLeft=0;resetActivity();}
  });
  document.getElementById('hb-activities-close').addEventListener('click',()=>activitiesDialog.close());
  activitiesDialog.addEventListener('click',event=>{
