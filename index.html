@@ -226,6 +226,10 @@ main{flex:1;min-height:0;position:relative}
  .chapter .panel-display{font-size:clamp(28px,4.5vw,76px);letter-spacing:.005em}
 }
 
+
+.editorial-copy .copy-content.values-content{display:block;flex:0 1 auto;min-height:0;max-height:none;overflow-y:auto;overflow-x:hidden;overscroll-behavior:contain}
+.values-content .values-preview{margin-top:0}
+.values-content + .panel-display{flex-shrink:0}
 </style></head>
 <body><div class="app">
 <header class="header"><span class="brand">HILO BONITO</span><nav class="mode-nav" aria-label="Áreas">
@@ -301,7 +305,20 @@ main{flex:1;min-height:0;position:relative}
 <div class="editorial-aside"><span class="aside-title">Valores</span><div aria-hidden="true" class="aside-stitch"></div></div>
 <div class="editorial-copy">
 <span class="eyebrow">Hilo Bonito <span class="eyebrow-bullet">·</span> Valores</span>
-<div class="copy-content"><div class="values-scroll"><article class="value"><span aria-hidden="true" class="value-dot"></span><div><h3>Puntualidad y Cumplimiento</h3><p>Respetamos el tiempo de nuestros clientes entregando cada uniforme, pantalón o arreglo en la fecha pactada, sin excusas ni retrasos.</p></div></article><article class="value"><span aria-hidden="true" class="value-dot"></span><div><h3>Precisión y Calidad</h3><p>Cuidamos cada medida, corte y puntada con rigor artesanal para entregar prendas de excelente horma, acabados limpios y máxima durabilidad.</p></div></article><article class="value"><span aria-hidden="true" class="value-dot"></span><div><h3>Cercanía y Empatía</h3><p>Escuchamos con atención a cada persona para entender sus requerimientos, brindando un trato amable, respetuoso y personalizado.</p></div></article><article class="value"><span aria-hidden="true" class="value-dot"></span><div><h3>Pasión por el Detalle</h3><p>Creemos que la diferencia está en las pequeñas cosas; por eso revisamos cada costura y botón antes de entregar una prenda, honrando el arte de vestir bien.</p></div></article><article class="value"><span aria-hidden="true" class="value-dot"></span><div><h3>Honestidad y Transparencia</h3><p>Asesoramos con sinceridad sobre los tipos de tela, los arreglos más convenientes y los presupuestos justos para cada necesidad.</p></div></article></div></div>
+<div class="copy-content values-scroll values-content" tabindex="0">
+ <div class="objectives-list values-preview">
+  <article class="value"><span aria-hidden="true" class="value-dot"></span><div><h3>Puntualidad y Cumplimiento</h3><p>Respetamos el tiempo de nuestros clientes entregando cada uniforme, pantalón o arreglo en la fecha pactada, sin excusas ni retrasos.</p></div></article>
+  <article class="value"><span aria-hidden="true" class="value-dot"></span><div><h3>Precisión y Calidad</h3><p>Cuidamos cada medida, corte y puntada con rigor artesanal para entregar prendas de excelente horma, acabados limpios y máxima durabilidad.</p></div></article>
+ </div>
+ <details class="history-details">
+  <summary><span class="history-more">VER MÁS</span><span class="history-less">VER MENOS</span></summary>
+  <div class="objectives-list values-expanded">
+   <article class="value"><span aria-hidden="true" class="value-dot"></span><div><h3>Cercanía y Empatía</h3><p>Escuchamos con atención a cada persona para entender sus requerimientos, brindando un trato amable, respetuoso y personalizado.</p></div></article>
+   <article class="value"><span aria-hidden="true" class="value-dot"></span><div><h3>Pasión por el Detalle</h3><p>Creemos que la diferencia está en las pequeñas cosas; por eso revisamos cada costura y botón antes de entregar una prenda, honrando el arte de vestir bien.</p></div></article>
+   <article class="value"><span aria-hidden="true" class="value-dot"></span><div><h3>Honestidad y Transparencia</h3><p>Asesoramos con sinceridad sobre los tipos de tela, los arreglos más convenientes y los presupuestos justos para cada necesidad.</p></div></article>
+  </div>
+ </details>
+</div>
 <h2 class="panel-display">Valores</h2>
 </div>
 </div></div>
