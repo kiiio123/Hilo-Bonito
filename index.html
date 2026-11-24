@@ -230,6 +230,54 @@ main{flex:1;min-height:0;position:relative}
 .editorial-copy .copy-content.values-content{display:block;flex:0 1 auto;min-height:0;max-height:none;overflow-y:auto;overflow-x:hidden;overscroll-behavior:contain}
 .values-content .values-preview{margin-top:0}
 .values-content + .panel-display{flex-shrink:0}
+
+/* Financiera: Activities and schedule. Scoped to the new card and dialog. */
+.hb-activities-trigger{display:flex;flex-direction:column;align-items:flex-start;justify-content:center;gap:6px;min-width:0;padding:clamp(12px,1.65vw,24px);text-align:left;color:#866373;transition:transform .2s,box-shadow .2s,border-color .2s}
+.hb-activities-trigger:hover{transform:translateY(-3px);border-color:#dcbcc9;box-shadow:0 12px 30px #9d70821b}
+.hb-trigger-icon{display:flex;color:#a07a89}.hb-trigger-title{font:400 clamp(18px,1.8vw,27px)/1.15 Georgia,serif}
+.hb-trigger-subtitle{display:flex;justify-content:space-between;align-items:center;width:100%;gap:6px;font-size:11px;color:#a18d96}
+.hb-activities-dialog{width:min(1050px,calc(100% - 32px));max-height:calc(100dvh - 32px);padding:0;overflow:auto;border:1px solid #efdee5;border-radius:25px;background:#fffefd;color:#5b4b52;box-shadow:0 24px 90px #68505e30;scrollbar-width:thin;scrollbar-color:#e4bccd transparent}
+.hb-activities-dialog::backdrop{background:#43363e66;backdrop-filter:blur(4px)}
+.hb-activities-inner{padding:clamp(18px,3vw,38px);display:flex;flex-direction:column;gap:clamp(15px,2.3vh,25px)}
+.hb-activities-top{display:flex;align-items:center;justify-content:space-between;gap:12px}
+.hb-activities-close{width:34px;height:34px;flex-shrink:0;border:0;border-radius:50%;background:#e4f5eb;color:#648e75;font-size:23px;line-height:1}
+.hb-activities-heading{text-align:center}.hb-activities-heading h2{font:400 clamp(26px,3vw,40px)/1.2 Georgia,serif;color:#866373;margin:0}
+.hb-heading-line{width:65px;height:1px;background:#a9d4bc;margin:14px auto 0}
+.hb-activity-scroll{overflow-x:auto;padding:4px 2px 10px;scrollbar-width:thin;scrollbar-color:#e3c8d4 transparent}
+.hb-activity-grid{display:grid;grid-template-columns:repeat(5,minmax(140px,1fr));gap:12px;min-width:748px;position:relative}
+.hb-activity-grid::before{content:"";height:1px;background:#d9e4dc;position:absolute;top:21px;left:10%;right:10%}
+.hb-activity-stage{position:relative;display:flex;flex-direction:column;align-items:center;min-width:0}
+.hb-stage-number{display:grid;place-items:center;width:44px;height:44px;flex:none;border-radius:50%;border:1px solid #d8e8df;background:#e7f4ec;color:#738b7b;position:relative;font:700 12px 'Segoe UI',Arial,sans-serif;transition:background .2s,color .2s}
+.hb-activity-stage:nth-child(even) .hb-stage-number{background:#fbe4f0;border-color:#efd6e3;color:#9e7a8c}
+.hb-activity-grid .hb-stage-number[aria-pressed="true"]{background:#779889;border-color:#779889;color:white}
+.hb-stage-connector{width:1px;height:18px;background:#d9e4dc}
+.hb-stage-card{width:100%;min-height:166px;flex:1;display:flex;flex-direction:column;align-items:flex-start;gap:12px;padding:18px 13px;border:1px solid #00000006;border-radius:17px;text-align:left;color:#5b4b52;transition:transform .2s,border-color .2s,box-shadow .2s}
+.hb-menta{background:#e7f4ec}.hb-rosa{background:#fbe4f0}
+.hb-stage-card[aria-pressed="true"]{border-color:#8da99a;box-shadow:0 5px 15px #688c7614}
+.hb-stage-card:hover{transform:translateY(-2px)}
+.hb-stage-card-top{display:flex;align-items:center;justify-content:space-between;width:100%;gap:5px;color:#7d8f85}
+.hb-rosa .hb-stage-card-top{color:#9e7a8c}
+.hb-card-number{background:#ffffffb3;border-radius:50px;padding:4px 10px;font:700 11px Arial,sans-serif;letter-spacing:.1em}
+.hb-stage-name{font:400 clamp(15px,1.5vw,20px)/1.2 Georgia,serif;color:#5a5357;overflow-wrap:anywhere}
+.hb-stage-description{font:400 13px/1.5 'Segoe UI',Arial,sans-serif;color:#766d73}
+.hb-stage-detail{border-radius:17px;padding:clamp(16px,2.3vw,25px);display:flex;flex-direction:column;gap:9px;background:#f4faf6}
+.hb-stage-detail.hb-rosa{background:#fff5f9}
+.hb-stage-kicker{font:700 10px 'Segoe UI',Arial,sans-serif;letter-spacing:.16em;color:#9a8590}
+.hb-stage-detail h3{font:400 25px/1.2 Georgia,serif;color:#79616d;margin:0}
+.hb-stage-detail p{font:400 14px/1.55 'Segoe UI',Arial,sans-serif;color:#70666b;margin:0}
+.hb-stage-date{display:flex;align-items:center;gap:9px;color:#887980;font-size:12px;border-top:1px solid #eadfe4;padding-top:12px;margin-top:3px}
+.hb-stage-date svg{flex:none;width:18px;height:18px;color:#a08a95}
+.hb-stage-navigation{display:flex;align-items:center;justify-content:space-between;gap:8px}
+.hb-stage-navigation button{border:1px solid #ead8e1;border-radius:9px;padding:9px 15px;background:#fff;color:#866373;font-size:12px;font-weight:600}
+.hb-stage-navigation button:disabled{opacity:.4;cursor:default}.hb-stage-navigation button:not(:disabled):hover{background:#f7eaf0}
+.hb-stage-navigation>span{font-size:12px;color:#9b8993}
+@media(max-width:760px){
+ .hb-activities-trigger{padding:9px 12px;gap:3px}.hb-trigger-icon svg{width:17px;height:17px}.hb-trigger-title{font-size:17px}.hb-trigger-subtitle{font-size:9px}
+ .hb-activities-dialog{width:calc(100% - 20px);max-height:calc(100dvh - 24px);border-radius:19px}
+ .hb-activities-inner{padding:17px;gap:15px}.hb-activity-grid{min-width:790px;grid-template-columns:repeat(5,148px);gap:12px}
+ .hb-stage-card{min-height:157px;padding:14px 12px}.hb-stage-description{font-size:12px}.hb-stage-detail h3{font-size:22px}.hb-stage-detail p{font-size:13px}
+}
+
 </style></head>
 <body><div class="app">
 <header class="header"><span class="brand">HILO BONITO</span><nav class="mode-nav" aria-label="Áreas">
@@ -368,7 +416,13 @@ main{flex:1;min-height:0;position:relative}
 <button class="mobile-back" id="mobile-back" type="button" aria-label="Anterior">‹</button>
 </div></section>
 <section class="finance" id="finance" hidden aria-label="Financiera"><div><span class="eyebrow">Hilo Bonito</span><h1>Financiera</h1></div>
-<div class="finance-cards"><div class="finance-card"></div><div class="finance-card"></div><div class="finance-card"></div><div class="finance-card"></div></div>
+<div class="finance-cards">
+<button class="finance-card hb-activities-trigger" type="button" id="hb-activities-open" aria-haspopup="dialog" aria-controls="hb-activities-dialog">
+ <span class="hb-trigger-icon"><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="8" y="2" width="8" height="6" rx="1.5"/><path d="M12 8v5M5 16v-3h14v3"/><rect x="1" y="16" width="8" height="6" rx="1.5"/><rect x="15" y="16" width="8" height="6" rx="1.5"/></svg></span>
+ <span class="hb-trigger-title">Actividades</span>
+ <span class="hb-trigger-subtitle">Proceso y cronograma <span aria-hidden="true">↗</span></span>
+</button>
+<div class="finance-card"></div><div class="finance-card"></div><div class="finance-card"></div></div>
 <div class="finance-charts"><div class="finance-plot"></div><div class="finance-plot"></div></div></section>
 <section class="locations-screen" id="locations-screen" hidden aria-labelledby="locations-title">
   <div class="location-layout">
@@ -434,6 +488,78 @@ main{flex:1;min-height:0;position:relative}
 </section>
 <div class="mini-toast" role="status" id="mini-toast" hidden></div>
 </main></div>
+<dialog class="hb-activities-dialog" id="hb-activities-dialog" aria-labelledby="hb-activities-title">
+ <div class="hb-activities-inner">
+  <div class="hb-activities-top">
+   <span class="eyebrow">Hilo Bonito <span class="eyebrow-bullet">·</span> Proceso</span>
+   <button type="button" class="hb-activities-close" id="hb-activities-close" aria-label="Cerrar actividades">×</button>
+  </div>
+  <header class="hb-activities-heading">
+   <h2 id="hb-activities-title">Actividades principales</h2>
+   <div aria-hidden="true" class="hb-heading-line"></div>
+  </header>
+  <div class="hb-activity-scroll" id="hb-activity-scroll">
+   <div class="hb-activity-grid" aria-label="Etapas del proyecto">
+    <div class="hb-activity-stage">
+     <button type="button" class="hb-stage-number hb-stage-select" data-stage="0" aria-label="Etapa 1: Diagnóstico" aria-pressed="true">01</button>
+     <span class="hb-stage-connector" aria-hidden="true"></span>
+     <button type="button" class="hb-stage-card hb-stage-select hb-menta" data-stage="0" aria-pressed="true">
+      <span class="hb-stage-card-top"><span class="hb-card-number">01</span><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx='10' cy='10' r='6'/><path d='m15 15 5 5'/></svg></span>
+      <span class="hb-stage-name">Diagnóstico</span>
+      <span class="hb-stage-description">Análisis de necesidades y fallas del sector SENA.</span>
+     </button>
+    </div>
+    <div class="hb-activity-stage">
+     <button type="button" class="hb-stage-number hb-stage-select" data-stage="1" aria-label="Etapa 2: Diseño" aria-pressed="false">02</button>
+     <span class="hb-stage-connector" aria-hidden="true"></span>
+     <button type="button" class="hb-stage-card hb-stage-select hb-rosa" data-stage="1" aria-pressed="false">
+      <span class="hb-stage-card-top"><span class="hb-card-number">02</span><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d='m12 3 9 9-8 8-9-9 8-8Z'/><path d='M8 7l9 9M6 15l3 3'/></svg></span>
+      <span class="hb-stage-name">Diseño</span>
+      <span class="hb-stage-description">Selección de telas uniformes y precios justos.</span>
+     </button>
+    </div>
+    <div class="hb-activity-stage">
+     <button type="button" class="hb-stage-number hb-stage-select" data-stage="2" aria-label="Etapa 3: Implementación" aria-pressed="false">03</button>
+     <span class="hb-stage-connector" aria-hidden="true"></span>
+     <button type="button" class="hb-stage-card hb-stage-select hb-menta" data-stage="2" aria-pressed="false">
+      <span class="hb-stage-card-top"><span class="hb-card-number">03</span><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx='6' cy='6' r='3'/><circle cx='6' cy='18' r='3'/><path d='m9 8 12 13M9 16 21 3M14 12l3-3'/></svg></span>
+      <span class="hb-stage-name">Implementación</span>
+      <span class="hb-stage-description">Puesta en marcha del taller y atención cercana.</span>
+     </button>
+    </div>
+    <div class="hb-activity-stage">
+     <button type="button" class="hb-stage-number hb-stage-select" data-stage="3" aria-label="Etapa 4: Evaluación" aria-pressed="false">04</button>
+     <span class="hb-stage-connector" aria-hidden="true"></span>
+     <button type="button" class="hb-stage-card hb-stage-select hb-rosa" data-stage="3" aria-pressed="false">
+      <span class="hb-stage-card-top"><span class="hb-card-number">04</span><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x='5' y='5' width='14' height='16' rx='2'/><path d='M9 5V3h6v2M8 13l3 3 5-6'/></svg></span>
+      <span class="hb-stage-name">Evaluación</span>
+      <span class="hb-stage-description">Control de calidad en costuras y puntualidad.</span>
+     </button>
+    </div>
+    <div class="hb-activity-stage">
+     <button type="button" class="hb-stage-number hb-stage-select" data-stage="4" aria-label="Etapa 5: Cierre" aria-pressed="false">05</button>
+     <span class="hb-stage-connector" aria-hidden="true"></span>
+     <button type="button" class="hb-stage-card hb-stage-select hb-menta" data-stage="4" aria-pressed="false">
+      <span class="hb-stage-card-top"><span class="hb-card-number">05</span><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d='m3 7 9-4 9 4v10l-9 4-9-4V7Zm0 0 9 4 9-4M12 11v10'/><path d='m8 5 9 4'/></svg></span>
+      <span class="hb-stage-name">Cierre</span>
+      <span class="hb-stage-description">Entrega puntual y consolidación de marca.</span>
+     </button>
+    </div>
+   </div>
+  </div>
+  <div class="hb-stage-detail hb-menta" id="hb-stage-detail" aria-live="polite">
+   <span class="hb-stage-kicker" id="hb-stage-kicker">ETAPA 01 / 05</span>
+   <h3 id="hb-stage-detail-name">Diagnóstico</h3>
+   <p id="hb-stage-detail-description">Análisis de necesidades y fallas del sector SENA.</p>
+   <div class="hb-stage-date"><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M7 3v4M17 3v4M3 10h18"/></svg><span id="hb-stage-detail-date">Fecha pendiente de confirmar</span></div>
+  </div>
+  <div class="hb-stage-navigation">
+   <button type="button" id="hb-stage-prev" disabled><span aria-hidden="true">‹</span> Anterior</button>
+   <span id="hb-stage-count">1 de 5</span>
+   <button type="button" id="hb-stage-next">Siguiente <span aria-hidden="true">›</span></button>
+  </div>
+ </div>
+</dialog>
 <div class="popover-backdrop" id="popup" hidden><div class="popover" role="dialog" aria-modal="true" aria-labelledby="popup-title"><button type="button" class="popover-close" id="popup-close" aria-label="Cerrar">×</button><h2 id="popup-title"></h2><div id="overview" class="chapter-list" hidden></div></div></div>
 <script>
 (()=>{'use strict';
@@ -686,6 +812,53 @@ main{flex:1;min-height:0;position:relative}
  [commercialButton,financeButton].forEach(b=>b.addEventListener('click',()=>{locationScreen.hidden=true;closeDelivery()}));
  window.addEventListener('keydown',e=>{if(e.key==='Escape'){locationScreen.hidden=true;closeDelivery()}});
  populateDepartments(true);
+
+ // Financial activities: no changes to the commercial chapters or other finance cards.
+ const activitiesDialog=document.getElementById('hb-activities-dialog');
+ const activitiesOpen=document.getElementById('hb-activities-open');
+ const activityScroll=document.getElementById('hb-activity-scroll');
+ const activityCards=[...activitiesDialog.querySelectorAll('.hb-stage-card')];
+ const activitySelectors=[...activitiesDialog.querySelectorAll('.hb-stage-select')];
+ const activityPrev=document.getElementById('hb-stage-prev');
+ const activityNext=document.getElementById('hb-stage-next');
+ let activityIndex=0;
+ function selectActivity(index,scroll=true){
+  activityIndex=Math.max(0,Math.min(activityCards.length-1,index));
+  const card=activityCards[activityIndex];
+  activitySelectors.forEach(button=>button.setAttribute('aria-pressed',String(Number(button.dataset.stage)===activityIndex)));
+  const detail=document.getElementById('hb-stage-detail');
+  detail.classList.toggle('hb-menta',activityIndex%2===0);
+  detail.classList.toggle('hb-rosa',activityIndex%2!==0);
+  document.getElementById('hb-stage-kicker').textContent='ETAPA '+String(activityIndex+1).padStart(2,'0')+' / '+String(activityCards.length).padStart(2,'0');
+  document.getElementById('hb-stage-detail-name').textContent=card.querySelector('.hb-stage-name').textContent;
+  document.getElementById('hb-stage-detail-description').textContent=card.querySelector('.hb-stage-description').textContent;
+  document.getElementById('hb-stage-detail-date').textContent=card.dataset.date||'Fecha pendiente de confirmar';
+  document.getElementById('hb-stage-count').textContent=(activityIndex+1)+' de '+activityCards.length;
+  activityPrev.disabled=activityIndex===0;
+  activityNext.disabled=activityIndex===activityCards.length-1;
+  if(scroll){
+   const bounds=card.getBoundingClientRect(),viewport=activityScroll.getBoundingClientRect();
+   if(bounds.left<viewport.left||bounds.right>viewport.right){
+    activityScroll.scrollTo({left:activityScroll.scrollLeft+bounds.left-viewport.left-(viewport.width-bounds.width)/2,behavior:reduced?'auto':'smooth'});
+   }
+  }
+ }
+ activitySelectors.forEach(button=>button.addEventListener('click',()=>selectActivity(Number(button.dataset.stage))));
+ activityPrev.addEventListener('click',()=>selectActivity(activityIndex-1));
+ activityNext.addEventListener('click',()=>selectActivity(activityIndex+1));
+ activitiesOpen.addEventListener('click',()=>{
+  if(!activitiesDialog.open){activitiesDialog.showModal();activityScroll.scrollLeft=0;selectActivity(0,false);}
+ });
+ document.getElementById('hb-activities-close').addEventListener('click',()=>activitiesDialog.close());
+ activitiesDialog.addEventListener('click',event=>{
+  if(event.target!==activitiesDialog)return;
+  const box=activitiesDialog.getBoundingClientRect();
+  if(event.clientX<box.left||event.clientX>box.right||event.clientY<box.top||event.clientY>box.bottom)activitiesDialog.close();
+ });
+ activitiesDialog.addEventListener('close',()=>activitiesOpen.focus());
+ activitiesDialog.addEventListener('keydown',event=>{
+  if(event.key==='ArrowLeft'||event.key==='ArrowRight'){event.preventDefault();selectActivity(activityIndex+(event.key==='ArrowRight'?1:-1));}
+ });
 
  resize();
 })();
