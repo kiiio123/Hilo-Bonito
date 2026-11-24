@@ -210,11 +210,10 @@ main{flex:1;min-height:0;position:relative}
  .history-details .history-less,.history-details[open] .history-more{display:none}
  .history-details[open] .history-less{display:inline}
  .history-details .statement{margin-top:16px}
- .objectives-list{padding-left:1.15em;margin:16px 0 0;color:#647d70;font:400 clamp(13px,1.14vw,17px)/1.55 'Segoe UI',Arial,sans-serif}
- .objectives-list li{padding-left:3px;margin-bottom:10px}
- .objectives-list li:last-child{margin-bottom:0}
- .objectives-list li::marker{color:#85bba0}
- @media(max-width:760px){.mobile-slide .history-content,.mobile-slide .objectives-content{padding-right:5px}.mobile-slide .objectives-list{font-size:13px;line-height:1.45;margin-top:12px}.mobile-slide .objectives-list li{margin-bottom:9px}.mobile-slide .history-details summary{padding:8px 13px}}
+ .objectives-list{display:grid;gap:clamp(9px,1.3vh,17px);list-style:none;padding:0;margin:16px 0 0}
+ .objectives-list .value p{min-width:0;overflow-wrap:break-word}
+ @media(max-width:1100px){.objectives-list{gap:7px}}
+ @media(max-width:760px){.mobile-slide .history-content,.mobile-slide .objectives-content{padding-right:5px}.mobile-slide .objectives-list{gap:8px;margin-top:12px}.mobile-slide .history-details summary{padding:8px 13px}}
 </style></head>
 <body><div class="app">
 <header class="header"><span class="brand">HILO BONITO</span><nav class="mode-nav" aria-label="Áreas">
@@ -304,11 +303,11 @@ main{flex:1;min-height:0;position:relative}
 <span class="eyebrow">Hilo Bonito <span class="eyebrow-bullet">·</span> Objetivos</span>
 <div class="copy-content values-scroll objectives-content" tabindex="0">
  <p class="statement">Posicionar a Hilo Bonito como una opción confiable de confección en el entorno estudiantil del Sena, ofreciendo uniformes de alta calidad, atención personalizada y precios justos.</p>
- <ul class="objectives-list">
-  <li>Garantizar la uniformidad en los tonos de tela, horma perfecta y acabados impecables en cada prenda mediante un riguroso control de calidad.</li>
-  <li>Brindar una atención cercana, empática y transparente que asesore de forma honesta a los aprendices y clientes sobre materiales y presupuestos.</li>
-  <li>Cumplir estrictamente con las fechas de entrega pactadas para eliminar los retrasos e incumplimientos habituales del sector.</li>
-  <li>Ofrecer precios accesibles que permitan a los usuarios adquirir prendas duraderas y cómodas sin verlo como una simple obligación institucional.</li>
+ <ul class="objectives-list" role="list">
+  <li class="value"><span aria-hidden="true" class="value-dot"></span><p>Garantizar la uniformidad en los tonos de tela, horma perfecta y acabados impecables en cada prenda mediante un riguroso control de calidad.</p></li>
+  <li class="value"><span aria-hidden="true" class="value-dot"></span><p>Brindar una atención cercana, empática y transparente que asesore de forma honesta a los aprendices y clientes sobre materiales y presupuestos.</p></li>
+  <li class="value"><span aria-hidden="true" class="value-dot"></span><p>Cumplir estrictamente con las fechas de entrega pactadas para eliminar los retrasos e incumplimientos habituales del sector.</p></li>
+  <li class="value"><span aria-hidden="true" class="value-dot"></span><p>Ofrecer precios accesibles que permitan a los usuarios adquirir prendas duraderas y cómodas sin verlo como una simple obligación institucional.</p></li>
  </ul>
 </div>
 <h2 class="panel-display">Objetivos</h2>
