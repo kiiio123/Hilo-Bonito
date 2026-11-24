@@ -214,6 +214,18 @@ main{flex:1;min-height:0;position:relative}
  .objectives-list .value p{min-width:0;overflow-wrap:break-word}
  @media(max-width:1100px){.objectives-list{gap:7px}}
  @media(max-width:760px){.mobile-slide .history-content,.mobile-slide .objectives-content{padding-right:5px}.mobile-slide .objectives-list{gap:8px;margin-top:12px}.mobile-slide .history-details summary{padding:8px 13px}}
+
+/* Reading panels remain fully legible at different desktop and mobile sizes. */
+.editorial-copy .copy-content.philosophy-content,.editorial-copy .copy-content.brand-content{flex:0 1 auto;min-height:0;max-height:none;overflow-y:auto;overflow-x:hidden;padding-right:7px;overscroll-behavior:contain}
+.editorial-copy .copy-content.philosophy-content{display:block}
+.philosophy-content + .panel-display,.brand-content + .panel-display{flex-shrink:0}
+@media(min-width:761px) and (max-width:1350px){
+ :root{--tab:clamp(34px,4.6vw,70px)}
+ .chapter-body>.panel-body{grid-template-columns:minmax(0,37%) minmax(0,63%);grid-template-rows:minmax(0,1fr)}
+ .editorial-copy{min-height:0}
+ .chapter .panel-display{font-size:clamp(28px,4.5vw,76px);letter-spacing:.005em}
+}
+
 </style></head>
 <body><div class="app">
 <header class="header"><span class="brand">HILO BONITO</span><nav class="mode-nav" aria-label="Áreas">
@@ -240,10 +252,10 @@ main{flex:1;min-height:0;position:relative}
 <div class="editorial-copy">
 <span class="eyebrow">Hilo Bonito <span class="eyebrow-bullet">·</span> Historia</span>
 <div class="copy-content values-scroll history-content" tabindex="0">
- <p class="statement">Hilo Bonito surge a finales de 2026 en Medellín como una iniciativa creada por Geraldine Ardila Buitrago y Any Tatiana Barrera, tras identificar una clara oportunidad de mejora en la confección de uniformes y dotaciones en el entorno del Centro de Servicios y Gestión Empresarial – Complejo Central SENA. Actualmente.</p>
+ <p class="statement">Hilo Bonito surge a finales de 2026 en Medellín como una iniciativa creada por Geraldine Ardila Buitrago y Any Tatiana Barrera, tras identificar una clara oportunidad de mejora en la confección de uniformes y dotaciones en el entorno del Centro de Servicios y Gestión Empresarial – Complejo Central SENA.</p>
  <details class="history-details">
   <summary><span class="history-more">VER MÁS</span><span class="history-less">VER MENOS</span></summary>
-  <p class="statement">Los aprendices y clientes de la zona cuentan con apenas dos empresas cercanas, las cuales presentan falencias en la atención al cliente, entregas poco oportunas y prendas de baja calidad que evidencian acabados deficientes y desigualdad en los tonos de las telas.</p>
+  <p class="statement">Actualmente, los aprendices y clientes de la zona cuentan con apenas dos empresas cercanas, las cuales presentan falencias en la atención al cliente, entregas poco oportunas y prendas de baja calidad que evidencian acabados deficientes y desigualdad en los tonos de las telas.</p>
   <p class="statement">Frente a esta problemática, nuestro taller busca ofrecer una alternativa confiable que combine un trato cercano y empático con la precisión artesanal en cada puntada y precios justos. El propósito central es que los usuarios no perciban su uniforme como una simple obligación o requisito institucional, sino que reciban una prenda duradera, con horma perfecta y acabados impecables que les brinde comodidad, seguridad e identidad en su rutina diaria</p>
  </details>
 </div>
@@ -257,7 +269,7 @@ main{flex:1;min-height:0;position:relative}
 <div class="editorial-aside"><span class="aside-title">Filosofía</span><div aria-hidden="true" class="aside-stitch"></div></div>
 <div class="editorial-copy">
 <span class="eyebrow">Hilo Bonito <span class="eyebrow-bullet">·</span> Filosofía</span>
-<div class="copy-content"><p class="statement">En Hilo Bonito entendemos la confección como un oficio de confianza y precisión. Creemos que detrás de cada uniforme o prenda a la medida hay una persona que necesita sentirse cómoda y segura; por eso apostamos por el trabajo honesto, el cuidado minucioso de cada acabado y la cercanía con nuestros clientes para transformar telas en prendas duraderas que acompañen su rutina con estilo y comodidad.</p></div>
+<div class="copy-content values-scroll philosophy-content" tabindex="0"><p class="statement">En Hilo Bonito entendemos la confección como un oficio de confianza y precisión. Creemos que detrás de cada uniforme o prenda a la medida hay una persona que necesita sentirse cómoda y segura; por eso apostamos por el trabajo honesto, el cuidado minucioso de cada acabado y la cercanía con nuestros clientes para transformar telas en prendas duraderas que acompañen su rutina con estilo y comodidad.</p></div>
 <h2 class="panel-display">Filosofía</h2>
 </div>
 </div></div>
@@ -311,6 +323,21 @@ main{flex:1;min-height:0;position:relative}
  </ul>
 </div>
 <h2 class="panel-display">Objetivos</h2>
+</div>
+</div></div>
+</section>
+<section class="chapter rose" data-index="6" aria-label="Marca">
+  <button class="chapter-tab" type="button" aria-label="Abrir Marca" aria-expanded="false"><span>Marca</span></button>
+  <div class="chapter-body"><div class="panel-body">
+<div class="editorial-aside"><span class="aside-title">Marca</span><div aria-hidden="true" class="aside-stitch"></div></div>
+<div class="editorial-copy">
+<span class="eyebrow">Hilo Bonito <span class="eyebrow-bullet">·</span> Marca</span>
+<div class="copy-content values-scroll brand-content" tabindex="0">
+ <article class="value"><span aria-hidden="true" class="value-dot"></span><div><h3>¿Qué entregará el proyecto?</h3><p>Uniformes institucionales, dotaciones empresariales, prendas formales y arreglos de modistería confeccionados con horma perfecta, acabados limpios y uniformidad garantizada en los tonos de las telas, respaldados por una asesoría honesta y personalizada.</p></div></article>
+ <article class="value"><span aria-hidden="true" class="value-dot"></span><div><h3>¿Qué cambios o mejoras se esperan?</h3><p>Superar las fallas actuales del sector en los alrededores del Complejo Central SENA, eliminando los retrasos en las entregas, las costuras defectuosas, la desigualdad de colores y la mala atención al cliente, mediante una oferta más competitiva y confiable.</p></div></article>
+ <article class="value"><span aria-hidden="true" class="value-dot"></span><div><h3>¿Cuáles serán los beneficios obtenidos?</h3><p>Los aprendices, empresas y familias accederán a prendas cómodas, duraderas y a precios justos, logrando que los usuarios vistan su uniforme con seguridad, sentido de pertenencia e identidad, mientras Hilo Bonito se consolida como el taller referente de la zona.</p></div></article>
+</div>
+<h2 class="panel-display">Marca</h2>
 </div>
 </div></div>
 </section></div>
@@ -392,7 +419,7 @@ main{flex:1;min-height:0;position:relative}
 <div class="popover-backdrop" id="popup" hidden><div class="popover" role="dialog" aria-modal="true" aria-labelledby="popup-title"><button type="button" class="popover-close" id="popup-close" aria-label="Cerrar">×</button><h2 id="popup-title"></h2><div id="overview" class="chapter-list" hidden></div></div></div>
 <script>
 (()=>{'use strict';
- const titles=['Historia','Filosofía','Misión','Visión','Valores','Objetivos'];
+ const titles=['Historia','Filosofía','Misión','Visión','Valores','Objetivos','Marca'];
  const chapters=[...document.querySelectorAll('.chapter')];
  const desktopStage=document.querySelector('.desktop-stage');
  const commercial=document.getElementById('commercial');
@@ -455,7 +482,7 @@ main{flex:1;min-height:0;position:relative}
   const dt=Math.min((time-lastTime)/1000,.05);lastTime=time;
   if(reduced){current=target;velocity=0}
   else{
-   // Analytic critically damped spring. It produces glide without bounce or forced snapping.
+   // Analytic critically damped spring: smooth glide into a fully readable chapter.
    const k=9.4;
    const diff=current-target;
    const decay=Math.exp(-k*dt);
@@ -468,12 +495,24 @@ main{flex:1;min-height:0;position:relative}
   paint();frame=requestAnimationFrame(tick);
  }
  function render(){if(frame===null)frame=requestAnimationFrame(tick)}
- function go(i){target=clamp(i,0,count-1);render()}
- function addDelta(delta){target=clamp(target+delta,0,count-1);render()}
+ let settleTimer=null,wheelAnchor=null;
+ function cancelSettle(){if(settleTimer!==null)clearTimeout(settleTimer);settleTimer=null;wheelAnchor=null}
+ function go(i){cancelSettle();target=clamp(i,0,count-1);render()}
+ function addDelta(delta){
+  if(wheelAnchor===null)wheelAnchor=Math.round(target);
+  target=clamp(target+delta,0,count-1);render();
+  if(settleTimer!==null)clearTimeout(settleTimer);
+  settleTimer=setTimeout(()=>{
+   let next=Math.round(target);
+   const displacement=target-wheelAnchor;
+   if(next===wheelAnchor&&Math.abs(displacement)>=.12)next=wheelAnchor+Math.sign(displacement);
+   go(next);
+  },220);
+ }
  function resize(){
    const wasMobile=mobile;
    mobile=window.innerWidth<=760;
-   tabWidth=parseFloat(getComputedStyle(document.documentElement).getPropertyValue('--tab'))||56;
+   tabWidth=mobile?40:(chapters[0].querySelector('.chapter-tab').offsetWidth||70);
    width=desktopStage.getBoundingClientRect().width;
    readWidth=Math.max(1,width-tabWidth*count);
    document.documentElement.style.setProperty('--read',`${readWidth}px`);
@@ -498,15 +537,16 @@ main{flex:1;min-height:0;position:relative}
   e.preventDefault();
   let delta=Math.abs(e.deltaY)>=Math.abs(e.deltaX)?e.deltaY:e.deltaX;
   if(e.deltaMode===1)delta*=17;else if(e.deltaMode===2)delta*=window.innerHeight;
-  // Continuous movement. The position is never rounded to a chapter after input stops.
+  // Continuous movement during input, then smooth alignment to a complete chapter.
   // Normalize physical-wheel steps and trackpad pixels into the same gentle travel scale.
   addDelta(clamp(delta,-170,170)/(mobile?345:360));
  },{passive:false});
- // Swipe and click-drag have the same gradual settling, without resetting the chosen position.
+ // Swipe and click-drag smoothly settle on a complete chapter.
  let start=null,lastPointerX=0;
  const stage=document.getElementById('commercial');
  stage.addEventListener('pointerdown',e=>{
   if(e.target.closest('button')||e.target.closest('.values-scroll')||modal.hidden===false||e.button!==0)return;
+  cancelSettle();
   start={id:e.pointerId,x:e.clientX,y:e.clientY,position:target,type:e.pointerType,dragged:false};
   if(e.pointerType!=='touch')stage.setPointerCapture?.(e.pointerId);
  });
@@ -520,7 +560,12 @@ main{flex:1;min-height:0;position:relative}
   render();
  });
  const clearPointer=()=>{
-   // Preserve the precise position reached by the drag, without snapping back.
+   if(start&&start.dragged){
+    let next=Math.round(target);
+    const anchor=Math.round(start.position),displacement=target-start.position;
+    if(next===anchor&&Math.abs(displacement)>=.15)next=anchor+Math.sign(displacement);
+    go(next);
+   }
    start=null;
  };
  stage.addEventListener('pointerup',clearPointer);stage.addEventListener('pointercancel',clearPointer);
