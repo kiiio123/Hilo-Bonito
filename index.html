@@ -198,6 +198,23 @@ main{flex:1;min-height:0;position:relative}
 @media(max-width:760px){.delivery-dropdown{left:50%;top:calc(100% + 9px);width:168px}.links .delivery-dropdown button{font-size:10px;padding:12px 13px}.mini-chevron{font-size:13px}.location-layout{padding:12px}.location-heading{gap:8px;margin-bottom:9px}.location-heading h1{font-size:29px;margin:3px 0}.location-heading p{font-size:10px}.location-kicker{font-size:9px}.location-close{padding:11px 13px}.location-close span{display:none}.locator-body{display:flex;flex-direction:column;gap:8px;overflow-y:auto;overscroll-behavior:contain;scrollbar-width:none}.locator-controls{flex:none;overflow:visible;padding:14px 15px}.locator-controls-top{display:none}.region-chips{margin:0 0 12px;gap:6px;flex-wrap:nowrap;overflow-x:auto;padding-bottom:3px}.region-chip{flex:none;font-size:10px;padding:7px 10px}.locator-field{display:inline-flex;width:calc(50% - 5px);margin-right:5px;margin-bottom:8px;gap:5px}.locator-field:nth-of-type(2){margin-right:0}.locator-field select{font-size:11px;padding:10px 22px 10px 8px;border-radius:10px;background-position:right 5px center}.locator-field>span{font-size:8px}.result-divider{margin:6px 0 7px;padding-top:8px}.result-divider>span{font-size:9px}.location-result{padding:12px}.location-result h2{font-size:17px;margin:7px 0 5px}.location-result p{font-size:11px;margin:0 0 6px}.reference-notice{margin:8px 0 0;font-size:10px}.locator-map-column{flex:1 0 335px;min-height:335px;overflow:visible}.map-scene{min-height:335px;padding:7px}.map-heading{padding:5px 7px 9px}.map-heading-mark{width:29px;height:29px;font-size:19px}.map-heading strong{font-size:14px}.map-live-pill{font-size:7px;padding:6px 7px}.map-frame-wrapper{min-height:170px}.map-bottom{padding:9px 4px 4px}.destination-details strong{font-size:14px}.destination-links{width:100%}.destination-links a{flex:1;justify-content:center;padding:10px 7px;font-size:10px}.location-result .result-mark span{font-size:9px}}
 @media(prefers-reduced-motion:reduce){.delivery-dropdown{animation:none}}
 
+
+ /* Historia y Objetivos: keep the existing chapter layout and allow long text to scroll. */
+ .editorial-copy .copy-content.history-content,.editorial-copy .copy-content.objectives-content{display:block;flex:0 1 auto;min-height:0;max-height:none;overflow-y:auto;overflow-x:hidden;padding-right:7px;overscroll-behavior:contain}
+ .history-content + .panel-display,.objectives-content + .panel-display{flex-shrink:0}
+ .history-details{margin-top:14px}
+ .history-details summary{display:table;margin-left:auto;padding:8px 17px;border:0;border-radius:7px;background:#95848b;color:#fff;font:700 10px/1.2 'Segoe UI',Arial,sans-serif;letter-spacing:.16em;list-style:none;cursor:pointer}
+ .history-details summary::-webkit-details-marker{display:none}
+ .history-details summary:hover{background:#816d76}
+ .history-details summary:focus-visible{outline:2px solid #7dbb9e;outline-offset:3px}
+ .history-details .history-less,.history-details[open] .history-more{display:none}
+ .history-details[open] .history-less{display:inline}
+ .history-details .statement{margin-top:16px}
+ .objectives-list{padding-left:1.15em;margin:16px 0 0;color:#647d70;font:400 clamp(13px,1.14vw,17px)/1.55 'Segoe UI',Arial,sans-serif}
+ .objectives-list li{padding-left:3px;margin-bottom:10px}
+ .objectives-list li:last-child{margin-bottom:0}
+ .objectives-list li::marker{color:#85bba0}
+ @media(max-width:760px){.mobile-slide .history-content,.mobile-slide .objectives-content{padding-right:5px}.mobile-slide .objectives-list{font-size:13px;line-height:1.45;margin-top:12px}.mobile-slide .objectives-list li{margin-bottom:9px}.mobile-slide .history-details summary{padding:8px 13px}}
 </style></head>
 <body><div class="app">
 <header class="header"><span class="brand">HILO BONITO</span><nav class="mode-nav" aria-label="Áreas">
@@ -223,7 +240,14 @@ main{flex:1;min-height:0;position:relative}
 <div class="editorial-aside"><span class="aside-title">Historia</span><div aria-hidden="true" class="aside-stitch"></div></div>
 <div class="editorial-copy">
 <span class="eyebrow">Hilo Bonito <span class="eyebrow-bullet">·</span> Historia</span>
-<div class="copy-content"><div aria-hidden="true" class="empty-history"><div class="fine-line"></div></div></div>
+<div class="copy-content values-scroll history-content" tabindex="0">
+ <p class="statement">Hilo Bonito surge a finales de 2026 en Medellín como una iniciativa creada por Geraldine Ardila Buitrago y Any Tatiana Barrera, tras identificar una clara oportunidad de mejora en la confección de uniformes y dotaciones en el entorno del Centro de Servicios y Gestión Empresarial – Complejo Central SENA. Actualmente.</p>
+ <details class="history-details">
+  <summary><span class="history-more">VER MÁS</span><span class="history-less">VER MENOS</span></summary>
+  <p class="statement">Los aprendices y clientes de la zona cuentan con apenas dos empresas cercanas, las cuales presentan falencias en la atención al cliente, entregas poco oportunas y prendas de baja calidad que evidencian acabados deficientes y desigualdad en los tonos de las telas.</p>
+  <p class="statement">Frente a esta problemática, nuestro taller busca ofrecer una alternativa confiable que combine un trato cercano y empático con la precisión artesanal en cada puntada y precios justos. El propósito central es que los usuarios no perciban su uniforme como una simple obligación o requisito institucional, sino que reciban una prenda duradera, con horma perfecta y acabados impecables que les brinde comodidad, seguridad e identidad en su rutina diaria</p>
+ </details>
+</div>
 <h2 class="panel-display">Historia</h2>
 </div>
 </div></div>
@@ -278,7 +302,15 @@ main{flex:1;min-height:0;position:relative}
 <div class="editorial-aside"><span class="aside-title">Objetivos</span><div aria-hidden="true" class="aside-stitch"></div></div>
 <div class="editorial-copy">
 <span class="eyebrow">Hilo Bonito <span class="eyebrow-bullet">·</span> Objetivos</span>
-<div class="copy-content"><div aria-hidden="true" class="empty-history"><div class="fine-line"></div></div></div>
+<div class="copy-content values-scroll objectives-content" tabindex="0">
+ <p class="statement">Posicionar a Hilo Bonito como una opción confiable de confección en el entorno estudiantil del Sena, ofreciendo uniformes de alta calidad, atención personalizada y precios justos.</p>
+ <ul class="objectives-list">
+  <li>Garantizar la uniformidad en los tonos de tela, horma perfecta y acabados impecables en cada prenda mediante un riguroso control de calidad.</li>
+  <li>Brindar una atención cercana, empática y transparente que asesore de forma honesta a los aprendices y clientes sobre materiales y presupuestos.</li>
+  <li>Cumplir estrictamente con las fechas de entrega pactadas para eliminar los retrasos e incumplimientos habituales del sector.</li>
+  <li>Ofrecer precios accesibles que permitan a los usuarios adquirir prendas duraderas y cómodas sin verlo como una simple obligación institucional.</li>
+ </ul>
+</div>
 <h2 class="panel-display">Objetivos</h2>
 </div>
 </div></div>
