@@ -615,6 +615,11 @@ button.hb-budget-item:hover{transform:translateY(-2px);box-shadow:0 8px 18px #9d
 /* Display the supplied strategic goal statement without affecting other goals. */
 #hb-goals-statement{font-size:12px;line-height:1.55;color:#74636e;margin:4px 0 0;max-width:490px}
 #hb-goals-statement[hidden]{display:none!important}
+
+#hb-goals-target-label{font-size:12px;font-weight:600;line-height:1.45;color:#62816f;margin:3px 0 0}
+#hb-goals-action-title{font-size:12px;font-weight:600;color:#63816f;margin:0 0 10px}
+.hb-goals-status{max-width:175px;flex-shrink:0;line-height:1.45}
+@media(max-width:520px){.hb-goals-selected{align-items:flex-start;flex-wrap:wrap}.hb-goals-status{max-width:100%}}
 </style></head>
 <body><div class="app">
 <header class="header"><span class="brand">HILO BONITO</span><nav class="mode-nav" aria-label="Áreas">
@@ -903,18 +908,18 @@ button.hb-budget-item:hover{transform:translateY(-2px);box-shadow:0 8px 18px #9d
    <path d="M40 153 A140 140 0 0 1 320 153" fill="none" stroke="#eee7eb" stroke-width="22" stroke-linecap="round"/>
    <path id="hb-goals-arc" d="M40 153 A140 140 0 0 1 320 153" pathLength="100" fill="none" stroke="#e4a7bf" stroke-width="22" stroke-linecap="round" stroke-dasharray="100 100" stroke-dashoffset="100" opacity="0"/>
    <circle id="hb-goals-target-marker" cx="318" cy="131" r="5.5" fill="#a68d9a" stroke="#fff" stroke-width="2"/>
-   <text id="hb-goals-percent" x="180" y="119" text-anchor="middle" class="hb-goals-percent">0 %</text><text id="hb-goals-target" x="180" y="141" text-anchor="middle" class="hb-goals-target">Objetivo: 95 %</text>
+   <text id="hb-goals-percent" x="180" y="119" text-anchor="middle" class="hb-goals-percent">0 %</text><text id="hb-goals-target" x="180" y="141" text-anchor="middle" class="hb-goals-target">Objetivo: 98 %</text>
    <text x="30" y="181" text-anchor="middle" class="hb-goals-axis">0%</text><text x="330" y="181" text-anchor="middle" class="hb-goals-axis">100%</text>
   </svg>
-  <div class="hb-goals-selected"><div><span>Métrica seleccionada</span><strong id="hb-goals-name"></strong><p id="hb-goals-statement" hidden></p></div><span id="hb-goals-status" class="hb-goals-status"></span></div>
+  <div class="hb-goals-selected"><div><span>Métrica seleccionada</span><strong id="hb-goals-name"></strong><p id="hb-goals-statement" hidden></p><p id="hb-goals-target-label"></p></div><span id="hb-goals-status" class="hb-goals-status"></span></div>
   <div class="hb-goals-meta"><div><span>Plazo estimado</span><strong id="hb-goals-timeline"></strong></div><div><span>Fórmula métrica</span><strong id="hb-goals-formula"></strong></div><div><span>Líder de meta</span><strong id="hb-goals-leader"></strong></div></div>
  </div>
  <div class="hb-goals-controls">
-  <label for="hb-goals-select">Seleccionar meta estratégica</label><select id="hb-goals-select"><option value="0">Entregas a Tiempo (98 %)</option><option value="1" selected>Eficiencia de Producción</option><option value="2">Sostenibilidad de Materiales</option><option value="3">Satisfacción del Cliente</option></select>
-  <label id="hb-goals-slider-label" for="hb-goals-slider">Prendas sin defectos logradas (%)</label>
+  <label for="hb-goals-select">Seleccionar meta estratégica</label><select id="hb-goals-select"><option value="0" selected>Entregas a Tiempo (98 %)</option><option value="1">Cero Reprocesos (95 %)</option><option value="2">150 Clientes SENA (90 %)</option></select>
+  <label id="hb-goals-slider-label" for="hb-goals-slider">Entregas a Tiempo (%)</label>
   <div class="hb-goals-range"><input id="hb-goals-slider" type="range" min="0" max="100" step="1" value="0"><output id="hb-goals-output" for="hb-goals-slider">0 %</output></div>
  </div>
- <div class="hb-goals-actions"><h3>Acción</h3><p id="hb-goals-action-caption"></p><ul id="hb-goals-action-list"></ul></div>
+ <div class="hb-goals-actions"><h3>Acción</h3><p id="hb-goals-action-caption"></p><p id="hb-goals-action-title"></p><ul id="hb-goals-action-list"></ul></div>
 </div></dialog>
 <div class="popover-backdrop" id="popup" hidden><div class="popover" role="dialog" aria-modal="true" aria-labelledby="popup-title"><button type="button" class="popover-close" id="popup-close" aria-label="Cerrar">×</button><h2 id="popup-title"></h2><div id="overview" class="chapter-list" hidden></div></div></div>
 <script>
@@ -1708,7 +1713,7 @@ button.hb-budget-item:hover{transform:translateY(-2px);box-shadow:0 8px 18px #9d
  renderHbRisk();
 
  // Strategic goals: only the supplied values; missing details remain unconfirmed.
- const hbGoalsData=[{"name":"Cumplimiento y Puntualidad","progress":0,"target":98,"slider":"Entregas a Tiempo (%)","timeline":"Inicio del primer trimestre académico de 2027","formula":null,"leader":null,"actions":[],"provisional":true,"statement":"Entregar al menos el 98 % de los uniformes y pedidos en la fecha pactada durante el inicio del primer trimestre académico de 2027."},{"name":"Eficiencia de Producción","progress":0,"target":95,"slider":"Prendas sin defectos logradas (%)","timeline":"31 Dic 2026","formula":"(Prendas perfectas / Total de prendas confeccionadas) × 100","leader":"Geraldine Ardila","actions":["Implementar una estación dedicada a la verificación visual de costuras e hilos antes del ensamble final.","Capacitar al equipo en técnicas de costura de precisión con hilo fino para mitigar tensiones desfavorables.","Realizar mantenimientos preventivos semanales a las máquinas de coser y bordadoras del taller."]},{"name":"Sostenibilidad de Materiales","progress":0,"target":null,"slider":"Uso de insumos certificados (%)","timeline":null,"formula":null,"leader":null,"actions":["Establecer alianzas comerciales estratégicas con proveedores locales homologados de algodón orgánico.","Auditar mensualmente el inventario de insumos asegurando el etiquetado correcto de lotes sostenibles.","Sustituir progresivamente las líneas de hilos convencionales remanentes por alternativas biológicas."]},{"name":"Satisfacción del Cliente","progress":0,"target":null,"slider":"Clientes promotores (%)","timeline":null,"formula":null,"leader":null,"actions":["Enviar encuestas automatizadas breves vía WhatsApp inmediatamente tras la confirmación de entrega.","Resolver cualquier reclamo o ajuste de prenda en menos de 48 horas con mensajería prioritaria.","Introducir tarjetas de agradecimiento personalizadas y aromatizadas dentro del empaque."]}];
+ const hbGoalsData=[{"name":"Cumplimiento y Puntualidad","tabBadge":"Meta 1 · Puntualidad","tabTitle":"Entregas a Tiempo (98 %)","tag":"Meta 1 · Cumplimiento y Puntualidad","progress":0,"target":98,"slider":"Entregas a Tiempo (%)","statement":"Entregar al menos el 98 % de los uniformes y pedidos en la fecha pactada durante el inicio del primer trimestre académico de 2027.","formula":"(Pedidos entregados en la fecha acordada / Total de pedidos recibidos) × 100","leader":"Geraldine Ardila Buitrago y Any Tatiana Barrera (Gestión comercial y despacho)","targetLabel":"≥ 98 % de puntualidad en entregas","timeline":"Primer trimestre académico 2027 · Medición semanal","actionTitle":"Acción para garantizar entregas puntuales","actions":["Organizar una agenda digital con fechas límite por pedido y alertas previas de despacho.","Distribuir equitativamente las cargas de corte, confección y empacado entre los dos operarios según prioridad de entrega.","Mantener stock preventivo de telas base y ejecutar mantenimiento preventivo de las máquinas planas y fileteadoras antes de semanas pico."]},{"name":"Calidad y Acabados Impecables","tabBadge":"Meta 2 · Calidad","tabTitle":"Cero Reprocesos (95 %)","tag":"Meta 2 · Calidad y Acabados Impecables","progress":0,"target":95,"slider":"Prendas aprobadas sin reprocesos (%)","statement":"Garantizar un 95 % de aprobación en el control de calidad a la primera entrega, sin fallas en costuras, horma o desigualdad en los tonos de tela.","formula":"(Prendas aprobadas sin reprocesos en primera revisión / Total de prendas confeccionadas) × 100","leader":"Operario 1 y Operario 2 junto con supervisión de fundadoras","targetLabel":"≥ 95 % de prendas aprobadas a la primera","timeline":"Enero – Marzo 2027 · Revisión por cada lote producido","actionTitle":"Acción para asegurar calidad y uniformidad de tonos","actions":["Verificar el lote y tono exacto de cada rollo de tela con los proveedores de Medellín antes de iniciar el corte.","Aplicar una lista de chequeo obligatoria antes del empaque: revisión de medidas, tensión de puntadas, botones y limpieza de hebras.","Realizar planchado industrial a vapor en cada prenda terminada para asegurar presentación impecable y horma perfecta."]},{"name":"Posicionamiento y Satisfacción","tabBadge":"Meta 3 · Crecimiento","tabTitle":"150 Clientes SENA (90 %)","tag":"Meta 3 · Posicionamiento y Satisfacción","progress":0,"target":90,"slider":"Avance del indicador de clientes (%)","statement":"Captar los primeros 150 aprendices y clientes frecuentes alrededor del Complejo Central SENA en el primer trimestre de operación, logrando al menos 90 % de satisfacción.","formula":"(Número de clientes nuevos atendidos y encuestados con calificación positiva / 150 clientes meta) × 100","leader":"Geraldine Ardila Buitrago y Any Tatiana Barrera (Atención al cliente y mercadeo)","targetLabel":"150 clientes SENA y ≥ 90 % de satisfacción","timeline":"Enero – Marzo 2027 · Seguimiento quincenal","actionTitle":"Acción para atraer aprendices y fidelizar clientes","actions":["Exhibir muestras físicas de uniformes con acabados limpios en el local estratégico cercano a la Sede Buenos Aires del SENA.","Lanzar campañas en redes sociales con combos de uniformes institucionales y descuentos por referidos entre aprendices.","Brindar asesoría personalizada y transparente sobre tallas, telas y precios justos, aplicando una encuesta breve posventa."]}];
  const hbGoalsDialog=document.getElementById('hb-goals-dialog');
  const hbGoalsOpen=document.getElementById('hb-goals-open');
  const hbGoalsSelect=document.getElementById('hb-goals-select');
@@ -1722,7 +1727,7 @@ button.hb-budget-item:hover{transform:translateY(-2px);box-shadow:0 8px 18px #9d
   if(changeGoal)hbGoalsSlider.value=String(hbGoalsProgress[index]);
   const progress=Number(hbGoalsSlider.value);
   hbGoalsProgress[index]=progress;
-  const t=clamp((progress-60)/40,0,1);
+  const t=clamp((progress-60)/(Math.max(goal.target,61)-60),0,1);
   const pink=[230,170,194],mint=[124,185,155];
   const color='rgb('+pink.map((v,i)=>Math.round(v+(mint[i]-v)*t)).join(',')+')';
   hbGoalsDialog.querySelector('.hb-goals-inner').style.setProperty('--hb-goal-color',color);
@@ -1740,9 +1745,10 @@ button.hb-budget-item:hover{transform:translateY(-2px);box-shadow:0 8px 18px #9d
   goalText('hb-goals-target',goal.target===null?'Objetivo: por confirmar':'Objetivo: '+goal.target+' %');
   goalText('hb-goals-gauge-title',goal.name+': '+progress+' % de avance simulado');
   goalText('hb-goals-output',progress+' %');
-  goalText('hb-goals-status',goal.target===null?'Objetivo por confirmar':progress>=goal.target?'Meta alcanzada':'En progreso');
+  goalText('hb-goals-status',progress>=goal.target?'¡Meta alcanzada!':progress>60?'Transición activa hacia verde menta (>60 %)':'Etapa inicial (≤ 60 %)');
   if(changeGoal){
-   goalText('hb-goals-name',goal.name);
+   goalText('hb-goals-name',goal.tag);
+   goalText('hb-goals-target-label',goal.targetLabel);
    const statement=document.getElementById('hb-goals-statement');
    statement.textContent=goal.statement??'';
    statement.hidden=!goal.statement;
@@ -1750,7 +1756,8 @@ button.hb-budget-item:hover{transform:translateY(-2px);box-shadow:0 8px 18px #9d
    goalText('hb-goals-formula',goal.formula);
    goalText('hb-goals-leader',goal.leader);
    goalText('hb-goals-slider-label',goal.slider);
-   goalText('hb-goals-action-caption',goal.actions.length?'¿Cómo alcanzaremos esta meta?':'¿Cómo alcanzaremos esta meta? Plan de acción por confirmar.');
+   goalText('hb-goals-action-caption','¿Cómo alcanzaremos esta meta?');
+   goalText('hb-goals-action-title',goal.actionTitle);
    const list=document.getElementById('hb-goals-action-list');list.replaceChildren();
    goal.actions.forEach(action=>{const li=document.createElement('li');li.textContent=action;list.append(li);});
    if(!reduced&&hbGoalsDialog.open&&hbGoalsDialog.querySelector('.hb-goals-meta').animate){
