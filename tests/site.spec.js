@@ -52,3 +52,31 @@ test('delivery and locations', async ({ page }) => {
   await page.locator('#close-locations').click();
   await expect(page.locator('#locations-screen')).toBeHidden();
 });
+
+
+test.describe('horizontal motion', () => {
+  test.use({ reducedMotion: 'no-preference' });
+
+  test('wheel navigation settles on a complete chapter', async ({ page }) => {
+    const errors = [];
+    page.on('pageerror', error => errors.push(error.message));
+    await page.goto('/');
+    await page.mouse.move(600, 400);
+    await page.mouse.wheel(0, 180);
+    const history = page.locator('.chapter[data-index="1"] .chapter-tab');
+    await expect(history).toHaveAttribute('aria-expanded', 'true');
+    await expect.poll(async () => {
+      const chapter = page.locator('.chapter[data-index="1"]');
+      return chapter.evaluate(node => Math.round(new DOMMatrixReadOnly(getComputedStyle(node).transform).m41));
+    }).toBe(await history.evaluate(node => Math.round(node.getBoundingClientRect().width)));
+    expect(errors).toEqual([]);
+  });
+
+  test('keyboard navigation respects the first and last chapters', async ({ page }) => {
+    await page.goto('/');
+    await page.keyboard.press('End');
+    await expect(page.locator('.chapter[data-index="7"] .chapter-tab')).toHaveAttribute('aria-expanded', 'true');
+    await page.keyboard.press('Home');
+    await expect(page.locator('.chapter[data-index="0"] .chapter-tab')).toHaveAttribute('aria-expanded', 'true');
+  });
+});
