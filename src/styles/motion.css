@@ -1,0 +1,69 @@
+:root {
+  --hb-ease-out: cubic-bezier(.22, 1, .36, 1);
+  --hb-motion-fast: 180ms;
+  --hb-motion-normal: 360ms;
+}
+
+.commercial.is-dragging,
+.commercial.is-dragging * {
+  cursor: grabbing !important;
+  user-select: none;
+}
+
+.chapter-tab {
+  transition: background var(--hb-motion-normal) var(--hb-ease-out),
+              color var(--hb-motion-normal) var(--hb-ease-out);
+}
+
+@keyframes hb-chapter-content-enter {
+  from { opacity: .82; transform: translate3d(0, 7px, 0); }
+  to { opacity: 1; transform: translate3d(0, 0, 0); }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .chapter-tab[aria-expanded="true"] + .chapter-body .eyebrow,
+  .chapter-tab[aria-expanded="true"] + .chapter-body .copy-content,
+  .chapter-tab[aria-expanded="true"] + .chapter-body .aside-title,
+  .chapter-tab[aria-expanded="true"] + .chapter-body .hb-cover-logo,
+  .mobile-slide.is-current .eyebrow,
+  .mobile-slide.is-current .copy-content,
+  .mobile-slide.is-current .aside-title,
+  .mobile-slide.is-current .hb-cover-logo {
+    animation: hb-chapter-content-enter 440ms var(--hb-ease-out) both;
+  }
+
+  .commercial.is-dragging .chapter-body *,
+  .commercial.is-dragging .mobile-slide * {
+    animation: none !important;
+  }
+
+  .mode-nav button {
+    transition: background 280ms var(--hb-ease-out),
+                color 280ms var(--hb-ease-out),
+                box-shadow 280ms var(--hb-ease-out),
+                scale 180ms var(--hb-ease-out);
+  }
+
+  .mode-nav button:active,
+  .mobile-next:not(:disabled):active,
+  .mobile-back:active {
+    scale: .97;
+  }
+
+  .mobile-next, .mobile-back {
+    transition: scale var(--hb-motion-fast) var(--hb-ease-out),
+                opacity var(--hb-motion-fast) var(--hb-ease-out);
+  }
+
+  .hb-activities-dialog[open],
+  .hb-activity-detail-dialog[open] {
+    animation-duration: 360ms;
+    animation-timing-function: var(--hb-ease-out);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .chapter-tab, .mode-nav button, .mobile-next, .mobile-back {
+    transition: none !important;
+  }
+}
