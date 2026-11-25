@@ -1,0 +1,30 @@
+ .editorial-copy .copy-content.history-content,.editorial-copy .copy-content.objectives-content{display:block;flex:0 1 auto;min-height:0;max-height:none;overflow-y:auto;overflow-x:hidden;padding-right:7px;overscroll-behavior:contain}
+ .history-content + .panel-display,.objectives-content + .panel-display{flex-shrink:0}
+ .history-details{margin-top:14px}
+ .history-details summary{display:table;margin-left:auto;padding:8px 17px;border:0;border-radius:7px;background:#95848b;color:#fff;font:700 10px/1.2 'Segoe UI',Arial,sans-serif;letter-spacing:.16em;list-style:none;cursor:pointer}
+ .history-details summary::-webkit-details-marker{display:none}
+ .history-details summary:hover{background:#816d76}
+ .history-details summary:focus-visible{outline:2px solid #7dbb9e;outline-offset:3px}
+ .history-details .history-less,.history-details[open] .history-more{display:none}
+ .history-details[open] .history-less{display:inline}
+ .history-details .statement{margin-top:16px}
+ .objectives-list{display:grid;gap:clamp(9px,1.3vh,17px);list-style:none;padding:0;margin:16px 0 0}
+ .objectives-list .value p{min-width:0;overflow-wrap:break-word}
+ @media(max-width:1100px){.objectives-list{gap:7px}}
+ @media(max-width:760px){.mobile-slide .history-content,.mobile-slide .objectives-content{padding-right:5px}.mobile-slide .objectives-list{gap:8px;margin-top:12px}.mobile-slide .history-details summary{padding:8px 13px}}
+
+.editorial-copy .copy-content.philosophy-content,.editorial-copy .copy-content.brand-content{flex:0 1 auto;min-height:0;max-height:none;overflow-y:auto;overflow-x:hidden;padding-right:7px;overscroll-behavior:contain}
+.editorial-copy .copy-content.philosophy-content{display:block}
+.philosophy-content + .panel-display,.brand-content + .panel-display{flex-shrink:0}
+@media(min-width:761px) and (max-width:1350px){
+ :root{--tab:clamp(34px,4.6vw,70px)}
+ .chapter-body>.panel-body{grid-template-columns:minmax(0,37%) minmax(0,63%);grid-template-rows:minmax(0,1fr)}
+ .editorial-copy{min-height:0}
+ .chapter .panel-display{font-size:clamp(28px,4.5vw,76px);letter-spacing:.005em}
+}
+
+
+.editorial-copy .copy-content.values-content{display:block;flex:0 1 auto;min-height:0;max-height:none;overflow-y:auto;overflow-x:hidden;overscroll-behavior:contain}
+.values-content .values-preview{margin-top:0}
+.values-content + .panel-display{flex-shrink:0}
+
