@@ -20,7 +20,6 @@ button:focus-visible{outline:2px solid #7dbb9e;outline-offset:3px}
 main{flex:1;min-height:0;position:relative}
 .commercial,.finance{position:absolute;inset:0;overflow:hidden}
 .commercial{background:linear-gradient(115deg,#fff7fa 0%,#fff 68%,#f4fbf7 100%)}
-/* A permanently visible start tab, followed by chapter tabs. */
 .start-rail{position:absolute;z-index:5;top:0;bottom:0;left:0;width:var(--intro);background:#fffafd;border-right:1px solid #eadce2}
 .start-rail button{border:0;width:100%;height:100%;background:transparent;display:flex;justify-content:flex-end;align-items:flex-end;padding:0 0 34px;color:#bb95a4;transition:background .25s;writing-mode:vertical-rl;transform:none}
 .start-rail button:hover{background:#f9e8ef}
@@ -35,7 +34,6 @@ main{flex:1;min-height:0;position:relative}
 .chapter.mint .chapter-tab[aria-expanded=true]{background:#d7f1e2;color:#4a7963}
 .chapter-tab span{writing-mode:vertical-rl;transform:rotate(180deg);font-size:clamp(12px,.98vw,15px);font-weight:650;letter-spacing:.18em;text-transform:uppercase;pointer-events:none;display:block}
 .chapter-body{position:absolute;inset:0 0 0 var(--tab);height:100%;min-width:0;overflow:hidden;background:white;padding:10px;}
-/* The rounded panel is always full width; only its opening is revealed. */
 .chapter-body>.panel-body{position:relative;left:auto;top:auto;bottom:auto;width:100%;height:100%;display:grid;grid-template-columns:37% 63%;overflow:hidden;border-radius:clamp(14px,1.8vw,28px);background:white;box-shadow:inset 0 0 0 1px rgba(160,107,134,.055)}
 .editorial-aside{min-width:0;position:relative;display:flex;flex-direction:column;justify-content:flex-end;align-items:flex-start;overflow:hidden;padding:clamp(20px,4.3vw,60px);border-right:1px solid rgba(131,162,143,.14);background:linear-gradient(148deg,#eaf8f0 4%,#f4fff8 51%,#fbeaf1 100%)}
 .chapter.mint .editorial-aside{background:linear-gradient(135deg,#ffeef5 0%,#fff8fb 63%,#f0fbf4 100%)}
@@ -61,7 +59,6 @@ main{flex:1;min-height:0;position:relative}
 .value:last-child{border:0}.value-dot{width:8px;height:8px;border-radius:50%;margin-top:8px;background:#a7d9bf}
 .value h3{color:#986e7c;margin:0 0 5px;font-size:clamp(13px,1.05vw,16px);line-height:1.3}
 .value p{margin:0;color:#8b7f83;line-height:1.48;font-size:clamp(12px,.98vw,15px)}
-/* A curved chapter overview button, rather than a sharp-edged interface. */
 .round-back{position:absolute;left:max(4px,calc((var(--tab) - 42px)/2));top:50%;transform:translateY(-50%);z-index:9;border:1px solid rgba(255,255,255,.88);width:42px;height:42px;border-radius:50%;color:white;background:#9b838c;box-shadow:0 5px 16px rgba(86,63,71,.15);font-size:23px;line-height:1;display:grid;place-items:center;transition:background .3s,transform .3s}
 .round-back:hover{background:#6c9d85;transform:translateY(-50%) scale(1.07)}
 .finance{background:linear-gradient(140deg,#fff4f8,#fbfffc);padding:clamp(18px,3.2vw,48px) clamp(20px,4vw,68px);display:flex;flex-direction:column;gap:clamp(12px,2.3vh,25px)}
@@ -122,10 +119,6 @@ main{flex:1;min-height:0;position:relative}
 }
 @media(prefers-reduced-motion:reduce){*,*::before,*::after{scroll-behavior:auto!important;transition-duration:0.01ms!important;animation-duration:0.01ms!important}}
 
-/* -----------------------------------------------------------------------
-   New header menu + Locations view. Existing editorial and scroll styles
-   are deliberately unchanged. No external JS or build step required.
------------------------------------------------------------------------ */
 .delivery-holder{position:relative;display:flex;align-items:center;z-index:21}
 .links .delivery-trigger{display:inline-flex;align-items:center;gap:5px;white-space:nowrap}
 .mini-chevron{font-size:18px;line-height:0;display:inline-block;transform:translateY(-2px);transition:transform .25s ease}
@@ -199,7 +192,6 @@ main{flex:1;min-height:0;position:relative}
 @media(prefers-reduced-motion:reduce){.delivery-dropdown{animation:none}}
 
 
- /* Historia y Objetivos: keep the existing chapter layout and allow long text to scroll. */
  .editorial-copy .copy-content.history-content,.editorial-copy .copy-content.objectives-content{display:block;flex:0 1 auto;min-height:0;max-height:none;overflow-y:auto;overflow-x:hidden;padding-right:7px;overscroll-behavior:contain}
  .history-content + .panel-display,.objectives-content + .panel-display{flex-shrink:0}
  .history-details{margin-top:14px}
@@ -215,7 +207,6 @@ main{flex:1;min-height:0;position:relative}
  @media(max-width:1100px){.objectives-list{gap:7px}}
  @media(max-width:760px){.mobile-slide .history-content,.mobile-slide .objectives-content{padding-right:5px}.mobile-slide .objectives-list{gap:8px;margin-top:12px}.mobile-slide .history-details summary{padding:8px 13px}}
 
-/* Reading panels remain fully legible at different desktop and mobile sizes. */
 .editorial-copy .copy-content.philosophy-content,.editorial-copy .copy-content.brand-content{flex:0 1 auto;min-height:0;max-height:none;overflow-y:auto;overflow-x:hidden;padding-right:7px;overscroll-behavior:contain}
 .editorial-copy .copy-content.philosophy-content{display:block}
 .philosophy-content + .panel-display,.brand-content + .panel-display{flex-shrink:0}
@@ -231,7 +222,6 @@ main{flex:1;min-height:0;position:relative}
 .values-content .values-preview{margin-top:0}
 .values-content + .panel-display{flex-shrink:0}
 
-/* Financiera: Activities and schedule. Scoped to the new card and dialog. */
 .hb-activities-trigger{display:flex;flex-direction:column;align-items:flex-start;justify-content:center;gap:6px;min-width:0;padding:clamp(12px,1.65vw,24px);text-align:left;color:#866373;transition:transform .2s,box-shadow .2s,border-color .2s}
 .hb-activities-trigger:hover{transform:translateY(-3px);border-color:#dcbcc9;box-shadow:0 12px 30px #9d70821b}
 .hb-trigger-icon{display:flex;color:#a07a89}.hb-trigger-title{font:400 clamp(18px,1.8vw,27px)/1.15 Georgia,serif}
@@ -268,7 +258,6 @@ main{flex:1;min-height:0;position:relative}
 }
 
 
-/* Activities: clean schedule cards and on-demand floating details. */
 .hb-stage-card{min-height:144px}
 .hb-stage-card .hb-stage-name{margin-top:auto}
 .hb-stage-date-label{font:400 11px/1.4 'Segoe UI',Arial,sans-serif;color:#71666d;white-space:normal}
@@ -285,7 +274,6 @@ main{flex:1;min-height:0;position:relative}
 @media(max-width:760px){.hb-stage-card{min-height:144px}.hb-activity-detail-inner{padding:19px}.hb-activity-detail-inner h3{font-size:25px}}
 
 
-/* Soft motion and movable financial windows. */
 .hb-activities-dialog,.hb-activity-detail-dialog{translate:var(--hb-window-x,0px) var(--hb-window-y,0px)}
 .hb-activities-dialog[open],.hb-activity-detail-dialog[open]{animation:hb-window-fade .28s ease-out both}
 .hb-activities-dialog[open] .hb-activities-inner,.hb-activity-detail-dialog[open] .hb-activity-detail-inner{animation:hb-window-content .36s cubic-bezier(.22,1,.36,1) both}
@@ -329,7 +317,6 @@ main{flex:1;min-height:0;position:relative}
 }
 
 
-/* Activity details: independent floating windows in a shared workspace. */
 .hb-bubble-workspace{position:fixed;inset:0;margin:0;padding:0;width:100%;height:100%;max-width:none;max-height:none;overflow:hidden;border:0;background:transparent;color:#5b4b52}
 .hb-bubble-workspace::backdrop{background:#43363e36;backdrop-filter:blur(2px)}
 .hb-bubble-workspace[open]::backdrop{animation:hb-window-fade .22s ease-out both}
@@ -349,7 +336,6 @@ main{flex:1;min-height:0;position:relative}
 @media(prefers-reduced-motion:reduce){.hb-detail-bubble,.hb-bubble-menu,.hb-bubble-workspace[open]::backdrop,.hb-detail-bubble.hb-bubble-enter{animation:none!important;transition:none!important}}
 
 
-/* Only pending activities are offered; the lower control closes every detail. */
 .hb-bubble-menu button[hidden]{display:none!important}
 .hb-bubble-scroll{height:calc(100% - 82px)}
 .hb-bubble-footer{position:absolute;inset:auto 0 0;height:82px;display:flex;align-items:center;justify-content:center;padding:8px 12px 16px;pointer-events:none;z-index:2}
@@ -359,7 +345,6 @@ main{flex:1;min-height:0;position:relative}
 .hb-close-all-bubbles:focus-visible{outline:3px solid #fff;outline-offset:3px}
 @media(prefers-reduced-motion:reduce){.hb-close-all-bubbles{transition:none!important}}
 
-/* Financial resource catalog and recalculable budget, scoped to their dialogs. */
 .hb-budget-dialog{width:min(900px,calc(100% - 28px))}
 .hb-budget-inner{gap:17px;padding:clamp(16px,3vw,30px)}
 .hb-budget-summary{background:linear-gradient(135deg,#fff5f8,#f3faf6);border:1px solid #efdee6;border-radius:19px;padding:clamp(14px,2.4vw,23px)}
@@ -401,18 +386,15 @@ button.hb-budget-item:hover{transform:translateY(-2px);box-shadow:0 8px 18px #9d
 @media(max-width:500px){.hb-budget-grid{gap:8px}.hb-budget-item{padding:10px}.hb-budget-item strong{font-size:14px}.hb-budget-legend{grid-template-columns:1fr}.hb-budget-tabs button{padding:8px 10px}.hb-budget-total{font-size:24px}}
 
 
-/* Selection for technological and financial resources in the resource catalog. */
 #hb-resources-dialog .hb-resource-toggle{display:flex;gap:10px;align-items:center;text-align:left;padding:12px;border:1px solid transparent;background:#f6faf7;border-radius:11px;color:#68766c;font-size:13px;line-height:1.5;transition:background .2s,border-color .2s,opacity .2s}
 #hb-resources-dialog .hb-resource-toggle:hover{border-color:#b4d5c1}
 #hb-resources-dialog .hb-resource-toggle[aria-pressed=false]{background:#f7f5f6;color:#82747c;opacity:.75}
 #hb-resources-dialog .hb-resource-toggle[aria-pressed=false] .hb-budget-check{background:transparent;border:1px solid #beaeb5;color:transparent}
 
-/* Same interactive card style for technology and finance selections. */
 .hb-budget-group-item[aria-pressed=true]{background:linear-gradient(135deg,#f5fcf7,#e7f4ec);border-color:#b4d5c1}
 .hb-budget-group-item .hb-budget-item-top{margin-bottom:2px}
 .hb-budget-group-item{min-height:90px}
 
-/* A single, animated selection per technology or financial resource group. */
 .hb-budget-group-grid{grid-template-columns:minmax(0,1fr)}
 .hb-budget-group-grid>.hb-budget-group-item{width:100%;gap:14px;padding:clamp(13px,2.2vw,21px);opacity:1;text-align:left;cursor:pointer}
 .hb-budget-group-item[aria-pressed=true]{background:linear-gradient(145deg,#f8fdf9,#e7f4ec);border-color:#b4d5c1}
@@ -437,7 +419,6 @@ button.hb-budget-item:hover{transform:translateY(-2px);box-shadow:0 8px 18px #9d
 @media(max-width:500px){.hb-budget-group-price b{font-size:21px}.hb-budget-group-row{padding:8px;gap:8px;font-size:12px}.hb-budget-group-icon{width:30px;height:30px}}
 @media(prefers-reduced-motion:reduce){.hb-budget-group-switch,.hb-budget-group-switch>span,.hb-budget-group-row{transition:none!important}}
 
-/* Interactive proportional bubble chart inside the existing budget only. */
 .hb-budget-visual{padding:clamp(14px,2vw,21px);border:1px solid #e9dfe4;border-radius:18px;background:linear-gradient(145deg,#fff,#fcf9fa);min-width:0}
 .hb-budget-visual-head{display:flex;align-items:baseline;justify-content:space-between;gap:8px;flex-wrap:wrap;margin-bottom:12px}
 .hb-budget-visual-head h3{font:400 21px/1.2 Georgia,serif;color:#725b67;margin:0}
@@ -477,7 +458,6 @@ button.hb-budget-item:hover{transform:translateY(-2px);box-shadow:0 8px 18px #9d
 @media(max-width:390px){.hb-budget-cloud-legend{grid-template-columns:1fr}.hb-budget-cloud{height:205px}.hb-tech-item.hb-budget-item{padding:10px;gap:8px}}
 @media(prefers-reduced-motion:reduce){.hb-budget-cloud-point,.hb-budget-cloud-circle,.hb-budget-cloud-link{transition:none!important}}
 
-/* Requested illustrated resource icons and individual financial costs. */
 .hb-budget-emoji{font-family:"Apple Color Emoji","Segoe UI Emoji","Noto Color Emoji",sans-serif;font-size:23px;line-height:1}
 .hb-finance-master[aria-pressed=true],.hb-finance-item[aria-pressed=true]{background:linear-gradient(145deg,#fff9fc,#fbe4f0);border-color:#dfb3cb}
 .hb-finance-master[aria-pressed=mixed]{background:linear-gradient(145deg,#fff,#fbecf4);border-color:#dfb3cb}
@@ -486,7 +466,6 @@ button.hb-budget-item:hover{transform:translateY(-2px);box-shadow:0 8px 18px #9d
 .hb-finance-item .hb-budget-group-icon{background:#fbe4f0}
 .hb-finance-item .hb-tech-info b{color:#866373}
 
-/* Match the human and physical resource cards; keep group selection in the subtotal. */
 .hb-budget-item[data-category=tecnologicos][aria-pressed=true]{background:linear-gradient(135deg,#f5fcf7,#e7f4ec);border-color:#b4d5c1}
 .hb-budget-subtotal-toggle{width:100%;border:1px solid transparent;text-align:left;font:inherit;cursor:pointer;transition:background .24s,border-color .24s}
 .hb-budget-subtotal-copy{display:block;font-size:inherit;font-weight:inherit;letter-spacing:normal}
@@ -495,7 +474,6 @@ button.hb-budget-item:hover{transform:translateY(-2px);box-shadow:0 8px 18px #9d
 .hb-budget-subtotal-toggle[aria-pressed=false]{background:#f5f2f3;color:#786a73}
 .hb-budget-subtotal-toggle:focus-visible{outline:2px solid #779889;outline-offset:3px}
 
-/* Interactive risk matrix, scoped to the new financial dialog. */
 .hb-risk-dialog{width:min(820px,calc(100% - 28px))}
 .hb-risk-inner{gap:16px;padding:clamp(15px,2.5vw,27px)}
 #hb-risk-open .hb-trigger-title{font-size:clamp(15px,1.7vw,25px)}
@@ -534,7 +512,6 @@ button.hb-budget-item:hover{transform:translateY(-2px);box-shadow:0 8px 18px #9d
 @media(max-width:540px){.hb-risk-controls{grid-template-columns:1fr;gap:10px}.hb-risk-indicators strong{font-size:14px}.hb-risk-indicators span{font-size:10px}.hb-risk-details article{padding:12px}.hb-risk-matrix .hb-risk-axis{font-size:13px}}
 @media(prefers-reduced-motion:reduce){#hb-risk-point,.hb-risk-toggle button{transition:none!important}}
 
-/* Select individual matrix cells without changing the risk descriptions or other panels. */
 .hb-risk-cell{cursor:pointer;transition:filter .18s,stroke .18s;outline:none}
 .hb-risk-cell:hover,.hb-risk-cell:focus-visible{filter:saturate(1.5) brightness(.965);stroke:#8c7182;stroke-width:2}
 .hb-risk-cell[aria-pressed=true]{stroke:#9b83aa;stroke-width:2}
@@ -542,7 +519,6 @@ button.hb-budget-item:hover{transform:translateY(-2px);box-shadow:0 8px 18px #9d
 .hb-risk-current{padding:11px 17px;background:#faf5f8;border-top:1px solid #eee2e7;font-size:12px;color:#6b5562;line-height:1.5;font-weight:600}
 @media(prefers-reduced-motion:reduce){.hb-risk-cell{transition:none}}
 
-/* Subtle polish for the risk simulator only. */
 .hb-risk-board{background:linear-gradient(145deg,#fff,#fcf9fa);box-shadow:0 5px 18px #8a6d7d08}
 .hb-risk-cell{transition:filter .2s,stroke .2s;stroke-opacity:.65}
 .hb-risk-cell:hover,.hb-risk-cell:focus-visible{filter:saturate(1.3) brightness(.98);stroke:#927589;stroke-width:1.8}
@@ -573,7 +549,6 @@ button.hb-budget-item:hover{transform:translateY(-2px);box-shadow:0 8px 18px #9d
 #hb-risk-pressure-value{background:#f7edf2;border-radius:8px;padding:5px 8px;min-width:54px;text-align:center}
 @media(prefers-reduced-motion:reduce){.hb-risk-toggle::before,.hb-risk-halo,.hb-risk-dot,.hb-risk-indicators strong,#hb-risk-select{transition:none!important}}
 
-/* Strategic goals: the same pastel financial dashboard, with a semicircular gauge. */
 .hb-goals-dialog{width:min(790px,calc(100% - 28px))}
 .hb-goals-inner{gap:15px;padding:clamp(15px,2.6vw,28px);--hb-goal-color:#d7b6bf}
 .hb-goals-board{border:1px solid #eadfe5;border-radius:18px;background:linear-gradient(145deg,#fff,#fcf9fa);overflow:hidden;box-shadow:0 5px 18px #8a6d7d08}
@@ -612,7 +587,6 @@ button.hb-budget-item:hover{transform:translateY(-2px);box-shadow:0 8px 18px #9d
 @media(max-width:520px){.hb-goals-meta{grid-template-columns:1fr 1fr;gap:12px}.hb-goals-meta>div:nth-child(2){grid-column:1/-1;grid-row:2;border-left:0;border-top:1px solid #eee3e9;padding-top:10px}.hb-goals-selected strong{font-size:16px}.hb-goals-status{font-size:10px}.hb-goals-actions{padding:12px}}
 @media(prefers-reduced-motion:reduce){#hb-goals-arc,#hb-goals-target-marker,.hb-goals-status{transition:none!important}}
 
-/* Display the supplied strategic goal statement without affecting other goals. */
 #hb-goals-statement{font-size:12px;line-height:1.55;color:#74636e;margin:4px 0 0;max-width:490px}
 #hb-goals-statement[hidden]{display:none!important}
 
@@ -621,7 +595,6 @@ button.hb-budget-item:hover{transform:translateY(-2px);box-shadow:0 8px 18px #9d
 .hb-goals-status{max-width:175px;flex-shrink:0;line-height:1.45}
 @media(max-width:520px){.hb-goals-selected{align-items:flex-start;flex-wrap:wrap}.hb-goals-status{max-width:100%}}
 
-/* Financial landing: four pastel Bento cards, with decorative previews only. */
 #finance{overflow-y:auto;overscroll-behavior:contain}
 #finance .hb-bento-grid{flex:1;min-height:0;display:grid;grid-template-columns:repeat(12,minmax(0,1fr));grid-template-rows:repeat(2,minmax(205px,1fr));gap:clamp(12px,1.45vw,22px);padding-bottom:4px}
 #finance .hb-bento-grid>.finance-card{position:relative;isolation:isolate;display:flex;flex-direction:column;align-items:stretch;justify-content:space-between;gap:9px;height:auto;min-height:0;overflow:hidden;padding:clamp(16px,2.1vw,30px);border-radius:clamp(18px,2vw,30px);border:1px solid #ead3df;background:linear-gradient(135deg,#fff9fc,#f6e3ed);color:#866373;box-shadow:0 8px 26px #9970830a;transition:transform .27s cubic-bezier(.22,1,.36,1),box-shadow .27s,border-color .27s}
@@ -651,7 +624,6 @@ button.hb-budget-item:hover{transform:translateY(-2px);box-shadow:0 8px 18px #9d
 @media(max-width:360px){#finance .hb-bento-grid{grid-template-columns:1fr;grid-template-rows:none;grid-auto-rows:195px}#finance .hb-bento-grid>.finance-card{grid-column:1}}
 @media(prefers-reduced-motion:reduce){#finance .hb-bento-grid{animation:none}#finance .hb-bento-grid>.finance-card,#finance .hb-bento-visual>svg,#finance .hb-bento-arrow{transition:none!important}}
 
-/* Motion-only refinement. Resting geometry, palette and content are unchanged. */
 @keyframes hb-polished-window-enter{from{opacity:0;transform:translateY(12px) scale(.97)}to{opacity:1;transform:none}}
 @keyframes hb-polished-bubble-enter{from{opacity:0;transform:translateY(9px) scale(.955)}to{opacity:1;transform:none}}
 @keyframes hb-polished-fade-out{to{opacity:0}}
@@ -684,7 +656,6 @@ button.hb-budget-item:hover{transform:translateY(-2px);box-shadow:0 8px 18px #9d
 .hb-detail-bubble{transition:none}
 .hb-window-closing{pointer-events:none}
 
-/* Responsive refinement: mobile/tablet reading and controls, desktop unchanged. */
 @media(max-width:1024px){
  .desktop-stage,.start-rail,.round-back{display:none}
  .mobile-layout{display:grid;position:absolute;inset:0;grid-template-columns:44px minmax(0,1fr) minmax(0,auto);grid-template-rows:48px minmax(0,1fr);gap:8px 7px;padding:9px clamp(10px,2.2vw,24px) 0;background:linear-gradient(135deg,#fff7fa,#f7fcf9);overflow:hidden;isolation:isolate}
@@ -826,14 +797,12 @@ button.hb-budget-item:hover{transform:translateY(-2px);box-shadow:0 8px 18px #9d
  .mobile-back,.mobile-current,.mobile-next{height:40px}
 }
 
-/* Monogram extracted from the supplied brand card; transparent background. */
 .chapter .editorial-copy,.mobile-slide .editorial-copy{position:relative;isolation:isolate}
 .hb-brand-watermark{position:absolute;z-index:0;pointer-events:none;user-select:none;left:50%;top:50%;transform:translate(-50%,-50%);width:min(62%,340px);max-height:72%;opacity:.17}
 .hb-brand-watermark img{display:block;width:100%;height:auto}
 .chapter .editorial-copy>.eyebrow,.mobile-slide .editorial-copy>.eyebrow{position:relative;z-index:1}
 @media(max-width:1024px){.hb-brand-watermark{width:min(65%,250px);opacity:.14}}
 
-/* Logo-only Inicio cover, using the commercial section's existing pastel palette. */
 .chapter-body>.hb-cover-panel,.mobile-slide>.hb-cover-panel{display:grid;grid-template-columns:minmax(0,1fr);grid-template-rows:minmax(0,1fr);place-items:center;background:linear-gradient(115deg,#fff7fa 0%,#fff 68%,#f4fbf7 100%);padding:clamp(20px,5vw,64px)}
 .hb-cover-logo{display:block;width:min(70%,340px);height:auto;max-height:85%;object-fit:contain;opacity:1}
 @media(max-width:1024px){.mobile-slide>.hb-cover-panel{height:100%;min-height:100%;padding:24px}.hb-cover-logo{width:min(80%,310px);max-height:85%}}
@@ -1157,7 +1126,6 @@ button.hb-budget-item:hover{transform:translateY(-2px);box-shadow:0 8px 18px #9d
  let current=0,target=0,velocity=0,lastTime=0,frame=null;
  let mode='commercial',width=0,readWidth=0,tabWidth=0,viewWidth=0,mobile=false,chosen=-1;
 
- // Mobile uses an equally-sized strip, while desktop reveals the same chapters from the side.
  chapters.forEach((chapter,i)=>{
    chapter.style.zIndex=String(i);
    chapterTabs[i].addEventListener('click',()=>go(i));
@@ -1177,8 +1145,6 @@ button.hb-budget-item:hover{transform:translateY(-2px);box-shadow:0 8px 18px #9d
     mobileStrip.style.transform=`translate3d(${x}px,0,0)`;
    }
   }else{
-   // Opaque chapters overlap in reading order: their neighbors provide the
-   // exact same reveal as a clip-path, but only compositor transforms change.
    for(let i=0;i<count;i++){
     const x=Math.round((i*tabWidth+readWidth*clamp(i-current,0,1))*100)/100;
     if(paintedPositions[i]===x)continue;
@@ -1202,7 +1168,6 @@ button.hb-budget-item:hover{transform:translateY(-2px);box-shadow:0 8px 18px #9d
   const dt=lastTime?Math.max(0,Math.min((time-lastTime)/1000,.08)):1/60;lastTime=time;
   if(reduced){current=target;velocity=0}
   else{
-   // Analytic critically damped spring: smooth glide into a fully readable chapter.
    const k=18;
    const diff=current-target;
    const decay=Math.exp(-k*dt);
@@ -1251,7 +1216,6 @@ button.hb-budget-item:hover{transform:translateY(-2px);box-shadow:0 8px 18px #9d
  }
  commercialButton.addEventListener('click',()=>switchMode('commercial'));
  financeButton.addEventListener('click',()=>switchMode('finance'));
- // Responsive wheel and trackpad input for the commercial chapters.
  window.addEventListener('wheel',e=>{
   if(mode!=='commercial'||!modal.hidden||!document.getElementById('locations-screen').hidden||e.ctrlKey||e.metaKey)return;
   const vertical=Math.abs(e.deltaY)>=Math.abs(e.deltaX);
@@ -1265,10 +1229,8 @@ button.hb-budget-item:hover{transform:translateY(-2px);box-shadow:0 8px 18px #9d
   if(!delta)return;
   e.preventDefault();
   if(e.deltaMode===1)delta*=17;else if(e.deltaMode===2)delta*=window.innerHeight;
-  // Small trackpad deltas remain continuous; a physical wheel step responds promptly.
   addDelta(clamp(delta,-210,210)/(mobile?255:275));
  },{passive:false});
- // Swipe and click-drag smoothly settle on a complete chapter.
  let start=null,lastPointerX=0;
  const stage=document.getElementById('commercial');
  stage.addEventListener('pointerdown',e=>{
@@ -1320,9 +1282,6 @@ button.hb-budget-item:hover{transform:translateY(-2px);box-shadow:0 8px 18px #9d
   }
  });
  window.addEventListener('resize',()=>{if(mode==='commercial'){resize();render();}},{passive:true});
- // ----------------------------------------------------------
- // Domicilios: familiar three-item dropdown, no fake endpoints.
- // ----------------------------------------------------------
  const deliveryHolder=document.getElementById('delivery-holder');
  const deliveryTrigger=document.getElementById('delivery-trigger');
  const deliveryList=document.getElementById('delivery-list');
@@ -1338,10 +1297,6 @@ button.hb-budget-item:hover{transform:translateY(-2px);box-shadow:0 8px 18px #9d
  }));
  document.addEventListener('click',e=>{if(!deliveryHolder.contains(e.target))closeDelivery()});
 
- // ----------------------------------------------------------
- // Locations: cascading filters by region and department.
- // Only verified examples are shown: SENA Buenos Aires.
- // ----------------------------------------------------------
  const locationScreen=document.getElementById('locations-screen');
  const locationOpen=document.getElementById('open-locations');
  const locationClose=document.getElementById('close-locations');
@@ -1378,7 +1333,6 @@ button.hb-budget-item:hover{transform:translateY(-2px);box-shadow:0 8px 18px #9d
  window.addEventListener('keydown',e=>{if(e.key==='Escape'){locationScreen.hidden=true;closeDelivery()}});
  renderPlaces();
 
- // Financial activities: no changes to the commercial chapters or other finance cards.
  const activitiesDialog=document.getElementById('hb-activities-dialog');
  const activitiesOpen=document.getElementById('hb-activities-open');
  const activityScroll=document.getElementById('hb-activity-scroll');
@@ -1398,7 +1352,6 @@ button.hb-budget-item:hover{transform:translateY(-2px);box-shadow:0 8px 18px #9d
  }
  const activityDetailDialog=document.getElementById('hb-activity-detail-dialog');
 
- // Move each window independently, while keeping its full box within the viewport.
  function makeMovableWindow(dialog){
   const handle=dialog.querySelector('.hb-window-handle');
   const grip=handle.querySelector('.hb-window-grip');
@@ -1422,7 +1375,6 @@ button.hb-budget-item:hover{transform:translateY(-2px);box-shadow:0 8px 18px #9d
   }
   handle.addEventListener('pointerdown',event=>{
    if(!event.isPrimary||event.button!==0||event.target.closest('.hb-activities-close'))return;
-   // Complete an entrance immediately when the user takes hold of a window.
    if(!dialog.classList.contains('hb-window-closing'))dialog.getAnimations?.().forEach(animation=>{if(animation.animationName==='hb-polished-window-enter')animation.finish();});
    drag={id:event.pointerId,startX:event.clientX,startY:event.clientY,x,y};
    handle.setPointerCapture(event.pointerId);
@@ -1523,7 +1475,6 @@ button.hb-budget-item:hover{transform:translateY(-2px);box-shadow:0 8px 18px #9d
   const capacity=Math.min(n,Math.max(1,Math.floor((usable+gap)/(310+gap))));
   const preferredRows=n>=4?2:n===3&&viewportHeight>=620?2:1;
   const plans=[];
-  // Measure actual text heights at each possible width, rather than guessing.
   for(let columns=1;columns<=capacity;columns++){
    const width=Math.min(n===1?420:460,Math.floor((usable-(columns-1)*gap)/columns));
    bubbles.forEach(bubble=>bubble.style.setProperty('--hb-bubble-width',Math.max(1,width)+'px'));
@@ -1564,7 +1515,6 @@ button.hb-budget-item:hover{transform:translateY(-2px);box-shadow:0 8px 18px #9d
    });
    y+=row.height+stagger+gap+extraGap;
   });
-  // Animate the visual displacement only; the actual layout is already final.
   previous.forEach((before,bubble)=>{
    const after=bubble.getBoundingClientRect(),dx=before.left-after.left,dy=before.top-after.top;
    if(Math.hypot(dx,dy)<1)return;
@@ -1699,7 +1649,6 @@ button.hb-budget-item:hover{transform:translateY(-2px);box-shadow:0 8px 18px #9d
  });
  window.addEventListener('resize',()=>{if(activityDetailDialog.open)layoutBubbles(false);});
 
- // Resource catalog and budget. All selectable amounts are exactly those supplied.
  const budgetDialog=document.getElementById('hb-budget-dialog');
 
  const budgetFormat=value=>'$ '+value.toLocaleString('es-CO');
@@ -1827,7 +1776,6 @@ button.hb-budget-item:hover{transform:translateY(-2px);box-shadow:0 8px 18px #9d
   if(event.key==='ArrowLeft'||event.key==='ArrowRight'){event.preventDefault();selectActivity(activityIndex+(event.key==='ArrowRight'?1:-1));}
  });
 
- // Risk matrix: supplied descriptions and screenshot reference values.
  const hbRiskData=[{"title":"Desabastecimiento de telas","category":"Abastecimiento","risk":"Desabastecimiento de telas en los tonos institucionales exactos o demoras por parte de los proveedores en temporadas de alta demanda académica.","plan":"Contar con una red de proveedores principales y de respaldo en Medellín, manteniendo un stock preventivo de materia prima básica antes del inicio de cada trimestre.","p":4,"i":4,"metric":null,"assumed":true},{"title":"Cuellos de botella en producción","category":"Operativo","risk":"Acumulación de pedidos en semanas pico (inicio de trimestre académico) o fallas mecánicas en las máquinas de coser que retrasen las entregas.","plan":"Establecer un cronograma estricto de mantenimiento preventivo para las máquinas y distribuir la carga entre las fundadoras y los dos operarios según fechas límite de entrega.","p":4,"i":4,"metric":45,"unit":"pedidos atrasados","assumed":false},{"title":"Baja visibilidad comercial","category":"Comercial","risk":"Que los aprendices sigan comprando por costumbre en los dos talleres tradicionales cercanos al Complejo Central SENA al desconocer la nueva oferta.","plan":"Implementar campañas activas en redes sociales, exhibición de muestras físicas de alta calidad en el local y promociones de lanzamiento por referidos o combos de uniformes.","p":4,"i":3,"metric":60,"assumed":false},{"title":"Incremento en costos de insumos","category":"Financiero","risk":"Incremento inesperado en el precio de las telas, hilos o servicios públicos que reduzca el margen de ganancia frente a los precios justos prometidos.","plan":"Negociar compras por volumen con los proveedores principales y mantener el fondo de reserva financiero destinado a contingencias de materia prima.","p":3,"i":4,"metric":null,"assumed":true}];
  const hbRiskDialog=document.getElementById('hb-risk-dialog');
  const hbRiskOpen=document.getElementById('hb-risk-open');
@@ -1942,7 +1890,6 @@ button.hb-budget-item:hover{transform:translateY(-2px);box-shadow:0 8px 18px #9d
  hbRiskDialog.addEventListener('close',()=>hbRiskOpen.focus());
  renderHbRisk();
 
- // Strategic goals: only the supplied values; missing details remain unconfirmed.
  const hbGoalsData=[{"name":"Cumplimiento y Puntualidad","tabBadge":"Meta 1 · Puntualidad","tabTitle":"Entregas a Tiempo (98 %)","tag":"Meta 1 · Cumplimiento y Puntualidad","progress":0,"target":98,"slider":"Entregas a Tiempo (%)","statement":"Entregar al menos el 98 % de los uniformes y pedidos en la fecha pactada durante el inicio del primer trimestre académico de 2027.","formula":"(Pedidos entregados en la fecha acordada / Total de pedidos recibidos) × 100","leader":"Geraldine Ardila Buitrago y Any Tatiana Barrera (Gestión comercial y despacho)","targetLabel":"≥ 98 % de puntualidad en entregas","timeline":"Primer trimestre académico 2027 · Medición semanal","actionTitle":"Acción para garantizar entregas puntuales","actions":["Organizar una agenda digital con fechas límite por pedido y alertas previas de despacho.","Distribuir equitativamente las cargas de corte, confección y empacado entre los dos operarios según prioridad de entrega.","Mantener stock preventivo de telas base y ejecutar mantenimiento preventivo de las máquinas planas y fileteadoras antes de semanas pico."]},{"name":"Calidad y Acabados Impecables","tabBadge":"Meta 2 · Calidad","tabTitle":"Cero Reprocesos (95 %)","tag":"Meta 2 · Calidad y Acabados Impecables","progress":0,"target":95,"slider":"Prendas aprobadas sin reprocesos (%)","statement":"Garantizar un 95 % de aprobación en el control de calidad a la primera entrega, sin fallas en costuras, horma o desigualdad en los tonos de tela.","formula":"(Prendas aprobadas sin reprocesos en primera revisión / Total de prendas confeccionadas) × 100","leader":"Operario 1 y Operario 2 junto con supervisión de fundadoras","targetLabel":"≥ 95 % de prendas aprobadas a la primera","timeline":"Enero – Marzo 2027 · Revisión por cada lote producido","actionTitle":"Acción para asegurar calidad y uniformidad de tonos","actions":["Verificar el lote y tono exacto de cada rollo de tela con los proveedores de Medellín antes de iniciar el corte.","Aplicar una lista de chequeo obligatoria antes del empaque: revisión de medidas, tensión de puntadas, botones y limpieza de hebras.","Realizar planchado industrial a vapor en cada prenda terminada para asegurar presentación impecable y horma perfecta."]},{"name":"Posicionamiento y Satisfacción","tabBadge":"Meta 3 · Crecimiento","tabTitle":"150 Clientes SENA (90 %)","tag":"Meta 3 · Posicionamiento y Satisfacción","progress":0,"target":90,"slider":"Avance del indicador de clientes (%)","statement":"Captar los primeros 150 aprendices y clientes frecuentes alrededor del Complejo Central SENA en el primer trimestre de operación, logrando al menos 90 % de satisfacción.","formula":"(Número de clientes nuevos atendidos y encuestados con calificación positiva / 150 clientes meta) × 100","leader":"Geraldine Ardila Buitrago y Any Tatiana Barrera (Atención al cliente y mercadeo)","targetLabel":"150 clientes SENA y ≥ 90 % de satisfacción","timeline":"Enero – Marzo 2027 · Seguimiento quincenal","actionTitle":"Acción para atraer aprendices y fidelizar clientes","actions":["Exhibir muestras físicas de uniformes con acabados limpios en el local estratégico cercano a la Sede Buenos Aires del SENA.","Lanzar campañas en redes sociales con combos de uniformes institucionales y descuentos por referidos entre aprendices.","Brindar asesoría personalizada y transparente sobre tallas, telas y precios justos, aplicando una encuesta breve posventa."]}];
  const hbGoalsDialog=document.getElementById('hb-goals-dialog');
  const hbGoalsOpen=document.getElementById('hb-goals-open');
