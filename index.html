@@ -981,16 +981,8 @@ button.hb-budget-item:hover{transform:translateY(-2px);box-shadow:0 8px 18px #9d
     </div>
     <div class="locator-body">
       <aside class="locator-controls">
-       <div class="locator-controls-top"><span class="locator-small-label">BUSCAR POR REGIÓN</span><span class="mini-globe" aria-hidden="true">◎</span></div>
-       <div class="region-chips" id="region-chips" aria-label="Región de Colombia">
-         <button type="button" class="region-chip is-selected" data-region="Andina" aria-pressed="true">Andina</button>
-         <button type="button" class="region-chip" data-region="Caribe" aria-pressed="false">Caribe</button>
-         <button type="button" class="region-chip" data-region="Pacífica" aria-pressed="false">Pacífica</button>
-         <button type="button" class="region-chip" data-region="Orinoquía" aria-pressed="false">Orinoquía</button>
-         <button type="button" class="region-chip" data-region="Amazonía" aria-pressed="false">Amazonía</button>
-       </div>
        <label class="locator-field" for="department-choice"><span>DEPARTAMENTO</span>
-          <select id="department-choice" aria-label="Departamento"></select>
+          <select id="department-choice" aria-label="Departamento"><option value="Antioquia" selected>Antioquia</option></select>
        </label>
        <label class="locator-field" for="city-choice"><span>CIUDAD</span>
           <select id="city-choice" aria-label="Ciudad"><option>Medellín</option></select>
@@ -1008,7 +1000,6 @@ button.hb-budget-item:hover{transform:translateY(-2px);box-shadow:0 8px 18px #9d
         <p>La maqueta incluye una ubicación de referencia en Medellín. Podrás incorporar más ubicaciones después.</p>
         <button type="button" id="return-antioquia">Ver Antioquia</button>
        </div>
-       <div class="reference-notice">:) Bueeenaaaaas</div>
       </aside>
       <div class="locator-map-column">
         <div class="map-scene" id="map-scene">
@@ -1339,7 +1330,6 @@ button.hb-budget-item:hover{transform:translateY(-2px);box-shadow:0 8px 18px #9d
  const locationScreen=document.getElementById('locations-screen');
  const locationOpen=document.getElementById('open-locations');
  const locationClose=document.getElementById('close-locations');
- const zoneChips=[...document.querySelectorAll('.region-chip')];
  const departmentChoice=document.getElementById('department-choice');
  const cityChoice=document.getElementById('city-choice');
  const result=document.getElementById('sena-location-result');
@@ -1348,22 +1338,8 @@ button.hb-budget-item:hover{transform:translateY(-2px);box-shadow:0 8px 18px #9d
  const noMap=document.getElementById('map-not-available');
  const mapFooter=document.getElementById('destination-links');
  const mapHeading=document.querySelector('.map-live-pill');
- const regions={
-  'Andina':['Antioquia','Bogotá D. C.','Boyacá','Caldas','Cundinamarca','Huila','Norte de Santander','Quindío','Risaralda','Santander','Tolima'],
-  'Caribe':['Atlántico','Bolívar','Cesar','Córdoba','La Guajira','Magdalena','San Andrés y Providencia','Sucre'],
-  'Pacífica':['Cauca','Chocó','Nariño','Valle del Cauca'],
-  'Orinoquía':['Arauca','Casanare','Meta','Vichada'],
-  'Amazonía':['Amazonas','Caquetá','Guainía','Guaviare','Putumayo','Vaupés']
- };
- let selectedRegion='Andina';
- function populateDepartments(preferAntioquia=false){
-  const opts=regions[selectedRegion];departmentChoice.replaceChildren();
-  opts.forEach(n=>{const o=document.createElement('option');o.textContent=n;o.value=n;departmentChoice.appendChild(o)});
-  if(preferAntioquia&&opts.includes('Antioquia'))departmentChoice.value='Antioquia';
-  renderPlaces();
- }
  function renderPlaces(){
-  const found=departmentChoice.value==='Antioquia' && selectedRegion==='Andina';
+  const found=departmentChoice.value==='Antioquia';
   cityChoice.replaceChildren();
   const c=document.createElement('option');c.textContent=found?'Medellín':'Sin sede cargada';c.value=found?'Medellín':'';cityChoice.appendChild(c);cityChoice.disabled=!found;
   result.hidden=!found;empty.hidden=found;mapFrame.hidden=!found;noMap.hidden=found;mapFooter.hidden=!found;mapHeading.hidden=!found;
@@ -1372,14 +1348,9 @@ button.hb-budget-item:hover{transform:translateY(-2px);box-shadow:0 8px 18px #9d
   document.getElementById('map-location-subtitle').textContent=found?'Medellín, Antioquia':departmentChoice.value;
   document.getElementById('map-selected-address').textContent=found?'Cl. 48 #28-00 · Medellín':departmentChoice.value;
  }
- zoneChips.forEach(chip=>chip.addEventListener('click',()=>{
-    selectedRegion=chip.dataset.region;
-    zoneChips.forEach(x=>{const active=x===chip;x.classList.toggle('is-selected',active);x.setAttribute('aria-pressed',String(active))});
-    populateDepartments();
- }));
  departmentChoice.addEventListener('change',renderPlaces);
  document.getElementById('return-antioquia').addEventListener('click',()=>{
-    const andina=zoneChips.find(x=>x.dataset.region==='Andina');andina.click();departmentChoice.value='Antioquia';renderPlaces();
+    departmentChoice.value='Antioquia';renderPlaces();
  });
  document.getElementById('focus-sena').addEventListener('click',()=>{
     const node=document.getElementById('sena-map');
@@ -1390,7 +1361,7 @@ button.hb-budget-item:hover{transform:translateY(-2px);box-shadow:0 8px 18px #9d
  locationClose.addEventListener('click',()=>{locationScreen.hidden=true;});
  [commercialButton,financeButton].forEach(b=>b.addEventListener('click',()=>{locationScreen.hidden=true;closeDelivery()}));
  window.addEventListener('keydown',e=>{if(e.key==='Escape'){locationScreen.hidden=true;closeDelivery()}});
- populateDepartments(true);
+ renderPlaces();
 
  // Financial activities: no changes to the commercial chapters or other finance cards.
  const activitiesDialog=document.getElementById('hb-activities-dialog');
