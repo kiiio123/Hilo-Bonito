@@ -1,3 +1,5 @@
+import { motion, clamp, springStep, normalizeWheel, snapChapter } from './motion.js';
+
 export function initNavigation() {
  const titles=['Inicio','Historia','Filosofía','Misión','Visión','Valores','Objetivos','Marca'];
  const chapters=[...document.querySelectorAll('.chapter')];
@@ -19,8 +21,8 @@ export function initNavigation() {
  const chapterTabs=chapters.map(chapter=>chapter.querySelector('.chapter-tab'));
  const paintedPositions=chapters.map(()=>null);
  let paintedMobilePosition=null;
- const clamp=(v,min,max)=>Math.min(max,Math.max(min,v));
  let current=0,target=0,velocity=0,lastTime=0,frame=null;
+ let stiffness=motion.spring;
  let mode='commercial',width=0,readWidth=0,tabWidth=0,viewWidth=0,mobile=false,chosen=-1;
 
  chapters.forEach((chapter,i)=>{
@@ -53,6 +55,7 @@ export function initNavigation() {
   if(index!==chosen){
     chosen=index;
     chapterTabs.forEach((tab,i)=>tab.setAttribute('aria-expanded',String(i===index)));
+    Array.from(mobileStrip.children).forEach((slide,i)=>slide.classList.toggle('is-current',i===index));
     mobileCurrent.textContent=titles[index];
     mobileNext.textContent=titles[Math.min(index+1,count-1)];
     mobileNextButton.style.opacity=index===count-1?'.3':'1';
@@ -65,31 +68,36 @@ export function initNavigation() {
   const dt=lastTime?Math.max(0,Math.min((time-lastTime)/1000,.08)):1/60;lastTime=time;
   if(reduced){current=target;velocity=0}
   else{
-   const k=18;
-   const diff=current-target;
-   const decay=Math.exp(-k*dt);
-   const temp=(velocity+k*diff)*dt;
-   current=target+(diff+temp)*decay;
-   velocity=(velocity-k*temp)*decay;
+   const next=springStep(current,velocity,target,dt,stiffness);
+   current=next.position;
+   velocity=next.velocity;
   }
-  current=clamp(current,0,count-1);
-  if(Math.abs(target-current)<.0015 && Math.abs(velocity)<.025){current=target;velocity=0;paint();frame=null;lastTime=0;return}
+  if(current<0||current>count-1){current=clamp(current,0,count-1);velocity=0;}
+  if(Math.abs(target-current)<motion.epsilon && Math.abs(velocity)<motion.speedEpsilon){current=target;velocity=0;paint();frame=null;lastTime=0;return}
   paint();frame=requestAnimationFrame(tick);
  }
  function render(){if(frame===null){if(reduced){current=target;velocity=0;paint();}else if(current!==target||Math.abs(velocity)>.025){frame=requestAnimationFrame(tick);}}}
- let settleTimer=null,wheelAnchor=null;
- function cancelSettle(){if(settleTimer!==null)clearTimeout(settleTimer);settleTimer=null;wheelAnchor=null}
- function go(i){cancelSettle();target=clamp(i,0,count-1);render()}
+ let settleTimer=null,wheelAnchor=null,wheelSpeed=0,wheelTime=0;
+ function cancelSettle(){
+  if(settleTimer!==null)clearTimeout(settleTimer);
+  settleTimer=null;wheelAnchor=null;wheelSpeed=0;wheelTime=0;
+ }
+ function go(i){
+  cancelSettle();stiffness=motion.spring;
+  target=clamp(i,0,count-1);render();
+ }
  function addDelta(delta){
-  if(wheelAnchor===null)wheelAnchor=Math.round(target);
+  const now=performance.now();
+  if(wheelAnchor===null){wheelAnchor=Math.round(target);wheelSpeed=0;}
+  const dt=wheelTime?Math.max((now-wheelTime)/1000,0.012):0.04;
+  wheelSpeed=wheelSpeed*.55+clamp(delta/dt,-4,4)*.45;
+  wheelTime=now;
+  stiffness=motion.wheelSpring;
   target=clamp(target+delta,0,count-1);render();
   if(settleTimer!==null)clearTimeout(settleTimer);
   settleTimer=setTimeout(()=>{
-   let next=Math.round(target);
-   const displacement=target-wheelAnchor;
-   if(next===wheelAnchor&&Math.abs(displacement)>=.10)next=wheelAnchor+Math.sign(displacement);
-   go(next);
-  },120);
+   go(snapChapter(target,wheelAnchor,wheelSpeed,count-1,motion.wheelProjection));
+  },motion.wheelIdle);
  }
  function resize(){
    const wasMobile=mobile;
@@ -125,38 +133,50 @@ export function initNavigation() {
   let delta=vertical?e.deltaY:e.deltaX;
   if(!delta)return;
   e.preventDefault();
-  if(e.deltaMode===1)delta*=17;else if(e.deltaMode===2)delta*=window.innerHeight;
-  addDelta(clamp(delta,-210,210)/(mobile?255:275));
+  delta=normalizeWheel(delta,e.deltaMode,window.innerHeight);
+  const distance=mobile?Math.max(viewWidth*.76,255):clamp(width*.32,275,420);
+  addDelta(clamp(delta,-240,240)/distance);
  },{passive:false});
- let start=null,lastPointerX=0;
+ let start=null;
+ function finishDrag(cancelled=false){
+  if(!start)return;
+  const gesture=start;
+  start=null;stage.classList.remove('is-dragging');
+  if(gesture.dragged){
+   const speed=cancelled||performance.now()-gesture.time>110?0:gesture.speed;
+   go(snapChapter(target,Math.round(gesture.position),speed,count-1,motion.dragProjection,.15));
+  }
+  if(stage.hasPointerCapture?.(gesture.id))stage.releasePointerCapture(gesture.id);
+ }
  const stage=document.getElementById('commercial');
  stage.addEventListener('pointerdown',e=>{
   if(e.target.closest('button,summary,a,input,select,textarea')||(!mobile&&e.target.closest('.values-scroll'))||modal.hidden===false||e.button!==0)return;
   if(mobile&&!e.target.closest('.mobile-view'))return;
   cancelSettle();
-  start={id:e.pointerId,x:e.clientX,y:e.clientY,position:target,type:e.pointerType,dragged:false};
-  if(e.pointerType!=='touch')stage.setPointerCapture?.(e.pointerId);
+  start={id:e.pointerId,x:e.clientX,y:e.clientY,position:current,type:e.pointerType,dragged:false,lastX:e.clientX,time:performance.now(),speed:0};
  });
  stage.addEventListener('pointermove',e=>{
   if(!start||e.pointerId!==start.id)return;
-  const dx=e.clientX-start.x,dy=e.clientY-start.y;lastPointerX=e.clientX;
-  if(!start.dragged&&mobile&&start.type==='touch'&&Math.abs(dy)>9&&Math.abs(dy)>Math.abs(dx)){start=null;return;}
-  if(!start.dragged && Math.abs(dx)<6)return;
-  if(!start.dragged && Math.abs(dx)<Math.abs(dy))return;
-  start.dragged=true;
-  target=clamp(start.position-dx/(mobile?Math.max(viewWidth*.79,185):Math.max(width*.55,350)),0,count-1);
-  render();
+  const dx=e.clientX-start.x,dy=e.clientY-start.y;
+  if(!start.dragged&&mobile&&start.type==='touch'&&Math.abs(dy)>9&&Math.abs(dy)>Math.abs(dx)){finishDrag(true);return;}
+  if(!start.dragged&&(Math.abs(dx)<6||Math.abs(dx)<Math.abs(dy)))return;
+  const now=performance.now();
+  const distance=mobile?Math.max(viewWidth*.79,185):Math.max(readWidth*.72,350);
+  if(!start.dragged){
+   start.dragged=true;
+   stop();velocity=0;
+   stage.classList.add('is-dragging');
+   stage.setPointerCapture?.(e.pointerId);
+  }
+  const dt=Math.max((now-start.time)/1000,.008);
+  start.speed=start.speed*.48+clamp((start.lastX-e.clientX)/distance/dt,-5,5)*.52;
+  start.lastX=e.clientX;start.time=now;
+  current=target=clamp(start.position-dx/distance,0,count-1);
+  paint();
  });
- const clearPointer=()=>{
-   if(start&&start.dragged){
-    let next=Math.round(target);
-    const anchor=Math.round(start.position),displacement=target-start.position;
-    if(next===anchor&&Math.abs(displacement)>=.15)next=anchor+Math.sign(displacement);
-    go(next);
-   }
-   start=null;
- };
- stage.addEventListener('pointerup',clearPointer);stage.addEventListener('pointercancel',clearPointer);
+ stage.addEventListener('pointerup',e=>{if(start?.id===e.pointerId)finishDrag();});
+ stage.addEventListener('pointercancel',e=>{if(start?.id===e.pointerId)finishDrag(true);});
+ stage.addEventListener('lostpointercapture',e=>{if(start?.id===e.pointerId)finishDrag(true);});
  document.getElementById('mobile-current-button').addEventListener('click',()=>openPopup('Apartados'));
  mobileNextButton.addEventListener('click',()=>go(clamp(Math.round(target)+1,0,count-1)));
  document.getElementById('mobile-back').addEventListener('click',()=>{
@@ -172,7 +192,7 @@ export function initNavigation() {
  modal.addEventListener('click',e=>{if(e.target===modal)closePopup()});
  window.addEventListener('keydown',e=>{
   if(e.key==='Escape'){closePopup();return}
-  if(mode!=='commercial'||!modal.hidden)return;
+  if(mode!=='commercial'||!modal.hidden||!document.getElementById('locations-screen').hidden||e.target.closest?.('input,select,textarea,[contenteditable=true]'))return;
   if(['ArrowRight','ArrowLeft','PageDown','PageUp','Home','End'].includes(e.key)){
     e.preventDefault();if(e.key==='Home')go(0);else if(e.key==='End')go(count-1);
     else go(clamp(Math.round(target)+(e.key==='ArrowLeft'||e.key==='PageUp'?-1:1),0,count-1));
