@@ -1,0 +1,141 @@
+@media(max-width:1024px){
+ .desktop-stage,.start-rail,.round-back{display:none}
+ .mobile-layout{display:grid;position:absolute;inset:0;grid-template-columns:44px minmax(0,1fr) minmax(0,auto);grid-template-rows:48px minmax(0,1fr);gap:8px 7px;padding:9px clamp(10px,2.2vw,24px) 0;background:linear-gradient(135deg,#fff7fa,#f7fcf9);overflow:hidden;isolation:isolate}
+ .mobile-back,.mobile-current,.mobile-next{position:static;min-width:0;width:auto;height:44px;transform:none;writing-mode:horizontal-tb;display:flex;align-items:center;justify-content:center;gap:5px;padding:0 12px;border:1px solid #eddee5;border-radius:12px;white-space:nowrap;box-shadow:none;touch-action:manipulation}
+ .mobile-back{grid-column:1;grid-row:1;padding:0;color:#866373;background:#fff;font-size:27px;line-height:1}
+ .mobile-current{grid-column:2;grid-row:1;background:#f9e8ef;color:#866373;justify-content:space-between}
+ .mobile-next{grid-column:3;grid-row:1;background:#e8f6ed;color:#557e68;border-color:#d7eadd;max-width:145px}
+ .mobile-current span,.mobile-next span{display:block;transform:none;writing-mode:horizontal-tb;font-size:12px;font-weight:650;letter-spacing:.01em;text-transform:none;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+ .mobile-current::after{content:"⌄";font-size:16px;flex:none}
+ .mobile-next::after{content:"›";font-size:21px;line-height:1;flex:none}
+ .mobile-next:disabled{cursor:default}
+ .mobile-view{grid-column:1/-1;grid-row:2;position:relative;min-width:0;min-height:0;overflow:hidden;touch-action:pan-y pinch-zoom;background:transparent}
+ .mobile-strip{height:100%;display:flex;will-change:transform}
+ .mobile-slide{height:100%;flex:none;min-width:0;overflow-x:hidden;overflow-y:auto;overscroll-behavior-y:contain;touch-action:pan-y pinch-zoom;padding:0 1px 12px;scrollbar-width:thin;scrollbar-color:#e4bccd transparent}
+ .mobile-slide>.panel-body{width:100%;height:auto;min-height:100%;display:flex;flex-direction:column;overflow:hidden;border-radius:19px;background:#fffefd;border:1px solid #f2e5ea}
+ .mobile-slide .editorial-aside{flex:none;min-height:clamp(82px,13vh,130px);padding:17px 22px;display:flex;flex-direction:row;align-items:flex-end;justify-content:flex-start;border-right:0;border-bottom:1px solid #e5f0e8}
+ .mobile-slide.mint .editorial-aside{background:linear-gradient(135deg,#ffeef5 0%,#fff8fb 63%,#f0fbf4 100%)}
+ .mobile-slide.mint .aside-title{color:#ad8194}
+ .mobile-slide.rose .aside-title{color:#7d9f8c}
+ .mobile-slide .aside-title{font-size:clamp(31px,7vw,48px);max-width:100%;text-align:left;overflow-wrap:normal}
+ .mobile-slide .aside-stitch{display:none}
+ .mobile-slide .editorial-copy{flex:1 0 auto;min-height:0;padding:clamp(18px,4.5vw,34px);overflow:visible;background:#fffefd}
+ .mobile-slide .eyebrow{font-size:10px;letter-spacing:.13em}
+ .mobile-slide .editorial-copy .copy-content,.mobile-slide .editorial-copy .copy-content.values-scroll{display:block;flex:none;width:100%;min-height:0;max-width:680px;max-height:none;margin-top:17px;padding-right:0;overflow:visible;overscroll-behavior:auto}
+ .mobile-slide .statement{font-size:clamp(16px,3.9vw,20px);line-height:1.65;overflow-wrap:break-word}
+ .mobile-slide.mint .statement{color:#647d70}
+ .mobile-slide .panel-display{display:none}
+ .mobile-slide .value{grid-template-columns:9px minmax(0,1fr);gap:10px;padding-bottom:12px}
+ .mobile-slide .value h3{font-size:15px;line-height:1.4}
+ .mobile-slide .value p{font-size:14px;line-height:1.6;overflow-wrap:break-word}
+ .mobile-slide .objectives-list{gap:12px}
+ .mobile-slide .history-details summary{min-height:40px;display:flex;align-items:center;justify-content:center;width:max-content;max-width:100%;padding:10px 17px}
+ .mobile-slide .history-details .statement{margin-top:15px}
+ .popover-backdrop{padding:14px}
+ .popover{width:min(460px,100%);max-height:calc(100dvh - 28px);min-height:0;overflow-y:auto;padding:22px}
+ .popover h2{font-size:clamp(28px,8vw,40px);margin:36px 0 12px;overflow-wrap:break-word}
+ .chapter-list{gap:8px}.chapter-list button{min-height:44px;max-width:100%;font-size:13px}
+ .locations-screen{overflow:hidden}
+ .location-layout{min-height:0}
+ .locator-body{display:flex;flex-direction:column;min-height:0;overflow-y:auto;overscroll-behavior:contain}
+ .locator-controls{flex:none;overflow:visible}
+ .locator-map-column{flex:0 0 auto;min-height:0;overflow:visible}
+ .map-scene{height:auto;min-height:0}
+ .map-frame-wrapper{flex:none;height:clamp(235px,38vh,430px);min-height:0}
+ .map-heading>div:not(.map-heading-mark){min-width:0;flex:1}
+ .map-heading strong,.map-heading small{overflow-wrap:anywhere}
+ .map-bottom{align-items:flex-start}
+ .destination-links{flex-wrap:wrap;min-width:0}
+ .destination-links a{flex:1 1 120px;justify-content:center}
+ .hb-activities-dialog,.hb-budget-dialog,.hb-risk-dialog,.hb-goals-dialog{width:min(790px,calc(100% - 24px));max-width:calc(100% - 24px);max-height:calc(100dvh - 24px);overflow-x:hidden;overscroll-behavior:contain}
+ .hb-activities-inner{min-width:0}
+ .hb-activities-top{min-width:0}
+ .hb-activities-top>.eyebrow,.hb-activity-detail-top>.eyebrow{min-width:0;overflow-wrap:anywhere}
+ .hb-activities-close{width:40px;height:40px;flex:none}
+ .hb-window-grip{width:36px;height:38px;flex:none}
+ .hb-activity-scroll{scroll-snap-type:x proximity;touch-action:pan-x pan-y}
+ .hb-activity-stage{scroll-snap-align:start}
+ .hb-bubble-scroll{overflow-x:hidden;overscroll-behavior:contain}
+ .hb-detail-bubble{max-width:calc(100% - 16px)}
+ .hb-bubble-menu{max-width:calc(100% - 62px)}
+ .hb-budget-header,.hb-budget-legend,.hb-budget-panel,.hb-budget-summary,.hb-budget-visual,.hb-risk-board,.hb-risk-details,.hb-goals-board,.hb-goals-actions{min-width:0}
+ .hb-budget-total{white-space:normal;overflow-wrap:anywhere}
+ .hb-budget-item strong,.hb-budget-role,.hb-budget-item b,.hb-budget-subtotal strong{overflow-wrap:anywhere}
+ #hb-risk-select,#hb-goals-select,.locator-field select{min-height:44px;font-size:16px}
+ #hb-risk-pressure,#hb-goals-slider{min-height:8px;margin:15px 0}
+ .hb-risk-toggle button{min-height:39px}
+}
+@media(max-width:760px){
+ .header{grid-template-columns:minmax(0,1fr) auto;grid-template-rows:54px 44px;height:98px;flex-basis:98px;padding:0 10px;gap:0}
+ .brand{font-size:clamp(13px,3.9vw,18px);letter-spacing:.08em}
+ .mode-nav{gap:2px;padding:3px}
+ .mode-nav button{font-size:11px;padding:10px clamp(7px,2vw,12px);min-height:36px}
+ .links{gap:3px}.links button{min-height:40px;font-size:clamp(9px,2.55vw,11px);letter-spacing:.045em}
+ .links .delivery-trigger{gap:3px}
+ #finance{padding:16px 12px 16px;gap:14px}
+ #finance .hb-bento-grid{min-height:0;flex:none;grid-template-columns:repeat(2,minmax(0,1fr));grid-template-rows:none;grid-auto-rows:minmax(185px,auto);gap:10px}
+ #finance .hb-bento-grid>#hb-activities-open,#finance .hb-bento-grid>#hb-budget-open,#finance .hb-bento-grid>#hb-risk-open,#finance .hb-bento-grid>#hb-goals-open{grid-column:auto;height:auto;min-height:185px;padding:13px;gap:9px}
+ #finance .hb-bento-copy .hb-trigger-title{font-size:clamp(18px,4.7vw,24px);line-height:1.15;overflow-wrap:break-word}
+ #finance .hb-bento-copy .hb-trigger-subtitle{font-size:11px;line-height:1.4}
+ #finance .hb-bento-visual{min-height:64px;padding:3px 0 6px}
+ #finance .hb-bento-visual>svg{max-height:98px}
+ .hb-activities-dialog,.hb-budget-dialog,.hb-risk-dialog,.hb-goals-dialog{width:calc(100% - 16px);max-width:calc(100% - 16px);max-height:calc(100dvh - 16px);border-radius:19px}
+ .hb-activities-inner,.hb-budget-inner,.hb-risk-inner,.hb-goals-inner{padding:13px;gap:14px}
+ .hb-activities-heading h2{font-size:clamp(23px,6.7vw,30px);overflow-wrap:break-word}
+ .hb-activity-grid{min-width:0;width:max-content;grid-template-columns:repeat(5,clamp(155px,48vw,190px));gap:11px}
+ .hb-stage-card{min-height:150px;padding:14px 12px}
+ .hb-activity-detail-inner{padding:18px;gap:12px}
+ .hb-activity-detail-inner p{font-size:14px;line-height:1.6}
+ .hb-bubble-footer{padding-bottom:max(16px,env(safe-area-inset-bottom))}
+ .hb-budget-tabs{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));border-radius:17px;gap:4px;overflow:visible}
+ .hb-budget-tabs button{min-width:0;min-height:40px;padding:8px 5px;gap:5px;font-size:11px}
+ .hb-budget-tabs button svg{flex:none;width:15px;height:15px}
+ .hb-budget-grid{gap:8px}
+ .hb-budget-item{padding:12px 10px;gap:6px}
+ .hb-budget-item strong{font-size:14px;line-height:1.4}
+ .hb-budget-role{font-size:12px;line-height:1.4}
+ .hb-budget-subtotal{padding:13px;gap:9px}.hb-budget-subtotal strong{font-size:20px}
+ .hb-budget-cloud{height:218px}
+ .hb-budget-cloud-legend{grid-template-columns:repeat(2,minmax(0,1fr));gap:4px}
+ .hb-cloud-key-share{font-size:13px}
+ .hb-risk-board{padding-top:4px}
+ .hb-risk-matrix text{font-size:17px}
+ .hb-risk-matrix .hb-risk-axis{font-size:17px}
+ .hb-risk-matrix .hb-risk-point-label{font-size:14px}
+ .hb-risk-indicators{padding:11px 4px;gap:4px}
+ .hb-risk-indicators>div{min-width:0}
+ .hb-risk-indicators span{font-size:10px;line-height:1.35}
+ .hb-risk-indicators strong{font-size:14px;overflow-wrap:anywhere}
+ .hb-risk-controls{grid-template-columns:1fr;gap:12px}
+ .hb-risk-range,.hb-goals-range{gap:9px}
+ .hb-risk-baseline{padding:11px 12px}
+ .hb-goals-meta strong{font-size:13px}
+ .hb-goals-selected{align-items:flex-start;flex-wrap:wrap}
+ .hb-goals-actions li{font-size:13px}
+ .hb-goals-status{max-width:100%}
+ .locator-field{width:100%;margin-right:0}
+ .locator-field>span{font-size:10px}
+ .locator-field select{padding:10px 28px 10px 10px}
+ .region-chip{min-height:36px}
+ .map-heading{flex-wrap:wrap}
+ .map-live-pill{margin-left:0}
+ .location-result p{font-size:12px}
+ .destination-links a{min-height:44px}
+}
+@media(max-width:360px){
+ .header{padding:0 7px}.brand{font-size:13px;letter-spacing:.04em}
+ .mode-nav button{padding:9px 6px;font-size:10px}
+ .mobile-layout{grid-template-columns:40px minmax(0,1fr) minmax(0,auto);gap:6px;padding-inline:8px}
+ .mobile-back,.mobile-current,.mobile-next{padding-inline:8px}
+ .mobile-next{max-width:112px}
+ #finance .hb-bento-grid{grid-template-columns:1fr;grid-auto-rows:minmax(185px,auto)}
+ .hb-budget-grid,.hb-budget-cloud-legend{grid-template-columns:1fr}
+}
+@media(max-width:1024px) and (max-height:520px){
+ .mobile-slide .editorial-aside{min-height:66px;padding:12px 18px}
+ .mobile-slide .aside-title{font-size:30px}
+ .mobile-slide .editorial-copy{padding:16px 20px}
+ .mobile-layout{grid-template-rows:44px minmax(0,1fr);gap:5px}
+ .mobile-back,.mobile-current,.mobile-next{height:40px}
+}
+
