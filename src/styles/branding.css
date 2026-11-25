@@ -1,0 +1,9 @@
+.chapter .editorial-copy,.mobile-slide .editorial-copy{position:relative;isolation:isolate}
+.hb-brand-watermark{position:absolute;z-index:0;pointer-events:none;user-select:none;left:50%;top:50%;transform:translate(-50%,-50%);width:min(62%,340px);max-height:72%;opacity:.17}
+.hb-brand-watermark img{display:block;width:100%;height:auto}
+.chapter .editorial-copy>.eyebrow,.mobile-slide .editorial-copy>.eyebrow{position:relative;z-index:1}
+@media(max-width:1024px){.hb-brand-watermark{width:min(65%,250px);opacity:.14}}
+
+.chapter-body>.hb-cover-panel,.mobile-slide>.hb-cover-panel{display:grid;grid-template-columns:minmax(0,1fr);grid-template-rows:minmax(0,1fr);place-items:center;background:linear-gradient(115deg,#fff7fa 0%,#fff 68%,#f4fbf7 100%);padding:clamp(20px,5vw,64px)}
+.hb-cover-logo{display:block;width:min(70%,340px);height:auto;max-height:85%;object-fit:contain;opacity:1}
+@media(max-width:1024px){.mobile-slide>.hb-cover-panel{height:100%;min-height:100%;padding:24px}.hb-cover-logo{width:min(80%,310px);max-height:85%}}
