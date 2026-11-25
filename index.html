@@ -650,6 +650,39 @@ button.hb-budget-item:hover{transform:translateY(-2px);box-shadow:0 8px 18px #9d
 @media(max-width:760px){#finance .hb-bento-grid{flex:none;min-height:calc(100dvh - 175px);grid-template-columns:repeat(2,minmax(0,1fr));grid-template-rows:repeat(2,minmax(175px,1fr));gap:10px}#finance .hb-bento-grid>.finance-card{grid-column:span 1;padding:13px;gap:7px}#finance .hb-bento-copy .hb-trigger-title{font-size:clamp(17px,4vw,23px)}#finance .hb-bento-copy .hb-trigger-subtitle{font-size:10px}#finance .hb-bento-top .hb-trigger-icon{width:31px;height:31px;border-radius:9px}#finance .hb-bento-top .hb-trigger-icon svg{width:17px;height:17px}.hb-bento-arrow{width:25px;height:25px;font-size:15px}.hb-bento-visual>svg{max-height:115px}}
 @media(max-width:360px){#finance .hb-bento-grid{grid-template-columns:1fr;grid-template-rows:none;grid-auto-rows:195px}#finance .hb-bento-grid>.finance-card{grid-column:1}}
 @media(prefers-reduced-motion:reduce){#finance .hb-bento-grid{animation:none}#finance .hb-bento-grid>.finance-card,#finance .hb-bento-visual>svg,#finance .hb-bento-arrow{transition:none!important}}
+
+/* Motion-only refinement. Resting geometry, palette and content are unchanged. */
+@keyframes hb-polished-window-enter{from{opacity:0;transform:translateY(12px) scale(.97)}to{opacity:1;transform:none}}
+@keyframes hb-polished-bubble-enter{from{opacity:0;transform:translateY(9px) scale(.955)}to{opacity:1;transform:none}}
+@keyframes hb-polished-fade-out{to{opacity:0}}
+@keyframes hb-polished-screen-enter{from{opacity:0}to{opacity:1}}
+@keyframes hb-polished-popover-enter{from{opacity:0;transform:translateY(9px) scale(.98)}to{opacity:1;transform:none}}
+@media(prefers-reduced-motion:no-preference){
+ .hb-activities-dialog[open],.hb-activity-detail-dialog[open]{animation:hb-polished-window-enter .32s cubic-bezier(.22,1,.36,1) both}
+ .hb-activities-dialog[open] .hb-activities-inner,.hb-activity-detail-dialog[open] .hb-activity-detail-inner{animation:none}
+ .hb-activities-dialog[open]::backdrop,.hb-activity-detail-dialog[open]::backdrop,.hb-bubble-workspace[open]::backdrop{animation:hb-window-fade .24s ease-out both}
+ .hb-activities-dialog[open].hb-window-closing::backdrop,.hb-activity-detail-dialog[open].hb-window-closing::backdrop,.hb-bubble-workspace[open].hb-window-closing::backdrop{animation:hb-polished-fade-out .22s ease-in both}
+ .hb-detail-bubble.hb-bubble-enter{animation:hb-polished-bubble-enter .32s cubic-bezier(.22,1,.36,1) both}
+ .hb-bubble-menu{animation:hb-polished-popover-enter .19s cubic-bezier(.22,1,.36,1) both;transform-origin:top right}
+ .hb-activities-dialog[open] .hb-activity-stage{animation-duration:.34s;animation-delay:calc(40ms + var(--hb-stage-order,0)*36ms)}
+ .hb-activity-grid::before{animation-duration:.45s}
+ .hb-budget-panel{animation:hb-expand-content .22s cubic-bezier(.22,1,.36,1) both}
+ .hb-budget-item{transition:transform .22s cubic-bezier(.22,1,.36,1),background .22s,border-color .22s,opacity .22s,box-shadow .22s}
+ .hb-budget-cloud-point{transition:left .38s cubic-bezier(.22,1,.36,1),top .38s cubic-bezier(.22,1,.36,1),width .38s cubic-bezier(.22,1,.36,1),height .38s cubic-bezier(.22,1,.36,1)}
+ .hb-budget-bar span{transition:width .34s cubic-bezier(.22,1,.36,1)}
+ #hb-goals-arc{transition:stroke-dashoffset .34s cubic-bezier(.22,1,.36,1),stroke .34s,opacity .18s}
+ .history-details[open]>:not(summary){animation:hb-expand-content .24s cubic-bezier(.22,1,.36,1) both}
+ .delivery-dropdown{animation:dropdownEnter .2s cubic-bezier(.22,1,.36,1) both}
+ .locations-screen:not([hidden]),.commercial:not([hidden]),.popover-backdrop:not([hidden]){animation:hb-polished-screen-enter .22s ease-out both}
+ .popover-backdrop:not([hidden]) .popover{animation:hb-polished-popover-enter .27s cubic-bezier(.22,1,.36,1) both}
+ #finance .hb-bento-grid{animation:none}
+ #finance:not([hidden]) .hb-bento-top,#finance:not([hidden]) .hb-bento-visual,#finance:not([hidden]) .hb-bento-copy{animation:hb-bento-appear .3s cubic-bezier(.22,1,.36,1) both}
+ #finance:not([hidden]) #hb-budget-open .hb-bento-top,#finance:not([hidden]) #hb-budget-open .hb-bento-visual,#finance:not([hidden]) #hb-budget-open .hb-bento-copy{animation-delay:28ms}
+ #finance:not([hidden]) #hb-risk-open .hb-bento-top,#finance:not([hidden]) #hb-risk-open .hb-bento-visual,#finance:not([hidden]) #hb-risk-open .hb-bento-copy{animation-delay:56ms}
+ #finance:not([hidden]) #hb-goals-open .hb-bento-top,#finance:not([hidden]) #hb-goals-open .hb-bento-visual,#finance:not([hidden]) #hb-goals-open .hb-bento-copy{animation-delay:84ms}
+}
+.hb-detail-bubble{transition:none}
+.hb-window-closing{pointer-events:none}
 </style></head>
 <body><div class="app">
 <header class="header"><span class="brand">HILO BONITO</span><nav class="mode-nav" aria-label="Áreas">
@@ -1255,6 +1288,8 @@ button.hb-budget-item:hover{transform:translateY(-2px);box-shadow:0 8px 18px #9d
   }
   handle.addEventListener('pointerdown',event=>{
    if(!event.isPrimary||event.button!==0||event.target.closest('.hb-activities-close'))return;
+   // Complete an entrance immediately when the user takes hold of a window.
+   if(!dialog.classList.contains('hb-window-closing'))dialog.getAnimations?.().forEach(animation=>{if(animation.animationName==='hb-polished-window-enter')animation.finish();});
    drag={id:event.pointerId,startX:event.clientX,startY:event.clientY,x,y};
    handle.setPointerCapture(event.pointerId);
    dialog.classList.add('hb-window-dragging');
@@ -1282,12 +1317,25 @@ button.hb-budget-item:hover{transform:translateY(-2px);box-shadow:0 8px 18px #9d
  function closeAnimatedWindow(dialog){
   if(!dialog.open||dialog.classList.contains('hb-window-closing'))return;
   if(reduced||!dialog.animate){dialog.close();return;}
+  const workspace=dialog.classList.contains('hb-bubble-workspace');
+  const style=getComputedStyle(dialog),opacity=Number(style.opacity),transform=style.transform;
   dialog.classList.add('hb-window-closing');
-  const motion=dialog.animate([{opacity:1},{opacity:0}],{duration:150,easing:'ease-in',fill:'forwards'});
-  motion.finished.then(()=>{
-   dialog.close();motion.cancel();dialog.classList.remove('hb-window-closing');
-  },()=>{
-   dialog.close();dialog.classList.remove('hb-window-closing');
+  const motions=[];
+  if(workspace){
+   const bubbles=[...dialog.querySelectorAll('.hb-detail-bubble')].filter(b=>b.dataset.closing!=='true');
+   bubbles.forEach((bubble,index)=>{
+    const state=getComputedStyle(bubble);
+    motions.push(bubble.animate([{opacity:state.opacity,transform:state.transform},{opacity:0,transform:'translateY(9px) scale(.965)'}],{duration:180,delay:Math.min(index*18,72),easing:'cubic-bezier(.4,0,1,1)',fill:'forwards'}));
+   });
+   const footer=dialog.querySelector('.hb-bubble-footer');
+   if(footer)motions.push(footer.animate([{opacity:1},{opacity:0}],{duration:180,fill:'forwards'}));
+  }
+  const motion=dialog.animate([{opacity,transform:workspace?'none':transform},{opacity:0,transform:workspace?'none':'translateY(8px) scale(.975)'}],{duration:workspace?260:220,easing:'cubic-bezier(.4,0,1,1)',fill:'forwards'});
+  motions.push(motion);
+  Promise.allSettled(motions.map(animation=>animation.finished)).then(()=>{
+   if(dialog.open)dialog.close();
+   motions.forEach(animation=>animation.cancel());
+   dialog.classList.remove('hb-window-closing');
   });
  }
  [activitiesDialog].forEach(dialog=>{
@@ -1299,6 +1347,7 @@ button.hb-budget-item:hover{transform:translateY(-2px);box-shadow:0 8px 18px #9d
  const bubbleScroll=activityDetailDialog.querySelector('.hb-bubble-scroll');
  const bubbleCanvas=activityDetailDialog.querySelector('.hb-bubble-canvas');
  const openBubbles=new Map();
+ const hbBubbleMoves=new WeakMap();
  let bubbleLayer=1,detailReturnIndex=0;
  function closeBubbleMenus(except=null){
   openBubbles.forEach(bubble=>{
@@ -1326,6 +1375,12 @@ button.hb-budget-item:hover{transform:translateY(-2px);box-shadow:0 8px 18px #9d
   const bubbles=[...openBubbles.values()];
   const n=bubbles.length;
   if(!n)return;
+  const previous=new Map();
+  bubbles.forEach(bubble=>{
+   if(animate&&!reduced&&bubble.style.left&&bubble.animate&&!bubble.classList.contains('hb-window-dragging'))previous.set(bubble,bubble.getBoundingClientRect());
+   const motion=hbBubbleMoves.get(bubble);
+   if(motion){motion.cancel();hbBubbleMoves.delete(bubble);}
+  });
   const available=bubbleScroll.clientWidth;
   const viewportHeight=bubbleScroll.clientHeight;
   const pad=available<600?12:Math.min(44,Math.max(18,available*.032));
@@ -1371,11 +1426,17 @@ button.hb-budget-item:hover{transform:translateY(-2px);box-shadow:0 8px 18px #9d
     const wave=count===1?0:((r+i)%2===0?.08:.92);
     const room=Math.max(0,row.height-bubble.offsetHeight);
     const vertical=n===1?y:y+wave*(stagger+room);
-    if(!animate)bubble.style.transition='none';
     bubble.style.left=Math.round(x)+'px';bubble.style.top=Math.round(vertical)+'px';
-    if(!animate){bubble.getBoundingClientRect();bubble.style.removeProperty('transition');}
    });
    y+=row.height+stagger+gap+extraGap;
+  });
+  // Animate the visual displacement only; the actual layout is already final.
+  previous.forEach((before,bubble)=>{
+   const after=bubble.getBoundingClientRect(),dx=before.left-after.left,dy=before.top-after.top;
+   if(Math.hypot(dx,dy)<1)return;
+   const motion=bubble.animate([{translate:dx+'px '+dy+'px'},{translate:'0px 0px'}],{duration:340,easing:'cubic-bezier(.22,1,.36,1)'});
+   hbBubbleMoves.set(bubble,motion);
+   motion.finished.then(()=>{if(hbBubbleMoves.get(bubble)===motion)hbBubbleMoves.delete(bubble);},()=>{});
   });
  }
  function toggleBubbleMenu(bubble){
@@ -1389,16 +1450,17 @@ button.hb-budget-item:hover{transform:translateY(-2px);box-shadow:0 8px 18px #9d
  }
  function closeActivityBubble(index){
   const bubble=openBubbles.get(index);
-  if(!bubble||bubble.dataset.closing==='true')return;
+  if(!bubble||bubble.dataset.closing==='true'||activityDetailDialog.classList.contains('hb-window-closing'))return;
   bubble.dataset.closing='true';closeBubbleMenus();
   const finish=()=>{
    if(openBubbles.get(index)!==bubble)return;
    bubble.remove();openBubbles.delete(index);refreshBubbleMenus();
-   if(openBubbles.size===0)activityDetailDialog.close();
+   if(openBubbles.size===0)closeAnimatedWindow(activityDetailDialog);
    else{layoutBubbles();const last=[...openBubbles.values()].pop();last.querySelector('.hb-window-grip').focus({preventScroll:true});}
   };
   if(reduced||!bubble.animate){finish();return;}
-  bubble.animate([{opacity:1},{opacity:0,transform:'translateY(5px) scale(.98)'}],{duration:140,easing:'ease-in',fill:'forwards'}).finished.then(finish,finish);
+  const state=getComputedStyle(bubble);
+  bubble.animate([{opacity:state.opacity,transform:state.transform},{opacity:0,transform:'translateY(8px) scale(.965)'}],{duration:185,easing:'cubic-bezier(.4,0,1,1)',fill:'forwards'}).finished.then(finish,finish);
  }
  function enableBubbleDrag(bubble){
   const handle=bubble.querySelector('.hb-window-handle'),grip=bubble.querySelector('.hb-window-grip');
@@ -1410,6 +1472,13 @@ button.hb-budget-item:hover{transform:translateY(-2px);box-shadow:0 8px 18px #9d
   bubble.addEventListener('pointerdown',()=>raiseBubble(bubble));
   handle.addEventListener('pointerdown',event=>{
    if(!event.isPrimary||event.button!==0||event.target.closest('.hb-activities-close'))return;
+   const moving=hbBubbleMoves.get(bubble);
+   if(moving){
+    const current=bubble.getBoundingClientRect(),canvas=bubbleCanvas.getBoundingClientRect();
+    moving.cancel();hbBubbleMoves.delete(bubble);
+    bubble.style.left=(current.left-canvas.left)+'px';bubble.style.top=(current.top-canvas.top)+'px';
+   }
+   bubble.classList.remove('hb-bubble-enter');
    const rect=bubble.getBoundingClientRect(),canvasRect=bubbleCanvas.getBoundingClientRect();
    drag={id:event.pointerId,startX:event.clientX,startY:event.clientY,x:rect.left-canvasRect.left,y:rect.top-canvasRect.top,fromGrip:!!event.target.closest('.hb-window-grip'),moved:false};
    handle.setPointerCapture(event.pointerId);
@@ -1438,6 +1507,7 @@ button.hb-budget-item:hover{transform:translateY(-2px);box-shadow:0 8px 18px #9d
   });
  }
  function openActivityDetail(index){
+  if(activityDetailDialog.classList.contains('hb-window-closing'))return;
   index=Math.max(0,Math.min(activityCards.length-1,index));
   selectActivity(index);
   const existing=openBubbles.get(index);
