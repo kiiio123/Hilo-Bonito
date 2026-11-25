@@ -832,6 +832,11 @@ button.hb-budget-item:hover{transform:translateY(-2px);box-shadow:0 8px 18px #9d
 .hb-brand-watermark img{display:block;width:100%;height:auto}
 .chapter .editorial-copy>.eyebrow,.mobile-slide .editorial-copy>.eyebrow{position:relative;z-index:1}
 @media(max-width:1024px){.hb-brand-watermark{width:min(65%,250px);opacity:.14}}
+
+/* Logo-only cover, responsive and integrated into the horizontal chapter strip. */
+.chapter-body>.hb-cover-panel,.mobile-slide>.hb-cover-panel{display:grid;grid-template-columns:minmax(0,1fr);grid-template-rows:minmax(0,1fr);place-items:center;background:#fffefd;padding:clamp(20px,5vw,64px)}
+.hb-cover-logo{display:block;width:min(70%,365px);height:auto;max-height:85%;object-fit:contain}
+@media(max-width:1024px){.mobile-slide>.hb-cover-panel{height:100%;min-height:100%;padding:24px}.hb-cover-logo{width:min(80%,310px);max-height:85%}}
 </style></head>
 <body><div class="app">
 <header class="header"><span class="brand">HILO BONITO</span><nav class="mode-nav" aria-label="Áreas">
@@ -850,8 +855,12 @@ button.hb-budget-item:hover{transform:translateY(-2px);box-shadow:0 8px 18px #9d
 </nav>
 </header><main>
 <section class="commercial" id="commercial" aria-label="Comercial">
-<div class="desktop-stage" aria-label="Apartados"><section class="chapter rose" data-index="0" aria-label="Historia">
-  <button class="chapter-tab" type="button" aria-label="Abrir Historia" aria-expanded="true"><span>Historia</span></button>
+<div class="desktop-stage" aria-label="Apartados"><section class="chapter rose hb-cover-chapter" data-index="0" aria-label="Inicio">
+<button class="chapter-tab" type="button" aria-label="Abrir Inicio" aria-expanded="true"><span>Inicio</span></button>
+<div class="chapter-body"><div class="panel-body hb-cover-panel"><img class="hb-cover-logo" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAALQAAAC7BAMAAAA+tanUAAAAMFBMVEWffTqffTqffTqffTqffTqffTqffTqffTpnVztnVztnVztnVztnVztnVztnVztnVzs6MM/3AAAAEHRSTlMAJEltkrbb/wAkSW2Sttv/iJerAgAADP9JREFUeNrtW99zG9d1/s5SbrQgCNy7UJK6HZkLgP41dSTwh2cad8aifvQhfeg47mOaqR8645mmrfmcPyDPm8lMMrSViJ5OHhzZEls708YUSSR265FFgpA6rmOFxIKSbYmisPcCdAhRIPbmASSwIHcprEDPtB3eBw5wd/Hh7HfPPec754LAwTgY//8G7ZphZcW3Xoqd1wIvdAStnYRoTCqpbM+FQyckGDVwS8UOoA/tmnHKqswaL6V3XgkCiYQrIYR6KKtJcVBcYxCO3HkplRRs2VyyO+Na2zmhIIQrIbELGUooMMQFHhK68ShKQu6eF1ySWZDdQYP50ik4lEKX0H5GQ0lWFrIraBg87jvPVUyyTqEP+c4qofyNI0rUurNaoWL63y/c7giRRIx8LwAdr2KA1aSCGCXqDlq5JII2Bu+OECIFhgDDWXeE7A5O21/K9wU6wHe6XMZAyzp3vUCrFfwxRAho390YL2sB3sc10aXV7h5ky+5iCJcBhGhM1bv2EB4Qt6jbZURSdbVd9oAm6UuIFECXG10ASV+riavuUoEygozjQnbpIVBSdbvPg9Ku5DwgYiW7242BxikBZxnEOlKUvtCynwfcbjM+3FhHIZT9UFwHuKQwMmVXCHBVTnLiewupoGWsxHzUSYoJIRp45Bg8kZzZi5Ye37V9lAO3dvpd74vVHLtPsdsAgHvysGZk7HuhMzp2iQVj4Ntz00TUdHhluzIxzEJLnHK5XeKwxPBj03kYPN7KM2oB5dRQWEK+Lr8C7/ob6aEv/ut2ion7rBq/3cQmpnNHhltGSirH8/bIIO7OIs2ZcorckyZKRSZHAnd+kJz0VCJ0hjnzEhQvMCMBx5MKhJ0EmfmwaZeaXJxRi9MSMIRbmJeJtgTm1CXSYZ3vnrr/tM45N/7M/PyjIgBEDj9ZxC3j0XUPtqrxw7QuQ+5GYoYBDjjzWwKB+isAL4m0t2YsDgLJYihoCc4cYgUoWzT94Womn46XykM51nJAVWZGyBhCquhQ3KtoVPnoGuzjxsJpN++J68TdkGmXOUvCsWXbncnioCPLozPPsjZVQmY4zSeaj8n4lm5Sy4/1nLChOcstLEUsMA8H6pBtiunIqa0YjrrhrCVLb6q5Ee+iSJYMFZ44U1uOPWJWGABQTBpFZnMjCedaxqMvJYWCVhLUSGJksgYjXCgZqxzPETeR81jNmkaElu62VCYAUJFEpV7un9eGk231KmMh47XgTfslAaBjcUmuIbTBwkJiULb7aQhoxlVTRwtBZRMgjv5+vsCVNog4k52oef+S1OHNpSkRkARoFnRD9pMWkynNk245RyiuGZHTZNCmVALUr7Rrsbgm3AqcJc8yMjuwSPW3GrIVr4Vjk8lMo3jMrAi3rIh5s4TknKlQzldfbnqBKyCTJHGMrrnHexRvr8IYY0FCyh9aMzxxoVAWCUOpHlHn19zBAtpiaBKFYri60SvMVMGU/cIWJi/2UT7peqHIlYFW+wdVIbzY7tV+MsgRSU4UJ9aeMCSLvxtqN/I4ec0mihNzlhZykogGvR+n/sAKOKhuLHufsi7dhJIpgzHXVoVDGQ/VEnDCbXTaUdxROcWEAEFJOzfcmjY5wQ7VajFEW4A3YjlXKgAMdDRZf69ptmYyqFAeQqJ92RNM2JROKghHZk0sNYWeISE3w2UZZXtrlsdPFJkQxA0jlR6tKNTL2yacLMv4bMga3RsXjowWVByunYovl0hBAle3Ql/CLLK7xXAimHNPpZRcLJKmGXZuIMMrrimbNSWdKqA+E75Gbxqj1RN2pSzkYyqnpTOSmimZBuIUn5choYX0tE7Nq8/LYzyWkKUc8WG30UZk0EYyks3lH6Jp0WRbrakj9QSrLPcnnXlbSw2Bc4ASZzJQUwt71Wt+k4mThPqFpoMcXdv89Jjdv1ZIlqMVJEyhxcG5cAp7F3cBVkuPWy9yO12TmZv28WL82mm2mLNdCVXkTPI9uwy++jqSquLwx823m09c/+ZCzyN85Wtq86lnNhcE/8/P/6cg7qf/wvi6vBeykAb39u1LmWWtf+7Fq27P5pCUElBKAA6lkTIpJ8NVBU8TW29ZXb3z5wuRJ/9j0Lj95H0dqohIgy6xEWGRJ/LhoJ8SpFrQqNaOLTzzyG//mNw1Uy8VccRt0CDuPUqJr/02nNX37n3lY6+fR4/PDrPCx1h9CqUiemJbLAjtMP3J+u1wft2uLlRuLZNbHjm1FbPEtmeoRQk6E0q6E9+hLerTPcn69LZmd1PNx5mJQzsV0uodhyTupcrwIJcmKQm4LRrreeCIGa7JvHObqiuz5VjWbMiIi6PN6VmAToXqPTHJdjpsqYTHk43GUz3hSckMR8xip1anygCT/o1WtW3rNlN5gE6Ginz+GlGoRvJqCVkUACQ6F8EAKAN01LF1JKCxDqENZgPyWbZX0mzR5RYBGu0MmqeZSXGVH+qwESkBGJ14SM9JMBkXDheJnvRcB71ZJQMa6Yd8OjgFKJIM8D9a3E02FGk+DrULuj69/QE/oSh9SnIHgB90uNMkyXxOOBTIt9UfDpo16tNd66hk19AQPgd6Skry6y6Eg/avbANOksNB+6oDFargCFxGCgLqmmsFEOu0/R/2KDPECAdNzO/AhvYDmvuxSgy+J0T7QYiC71lKSL8O9I4vx2rOART3A1r6Qbj7Ar1rGcvwPwzeB0KSzH8RuieEMvDvLoSM18pPevqvYmir5S6uDdaQUN1udJ/glAKwiS+Da0oCmN0XaLVDTCfMhsjuEpp8dHcCwNyXEq+1UaCe3SfoNg1GzwYaHfJs14SiNujEKLCa3Y9UoES5rdLU/kZ6WhDdWJ0AMWiZpj+kzzAsXZJhqt0AOhKnDzMCkrdwDwD4n55hamlahmq1+I6BIa644ACUkIIDnMOZzyFc08KfDeVIYeSSjYjEATXvdPxjxw78joNzzoiBcxyMg3EwDsbBOBgdjN4rWfRO/QqIXJkCcGnO2p5vHVJGpqY+3Ho115j9hQV96l0gcuVdQJ+ampq7YgHQpxYtjw4ZATDCADXQDyCRaVzSfy0Tl5sKZIBrHwKA/roYuA5Af3wUOMTQ6NZqJ43TjUbi21T5W4/Z8wBmLACzEwD6tnTGzyahF6zte96ysAQAFyYQcSwAF2o6ogBwcQLondQ30WsB0U+g29mW1Tv0uN74+9cvoHo142mFlC1AP/ES1n89CqD+6U90WABMAEpSo+p9+wNUZ597gDDTYgDE0y3Jrpvbs999GoCc/Va1pdheArA+BmReAv6pxwM9Pj7uUeSNT2gCwCstTfDcLzfHAM0FGr9SoH/8qrXjI4CuALjlFjSlh4fNnYQQtkG2dJbSLK8IZetXRzHm12XYkmSHAEAttXVFG9Q3UJvVnPropYUMdHhmnxd7NnQOAQC97FPpKIbG72ybY/TqlkXUqJvra6/f3GF2tWyNgWLeZdSx65823AoAuuXRnUqiWtcAaB8AANaz395ldjHT/GatbRmaz/MhsH4zC2TznjrjdQms/yYLTOYbRd53d+vcheeAH33UWjbHQkRMAnpuEsCF2tT0CoCzd8fPX2/eZF8/fxcAeu++8eZlAPrMRKOZr9uXASDqTgBARPzq1SXPRp9nwJwEUJIANmeFmwXw9xe4eqL59b9bVu8AwO9n07EPAKC0vYXvEgC4jfPj9Tcff/G9h45m+gMuWwcB/2D8nxi6vg8g469amJ/cNT094X979Hd7tUrazfvLoecnKj537epm/fQN3dKh+oGzEx1BV8vvL0C9sL1fo9b2zpaAd/9egnGrOlYFfd552yMH3VoCtoAuWtABWFiw2iNIaYv8WB4dl/99sF7+HoDzQ/pA8ejIlcjbPaP69+eOjp3NvD929sh3fvlX//3e5mgW2RvO4M2bY1hZSp//7PvvLSYKpwYewLUxNaorIGreoFTGlPLnzjdR/RdH6Sd6GIxMj/lO/lsvlCkmT/eMJJkFujE+gneWR9ODD+IlUnsrG7kDXLCmMTthLeJONA/9E6xG8wsWIsW+Nz6JvXtf75X6ql6wgNnJvonpyMq57MXJnz4IegPoXQHmsIQC9JVIbQqIFiMb8cVPgMjKdPTOFd2ejOb1+/omABs/sxb7Vq9g1pp/kGYtYryvaGFVr2EVvSvRDQB92Wj+3GUA+srlWBbo2+ibfG0lUgNQwkW9Fl/B+F2sPsD5NAmN7o/p8R8JywXhXFWfwA/lv22wW68BlPiA2Gvn1/DD3rGi9Rmgu3iGcK7ai5iu9Ik9rb64eunOuRXoznX3FxuIbY6X5izE7s7UYpvXAb2G6Obixbn8xdVo7WweGK+fzZ6tv1pfenWjd7NvY0/nW50pf/q9H6P61iP5v/sJajMv93xjDLVc8UYt/z5Q/Tm+yH7xnX/97B9+XJ/55x8ALydio3rfK8nfv/JH7lv1f/9fHgj3AeMg7e/r+APUkT4rTC5XUQAAAABJRU5ErkJggg==" alt="Hilo Bonito. El arte de vestir bien." width="180" height="187"></div></div>
+</section>
+<section class="chapter rose" data-index="1" aria-label="Historia">
+  <button class="chapter-tab" type="button" aria-label="Abrir Historia" aria-expanded="false"><span>Historia</span></button>
   <div class="chapter-body"><div class="panel-body">
 <div class="editorial-aside"><span class="aside-title">Historia</span><div aria-hidden="true" class="aside-stitch"></div></div>
 <div class="editorial-copy">
@@ -869,7 +878,7 @@ button.hb-budget-item:hover{transform:translateY(-2px);box-shadow:0 8px 18px #9d
 </div>
 </div></div>
 </section>
-<section class="chapter mint" data-index="1" aria-label="Filosofía">
+<section class="chapter mint" data-index="2" aria-label="Filosofía">
   <button class="chapter-tab" type="button" aria-label="Abrir Filosofía" aria-expanded="false"><span>Filosofía</span></button>
   <div class="chapter-body"><div class="panel-body">
 <div class="editorial-aside"><span class="aside-title">Filosofía</span><div aria-hidden="true" class="aside-stitch"></div></div>
@@ -880,7 +889,7 @@ button.hb-budget-item:hover{transform:translateY(-2px);box-shadow:0 8px 18px #9d
 </div>
 </div></div>
 </section>
-<section class="chapter rose" data-index="2" aria-label="Misión">
+<section class="chapter rose" data-index="3" aria-label="Misión">
   <button class="chapter-tab" type="button" aria-label="Abrir Misión" aria-expanded="false"><span>Misión</span></button>
   <div class="chapter-body"><div class="panel-body">
 <div class="editorial-aside"><span class="aside-title">Misión</span><div aria-hidden="true" class="aside-stitch"></div></div>
@@ -891,7 +900,7 @@ button.hb-budget-item:hover{transform:translateY(-2px);box-shadow:0 8px 18px #9d
 </div>
 </div></div>
 </section>
-<section class="chapter mint" data-index="3" aria-label="Visión">
+<section class="chapter mint" data-index="4" aria-label="Visión">
   <button class="chapter-tab" type="button" aria-label="Abrir Visión" aria-expanded="false"><span>Visión</span></button>
   <div class="chapter-body"><div class="panel-body">
 <div class="editorial-aside"><span class="aside-title">Visión</span><div aria-hidden="true" class="aside-stitch"></div></div>
@@ -902,7 +911,7 @@ button.hb-budget-item:hover{transform:translateY(-2px);box-shadow:0 8px 18px #9d
 </div>
 </div></div>
 </section>
-<section class="chapter rose" data-index="4" aria-label="Valores">
+<section class="chapter rose" data-index="5" aria-label="Valores">
   <button class="chapter-tab" type="button" aria-label="Abrir Valores" aria-expanded="false"><span>Valores</span></button>
   <div class="chapter-body"><div class="panel-body">
 <div class="editorial-aside"><span class="aside-title">Valores</span><div aria-hidden="true" class="aside-stitch"></div></div>
@@ -926,7 +935,7 @@ button.hb-budget-item:hover{transform:translateY(-2px);box-shadow:0 8px 18px #9d
 </div>
 </div></div>
 </section>
-<section class="chapter mint" data-index="5" aria-label="Objetivos">
+<section class="chapter mint" data-index="6" aria-label="Objetivos">
   <button class="chapter-tab" type="button" aria-label="Abrir Objetivos" aria-expanded="false"><span>Objetivos</span></button>
   <div class="chapter-body"><div class="panel-body">
 <div class="editorial-aside"><span class="aside-title">Objetivos</span><div aria-hidden="true" class="aside-stitch"></div></div>
@@ -949,7 +958,7 @@ button.hb-budget-item:hover{transform:translateY(-2px);box-shadow:0 8px 18px #9d
 </div>
 </div></div>
 </section>
-<section class="chapter rose" data-index="6" aria-label="Marca">
+<section class="chapter rose" data-index="7" aria-label="Marca">
   <button class="chapter-tab" type="button" aria-label="Abrir Marca" aria-expanded="false"><span>Marca</span></button>
   <div class="chapter-body"><div class="panel-body">
 <div class="editorial-aside"><span class="aside-title">Marca</span><div aria-hidden="true" class="aside-stitch"></div></div>
@@ -966,9 +975,9 @@ button.hb-budget-item:hover{transform:translateY(-2px);box-shadow:0 8px 18px #9d
 </section></div>
 <button class="round-back" id="desktop-back" type="button" aria-label="Anterior">‹</button>
 <div class="mobile-layout" id="mobile-layout">
-<button class="mobile-current" id="mobile-current-button" type="button" aria-label="Ver apartados"><span id="mobile-current-label">Historia</span></button>
+<button class="mobile-current" id="mobile-current-button" type="button" aria-label="Ver apartados"><span id="mobile-current-label">Inicio</span></button>
 <div class="mobile-view" id="mobile-view"><div class="mobile-strip" id="mobile-strip"></div></div>
-<button class="mobile-next" id="mobile-next-button" type="button" aria-label="Abrir Filosofía"><span id="mobile-next-label">Filosofía</span></button>
+<button class="mobile-next" id="mobile-next-button" type="button" aria-label="Abrir Historia"><span id="mobile-next-label">Historia</span></button>
 <button class="mobile-back" id="mobile-back" type="button" aria-label="Anterior">‹</button>
 </div></section>
 <section class="finance" id="finance" hidden aria-label="Financiera"><div><span class="eyebrow">Hilo Bonito</span><h1>Financiera</h1></div>
@@ -997,8 +1006,8 @@ button.hb-budget-item:hover{transform:translateY(-2px);box-shadow:0 8px 18px #9d
        <div class="result-divider"><span>SEDES ENCONTRADAS</span><strong id="locations-count">01</strong></div>
        <div class="location-result" id="sena-location-result">
         <span class="result-mark">● <span>UBICACIÓN DE REFERENCIA</span></span>
-        <h2>SENA — Sede Buenos Aires</h2>
-        <p>Cl. 48 #28-00 · Buenos Aires, Medellín, Antioquia</p>
+        <h2>Institución Universitaria Salazar y Herrera</h2>
+        <p>Cra. 70 #52-49 · Laureles-Estadio, Medellín, Antioquia</p>
         <button type="button" class="result-map-button" id="focus-sena">Ver en el mapa <span aria-hidden="true">↗</span></button>
        </div>
        <div id="no-locations" class="no-locations" hidden>
@@ -1011,18 +1020,18 @@ button.hb-budget-item:hover{transform:translateY(-2px);box-shadow:0 8px 18px #9d
       <div class="locator-map-column">
         <div class="map-scene" id="map-scene">
           <div class="map-heading"><div class="map-heading-mark">⌖</div>
-             <div><strong id="map-location-title">SENA · Buenos Aires</strong><small id="map-location-subtitle">Medellín, Antioquia</small></div>
+             <div><strong id="map-location-title">Institución Universitaria Salazar y Herrera</strong><small id="map-location-subtitle">Medellín, Antioquia</small></div>
              <span class="map-live-pill"><span></span> MAPA INTERACTIVO</span>
           </div>
           <div class="map-frame-wrapper" id="map-frame-wrapper">
-            <iframe id="sena-map" title="Mapa interactivo: SENA Sede Buenos Aires, Medellín" src="https://www.openstreetmap.org/export/embed.html?bbox=-75.5605%2C6.2345%2C-75.5441%2C6.2445&amp;layer=mapnik&amp;marker=6.2394786%2C-75.5523086" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+            <iframe id="sena-map" title="Mapa interactivo: Institución Universitaria Salazar y Herrera, Medellín" src="https://www.openstreetmap.org/export/embed.html?bbox=-75.593626%2C6.255459%2C-75.577026%2C6.265459&amp;layer=mapnik&amp;marker=6.260459199%2C-75.58532592" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
           </div>
           <div class="map-not-available" id="map-not-available" hidden><span aria-hidden="true">◇</span><strong>Aún no hay una sede registrada aquí</strong><p>Elige Antioquia para ver el ejemplo disponible.</p></div>
           <div class="map-bottom">
-            <div class="destination-details"><span>DESTINO SELECCIONADO</span><strong id="map-selected-address">Cl. 48 #28-00 · Medellín</strong></div>
+            <div class="destination-details"><span>DESTINO SELECCIONADO</span><strong id="map-selected-address">Cra. 70 #52-49 · Medellín</strong></div>
             <div class="destination-links" id="destination-links">
-              <a class="waze-button" id="route-waze" href="https://www.waze.com/ul?ll=6.2394786%2C-75.5523086&amp;navigate=yes" target="_blank" rel="noopener noreferrer">Abrir Waze <span aria-hidden="true">↗</span></a>
-              <a class="maps-button" id="route-google" href="https://www.google.com/maps/dir/?api=1&amp;destination=6.2394786%2C-75.5523086" target="_blank" rel="noopener noreferrer">Google Maps <span aria-hidden="true">↗</span></a>
+              <a class="waze-button" id="route-waze" href="https://www.waze.com/ul?ll=6.260459199%2C-75.58532592&amp;navigate=yes" target="_blank" rel="noopener noreferrer">Abrir Waze <span aria-hidden="true">↗</span></a>
+              <a class="maps-button" id="route-google" href="https://www.google.com/maps/dir/?api=1&amp;destination=6.260459199%2C-75.58532592" target="_blank" rel="noopener noreferrer">Google Maps <span aria-hidden="true">↗</span></a>
             </div>
           </div>
         </div>
@@ -1125,7 +1134,7 @@ button.hb-budget-item:hover{transform:translateY(-2px);box-shadow:0 8px 18px #9d
 <div class="popover-backdrop" id="popup" hidden><div class="popover" role="dialog" aria-modal="true" aria-labelledby="popup-title"><button type="button" class="popover-close" id="popup-close" aria-label="Cerrar">×</button><h2 id="popup-title"></h2><div id="overview" class="chapter-list" hidden></div></div></div>
 <script>
 (()=>{'use strict';
- const titles=['Historia','Filosofía','Misión','Visión','Valores','Objetivos','Marca'];
+ const titles=['Inicio','Historia','Filosofía','Misión','Visión','Valores','Objetivos','Marca'];
  const chapters=[...document.querySelectorAll('.chapter')];
  const desktopStage=document.querySelector('.desktop-stage');
  const commercial=document.getElementById('commercial');
@@ -1351,9 +1360,9 @@ button.hb-budget-item:hover{transform:translateY(-2px);box-shadow:0 8px 18px #9d
   const c=document.createElement('option');c.textContent=found?'Medellín':'Sin sede cargada';c.value=found?'Medellín':'';cityChoice.appendChild(c);cityChoice.disabled=!found;
   result.hidden=!found;empty.hidden=found;mapFrame.hidden=!found;noMap.hidden=found;mapFooter.hidden=!found;mapHeading.hidden=!found;
   document.getElementById('locations-count').textContent=found?'01':'00';
-  document.getElementById('map-location-title').textContent=found?'SENA · Buenos Aires':'Sin ubicación registrada';
+  document.getElementById('map-location-title').textContent=found?'Institución Universitaria Salazar y Herrera':'Sin ubicación registrada';
   document.getElementById('map-location-subtitle').textContent=found?'Medellín, Antioquia':departmentChoice.value;
-  document.getElementById('map-selected-address').textContent=found?'Cl. 48 #28-00 · Medellín':departmentChoice.value;
+  document.getElementById('map-selected-address').textContent=found?'Cra. 70 #52-49 · Medellín':departmentChoice.value;
  }
  departmentChoice.addEventListener('change',renderPlaces);
  document.getElementById('return-antioquia').addEventListener('click',()=>{
@@ -1361,7 +1370,7 @@ button.hb-budget-item:hover{transform:translateY(-2px);box-shadow:0 8px 18px #9d
  });
  document.getElementById('focus-sena').addEventListener('click',()=>{
     const node=document.getElementById('sena-map');
-    node.src='https://www.openstreetmap.org/export/embed.html?bbox=-75.5569%2C6.2360%2C-75.5477%2C6.2426&layer=mapnik&marker=6.2394786%2C-75.5523086';
+    node.src='https://www.openstreetmap.org/export/embed.html?bbox=-75.589926%2C6.257159%2C-75.580726%2C6.263759&layer=mapnik&marker=6.260459199%2C-75.58532592';
     if(window.innerWidth<=1024)document.getElementById('map-scene').scrollIntoView({behavior:reduced?'auto':'smooth',block:'nearest'});
  });
  locationOpen.addEventListener('click',()=>{closeDelivery();closePopup();locationScreen.hidden=false;});
